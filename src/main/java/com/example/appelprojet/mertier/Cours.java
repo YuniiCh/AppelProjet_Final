@@ -3,7 +3,8 @@ package com.example.appelprojet.mertier;
 import javax.persistence.*;
 import java.util.*;
 
-public class Cours {
+@Entity(name = "Cours")
+public class Cours implements java.io.Serializable{
     //    Priorietes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,8 +25,8 @@ public class Cours {
     private Set<Formation> formations = new HashSet(0);
 
     /*---Cours Séance de cours---*/
-    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private Set<Seance> seances = new HashSet(0);
+    //@OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    //private Set<Seance> seances = new HashSet(0);
 
     //    Contructeur
 
@@ -71,13 +72,13 @@ public class Cours {
         this.formations = formations;
     }
 
-    public Set<Seance> getSeances() {
-        return seances;
-    }
+    //public Set<Seance> getSeances() {
+    //    return seances;
+    //}
 
-    public void setSeances(Set<Seance> seances) {
-        this.seances = seances;
-    }
+    //public void setSeances(Set<Seance> seances) {
+    //    this.seances = seances;
+    //}
 //    toString
 
     @Override
