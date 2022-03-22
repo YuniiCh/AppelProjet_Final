@@ -1,9 +1,7 @@
 package com.example.appelprojet.mertier;
-
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("scolarite")
@@ -11,8 +9,8 @@ public class Scolarite extends Utilisateur{
     //    Priorietes
 
     //    Relations
-    @OneToMany(mappedBy = "scolarite", fetch = FetchType.LAZY, cascade=CascadeType.ALL)
-    private Set<Demande> demandes = new HashSet(0);
+    @OneToMany(mappedBy = "scolarite", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    private Set<Justificatif> justificatifs = new HashSet(0);
 
     //    Contructeur
     public Scolarite() {
@@ -24,6 +22,14 @@ public class Scolarite extends Utilisateur{
 
 
     //    getter and setter
+
+    public Set<Justificatif> getJustificatifs() {
+        return justificatifs;
+    }
+
+    public void setJustificatifs(Set<Justificatif> justificatifs) {
+        this.justificatifs = justificatifs;
+    }
 
     //    toString
 

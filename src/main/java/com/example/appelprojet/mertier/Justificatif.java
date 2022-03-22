@@ -10,7 +10,7 @@ public class Justificatif {
     // Propriétés
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "IdJ")
+    @Column(name = "CodeJ")
     private String idJ;
 
     @Temporal(TemporalType.TIMESTAMP)

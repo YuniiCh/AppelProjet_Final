@@ -1,6 +1,8 @@
 package com.example.appelprojet.mertier;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class Salle {
@@ -10,6 +12,13 @@ public class Salle {
     @Column(name="CodeS")
     private long idSalle;
     private String nomSalle;
+
+
+//    Relation
+//    seance
+    @OneToMany(mappedBy = "salle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "CodeSE",insertable = false, updatable = false)
+    private Set<Seance> seances = new HashSet<>(0);
 
     /*----- Constructeur -----*/
 

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 @Entity
 @DiscriminatorValue("etudiant")
@@ -11,8 +12,8 @@ public class Etudiant extends Utilisateur{
 //    Priorietes
 
 //  Relation
-//    formation
-    @ManyToMany(mappedBy = "formation")
+//    Appartenir formation
+    @ManyToMany(mappedBy = "etudiants")
     private Set<Formation> formations = new HashSet<>(0);
 //    Seance, presence
     @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)

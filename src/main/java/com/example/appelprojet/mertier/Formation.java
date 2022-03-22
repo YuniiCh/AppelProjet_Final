@@ -17,10 +17,24 @@ public class Formation {
      * Relations.
      */
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "CoursFormation",
-            joinColumns = @JoinColumn(name = "idFormation"),
-            inverseJoinColumns = @JoinColumn(name = "idCours"))
-    private Set<Cours> lesCours = new HashSet(0);
+    @JoinTable(name = "Proposer",
+            joinColumns = @JoinColumn(name = "CodeF"),
+            inverseJoinColumns = @JoinColumn(name = "CodeC"))
+    private Set<Cours> cours = new HashSet(0);
+
+//    Formation_etudiants
+    @ManyToMany
+    @JoinTable(name = "Appartenir",
+            joinColumns = @JoinColumn(name = "CodeF", referencedColumnName = "CodeE"))
+    private List<Etudiant> etudiants = new ArrayList<>();
+
+    public List<Etudiant> getEtudiants() {
+        return etudiants;
+    }
+
+    public void setEtudiants(List<Etudiant> etudiants) {
+        this.etudiants = etudiants;
+    }
 
 
     //    Contructeur

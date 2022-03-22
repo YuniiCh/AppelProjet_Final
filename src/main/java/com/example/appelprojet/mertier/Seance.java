@@ -20,8 +20,8 @@ public class Seance {
 
 //    Relaitons
 //    Cours
-    @OneToMany(mappedBy = "cours", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<Cours> cours = new HashSet<>(0);
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Cours cour;
 
 //    enseignant
     @ManyToOne(fetch = FetchType.EAGER)
@@ -82,12 +82,12 @@ public class Seance {
         this.enseignant = enseignant;
     }
 
-    public Set<Cours> getCours() {
-        return cours;
+    public Cours getCour() {
+        return cour;
     }
 
-    public void setCours(Set<Cours> cours) {
-        this.cours = cours;
+    public void setCour(Cours cour) {
+        this.cour = cour;
     }
 
     public Salle getSalle() {
@@ -98,23 +98,22 @@ public class Seance {
         this.salle = salle;
     }
 
-    public Map<Etudiant, Presence> getPresences1() {
+    public Map<Etudiant, Presence> getEtuPresences() {
         return etuPresences;
     }
 
-    public void setPresences1(Map<Etudiant, Presence> presences1) {
-        this.etuPresences = presences1;
+    public void setEtuPresences(Map<Etudiant, Presence> etuPresences) {
+        this.etuPresences = etuPresences;
     }
 
-    public Map<Justificatif, Presence> getPresences2() {
+    public Map<Justificatif, Presence> getJustPresences() {
         return justPresences;
     }
 
-    public void setPresences2(Map<Justificatif, Presence> presences2) {
-        this.justPresences = presences2;
+    public void setJustPresences(Map<Justificatif, Presence> justPresences) {
+        this.justPresences = justPresences;
     }
-
-    //    toString
+//    toString
 
     @Override
     public String toString() {
@@ -123,6 +122,7 @@ public class Seance {
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", etatAppel='" + etatAppel + '\'' +
+                ", cour=" + cour.toString() +
                 ", enseignant=" + enseignant.toString() +
                 ", salle=" + salle.toString() +
                 '}';

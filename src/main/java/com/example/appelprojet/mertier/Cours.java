@@ -8,7 +8,7 @@ public class Cours implements java.io.Serializable{
     //    Priorietes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idCours")
+    @Column(name = "CodeC")
     private int idCours;
 
     @Column(name = "nomCours")
@@ -21,14 +21,14 @@ public class Cours implements java.io.Serializable{
      * Relations.
      */
     /*--- Formation ---*/
-    @ManyToMany(mappedBy = "lesCours",fetch = FetchType.EAGER)
+    @ManyToMany(mappedBy = "cours",fetch = FetchType.EAGER)
     private Set<Formation> formations = new HashSet(0);
 
     /*---Cours Séance de cours---*/
-    //@OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    //private Set<Seance> seances = new HashSet(0);
+    @OneToMany(mappedBy = "cour", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<Seance> seances = new HashSet(0);
 
-    //    Contructeur
+//        Contructeur
 
     public Cours() {
     }
