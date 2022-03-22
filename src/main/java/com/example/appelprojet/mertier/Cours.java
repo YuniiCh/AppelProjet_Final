@@ -28,7 +28,7 @@ public class Cours implements java.io.Serializable{
     @OneToMany(mappedBy = "cour", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Seance> seances = new HashSet(0);
 
-//        Contructeur
+    //        Contructeur
 
     public Cours() {
     }
@@ -72,14 +72,14 @@ public class Cours implements java.io.Serializable{
         this.formations = formations;
     }
 
-    //public Set<Seance> getSeances() {
-    //    return seances;
-    //}
+    public Set<Seance> getSeances() {
+        return seances;
+    }
 
-    //public void setSeances(Set<Seance> seances) {
-    //    this.seances = seances;
-    //}
-//    toString
+    public void setSeances(Set<Seance> seances) {
+        this.seances = seances;
+    }
+    //    toString
 
     @Override
     public String toString() {
