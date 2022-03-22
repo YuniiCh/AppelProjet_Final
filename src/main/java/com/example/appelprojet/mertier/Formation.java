@@ -23,18 +23,11 @@ public class Formation {
     private Set<Cours> cours = new HashSet(0);
 
 //    Formation_etudiants
-    @ManyToMany
-    @JoinTable(name = "Appartenir",
-            joinColumns = @JoinColumn(name = "CodeF", referencedColumnName = "CodeE"))
-    private List<Etudiant> etudiants = new ArrayList<>();
-
-    public List<Etudiant> getEtudiants() {
-        return etudiants;
-    }
-
-    public void setEtudiants(List<Etudiant> etudiants) {
-        this.etudiants = etudiants;
-    }
+@ManyToMany
+@JoinTable (name = "Appartenir",
+        joinColumns = @JoinColumn(name = "CodeF"),
+        inverseJoinColumns = @JoinColumn(name = "CodeE"))
+private Set<Etudiant> etudiants = new HashSet(0);
 
 
     //    Contructeur
@@ -64,6 +57,21 @@ public class Formation {
         this.nomFormation = nomFormation;
     }
 
+    public Set<Cours> getCours() {
+        return cours;
+    }
+
+    public void setCours(Set<Cours> cours) {
+        this.cours = cours;
+    }
+
+    public Set<Etudiant> getEtudiants() {
+        return etudiants;
+    }
+
+    public void setEtudiants(Set<Etudiant> etudiants) {
+        this.etudiants = etudiants;
+    }
     //    toString
 
     @Override
@@ -71,6 +79,8 @@ public class Formation {
         return "Formation{" +
                 "idFormation=" + idFormation +
                 ", nomFormation='" + nomFormation + '\'' +
+                ", cours=" + cours.toString() +
+                ", etudiants=" + etudiants.toString() +
                 '}';
     }
 

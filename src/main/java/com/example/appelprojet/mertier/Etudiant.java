@@ -13,6 +13,7 @@ public class Etudiant extends Utilisateur{
 
 //  Relation
 //    Appartenir formation
+//    Travailler
     @ManyToMany(mappedBy = "etudiants")
     private Set<Formation> formations = new HashSet<>(0);
 //    Seance, presence

@@ -121,4 +121,5 @@ public class Utilisateur {
     public int hashCode() {
         return Objects.hash(idU);
     }
+
 }

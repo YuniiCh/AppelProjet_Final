@@ -1,7 +1,6 @@
 package com.example.appelprojet.mertier;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
 import java.util.*;
 
 @Entity

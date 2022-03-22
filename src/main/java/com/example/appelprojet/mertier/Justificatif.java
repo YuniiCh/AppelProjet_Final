@@ -1,8 +1,7 @@
 package com.example.appelprojet.mertier;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.util.Objects;
+import java.util.*;
 
 @Entity
 public class Justificatif {
@@ -14,7 +13,7 @@ public class Justificatif {
     private String idJ;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp dateDepot;
+    private Date dateDepot;
 
     private String etatValidation;
     private String text;
@@ -28,7 +27,7 @@ public class Justificatif {
     public Justificatif() {
     }
 
-    public Justificatif(String idJ, Timestamp dateDepot, String etatValidation, String text, Scolarite scolarite) {
+    public Justificatif(String idJ, Date dateDepot, String etatValidation, String text, Scolarite scolarite) {
         this.idJ = idJ;
         this.dateDepot = dateDepot;
         this.etatValidation = etatValidation;
@@ -39,8 +38,8 @@ public class Justificatif {
     // Getter / Setter
     public String getIdJ() {return idJ;}
     public void setIdJ(String idJ) {this.idJ = idJ;}
-    public Timestamp getDateDepot() {return dateDepot;}
-    public void setDateDepot(Timestamp dateDepot) {this.dateDepot = dateDepot;}
+    public Date getDateDepot() {return dateDepot;}
+    public void setDateDepot(Date dateDepot) {this.dateDepot = dateDepot;}
     public String getEtatValidation() {return etatValidation;}
     public void setEtatValidation(String etatValidation) {this.etatValidation = etatValidation;}
     public String getText() {return text;}
