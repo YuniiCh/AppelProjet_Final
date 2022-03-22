@@ -64,7 +64,15 @@ public class Formation {
         this.nomFormation = nomFormation;
     }
 
-    //    toString
+    public Set<Cours> getCours() {
+        return cours;
+    }
+
+    public void setCours(Set<Cours> cours) {
+        this.cours = cours;
+    }
+
+//    toString
 
     @Override
     public String toString() {
