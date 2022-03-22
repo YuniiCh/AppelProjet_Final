@@ -3,4 +3,53 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
+
+    <servlet>
+        <servlet-name>DeposerJustificatif</servlet-name>
+        <jsp-file>/jsp/DeposerJustificatif.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeposerJustificatif</servlet-name>
+        <url-pattern>/deposerJustificatif</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>RecevoirJustificatif</servlet-name>
+        <jsp-file>/jsp/RecevoirJustificatif.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecevoirJustificatif</servlet-name>
+        <url-pattern>/recevoirJustificatif</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeposerJustificatifCtrl</servlet-name>
+        <servlet-class>com.example.appelprojet.ctrl.DeposerJustificatifCtrl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeposerJustificatifCtrl</servlet-name>
+        <url-pattern>/deposerJustificatifCtrl</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>RecevoirJustificatifCtrl</servlet-name>
+        <servlet-class>com.example.appelprojet.ctrl.RecevoirJustificatifCtrl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>RecevoirJustificatifCtrl</servlet-name>
+        <url-pattern>/recevoirJustificatifCtrl</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Message</servlet-name>
+        <jsp-file>/jsp/Message.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Message</servlet-name>
+        <url-pattern>/message</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>LoginMdp</servlet-name>
+        <jsp-file>/jsp/LoginMdp.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginMdp</servlet-name>
+        <url-pattern>/loginMdp</url-pattern>
+    </servlet-mapping>
 </web-app>

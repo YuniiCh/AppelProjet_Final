@@ -1,10 +1,8 @@
 package com.example.appelprojet;
 
 import com.example.appelprojet.config.HibernateUtil;
-import com.example.appelprojet.mertier.Enseignant;
-import com.example.appelprojet.mertier.Etudiant;
-import com.example.appelprojet.mertier.Scolarite;
-import com.example.appelprojet.mertier.Utilisateur;
+import com.example.appelprojet.mertier.*;
+import com.example.appelprojet.util.TypeEtudiant;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -37,8 +35,10 @@ public class HelloApplication extends Application {
             Utilisateur e3 = new Utilisateur("Doutre", "Sylvie","sylvie","sylvie@.com","102");
             Enseignant en1 = new Enseignant("Ravat", "Peter","peter","peter@.com","103");
             Enseignant en2 = new Enseignant("Perrussel", "Hugo","hugo", "hugo@com","104");
+            // Formation
+            Formation f1 = session.get(Formation.class,1);
             // Création des nouvelles employées
-            Etudiant et1 = new Etudiant("Doutre", "Aline","aline","aline@com","105");
+            Etudiant et1 = new Etudiant("Doutre", "Aline","aline","aline@com","105", TypeEtudiant.INITIAL,"TD2",f1);
             Scolarite s1 = new Scolarite("Ravat", "Annie","annie@com","106");
 
 

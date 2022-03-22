@@ -5,25 +5,28 @@ import java.util.Objects;
 
 @Entity
 public class Presence {
-//    priorietes
+    //    priorietes
     @EmbeddedId
     private PresenceID idPresence;
 
     @Column(name = "EtatPresence")
     private String etatPresence;
 
-//    Relations
-//    etudiant
+    @Column(name = "EtatValidation")
+    private String etatValidation;
+
+    //    Relations
+    //    etudiant
     @ManyToOne
     @JoinColumn(name = "CodeU", insertable = false, updatable = false)
     private Etudiant etudiant;
 
-//    seance
+    //    seance
     @ManyToOne
     @JoinColumn(name = "CodeSE", insertable = false, updatable = false)
     private Seance seance;
 
-//    justificatif
+    //    justificatif
     @ManyToOne
     @JoinColumn(name = "CodeJ", insertable = false, updatable = false)
     private Justificatif justificatif;
@@ -39,7 +42,7 @@ public class Presence {
         this.etatPresence = etatPresence;
     }
 
-//    getter and setter
+    //    getter and setter
     public PresenceID getIdPresence() {return idPresence;}
 
     public void setIdPresence(PresenceID idPresence) {this.idPresence = idPresence;}
@@ -54,18 +57,27 @@ public class Presence {
 
     public Seance getSeance() {return seance;}
 
+    public String getEtatValidation() {
+        return etatValidation;
+    }
+
+    public void setEtatValidation(String etatValidation) {
+        this.etatValidation = etatValidation;
+    }
+
     public void setSeance(Seance seance) {this.seance = seance;}
 
     public Justificatif getJustificatif() {return justificatif;}
 
     public void setJustificatif(Justificatif justificatif) {this.justificatif = justificatif;}
-    //    toString
 
+    //    toString
     @Override
     public String toString() {
         return "Presence{" +
                 "idPresence=" + idPresence +
                 ", etatPresence='" + etatPresence + '\'' +
+                ", etatValidation='" + etatValidation + '\'' +
                 ", etudiant=" + etudiant.toString() +
                 ", seance=" + seance.toString() +
                 ", justificatif=" + justificatif.toString() +

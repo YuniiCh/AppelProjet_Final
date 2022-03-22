@@ -17,12 +17,12 @@ public class Seance {
     private Date dateFin;
     private String etatAppel;
 
-//    Relaitons
-//    Cours
+    //    Relaitons
+    //    Cours
     @ManyToOne(fetch = FetchType.EAGER)
     private Cours cour;
 
-//    enseignant
+    //    enseignant
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CodeU")
     private Enseignant enseignant;
@@ -32,7 +32,7 @@ public class Seance {
     @JoinColumn(name = "CodeS")
     private Salle salle;
 
-//    presence, etudiant
+    //    presence, etudiant
     @OneToMany(mappedBy = "seance", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeU", updatable = false, insertable = false)
     private Map<Etudiant,Presence> etuPresences = new HashMap(0);
@@ -43,7 +43,7 @@ public class Seance {
     private Map<Justificatif,Presence> justPresences = new HashMap(0);
 
 
-//    Constructeur
+    //    Constructeur
 
 
     public Seance() {
@@ -55,7 +55,7 @@ public class Seance {
         this.etatAppel = etatAppel;
     }
 
-//    getter and setter
+    //    getter and setter
 
     public long getIdSeance() {return idSeance;}
 
@@ -127,7 +127,7 @@ public class Seance {
                 '}';
     }
 
-//    equals and hashCode
+    //    equals and hashCode
 
     @Override
     public boolean equals(Object o) {

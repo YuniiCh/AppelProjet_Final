@@ -1,5 +1,7 @@
 package com.example.appelprojet.mertier;
 
+import com.example.appelprojet.util.TypeEtudiant;
+
 import javax.persistence.*;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -9,14 +11,19 @@ import java.util.Set;
 @Entity
 @DiscriminatorValue("etudiant")
 public class Etudiant extends Utilisateur{
-//    Priorietes
+    //    Priorietes
+    @Enumerated(EnumType.STRING)
+    private TypeEtudiant typeEtudiant;
 
-//  Relation
-//    Appartenir formation
-//    Travailler
-    @ManyToMany(mappedBy = "etudiants")
-    private Set<Formation> formations = new HashSet<>(0);
-//    Seance, presence
+    private String tdGroup;
+
+    //  Relation
+    //  Appartenir formation
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idFormation")
+    private Formation formation ;
+
+    //    Seance, presence
     @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeSE", updatable = false, insertable = false)
     private Map<Seance,Presence> seanPresences = new HashMap(0);
@@ -27,24 +34,26 @@ public class Etudiant extends Utilisateur{
     private Map<Justificatif,Presence> justPresences = new HashMap(0);
 
 
-//    Contructeur
-
+   //    Contructeur
     public Etudiant() {
     }
 
-    public Etudiant(String nomU, String prenomU, String mdp, String email, String identifiant) {
+    public Etudiant(String nomU, String prenomU, String mdp, String email, String identifiant, TypeEtudiant typeEtudiant,String tdGroup, Formation formation) {
         super(nomU, prenomU, mdp, email, identifiant);
+        this.typeEtudiant = typeEtudiant;
+        this.tdGroup = tdGroup;
+        this.formation = formation;
     }
 
-//    getter and setter
 
-    public Set<Formation> getFormations() {
-        return formations;
-    }
+    //    getter and setter
+    public String getTdGroup() {return tdGroup;}
 
-    public void setFormations(Set<Formation> formations) {
-        this.formations = formations;
-    }
+    public void setTdGroup(String tdGroup) {this.tdGroup = tdGroup;}
+
+    public Formation getFormation() {return formation;}
+
+    public void setFormation(Formation formation) {this.formation = formation;}
 
     public Map<Seance, Presence> getSeanPresences() {
         return seanPresences;
@@ -62,9 +71,8 @@ public class Etudiant extends Utilisateur{
         this.justPresences = justPresences;
     }
 
+    //    toString
 
-//    toString
-
-//    equals and hashCode
+    //    equals and hashCode
 
 }

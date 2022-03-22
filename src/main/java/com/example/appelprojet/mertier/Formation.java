@@ -13,6 +13,7 @@ public class Formation {
     @Column(nullable = false)
     private String nomFormation;
 
+
     /**
      * Relations.
      */
@@ -22,12 +23,9 @@ public class Formation {
             inverseJoinColumns = @JoinColumn(name = "CodeC"))
     private Set<Cours> cours = new HashSet(0);
 
-//    Formation_etudiants
-@ManyToMany
-@JoinTable (name = "Appartenir",
-        joinColumns = @JoinColumn(name = "CodeF"),
-        inverseJoinColumns = @JoinColumn(name = "CodeE"))
-private Set<Etudiant> etudiants = new HashSet(0);
+    //    Formation_etudiants
+    @OneToMany(mappedBy = "formation", fetch = FetchType.LAZY)
+    private Set<Etudiant> etudiants = new HashSet(0);
 
 
     //    Contructeur

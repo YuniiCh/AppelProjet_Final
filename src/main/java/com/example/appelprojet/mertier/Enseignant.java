@@ -10,12 +10,12 @@ public class Enseignant extends Utilisateur{
     //    Priorietes
 
 
-//    Relation
-//    seances
+    //    Relation
+    //    seances
     @OneToMany (mappedBy = "enseignant", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Seance>  seances = new HashSet<>(0);
 
-//    Contructeur
+    //    Contructeur
 
     public Enseignant() {
     }
@@ -25,15 +25,15 @@ public class Enseignant extends Utilisateur{
     }
 
 
-//    getter and setter
+    //    getter and setter
 
     public Set<Seance> getSeances() {return seances;}
 
     public void setSeances(Set<Seance> seances) {this.seances = seances;}
 
 
-//    toString
+    //    toString
 
-//    equals and hashCode
+    //    equals and hashCode
 
 }

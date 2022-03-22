@@ -16,7 +16,8 @@ public class Justificatif {
     private Date dateDepot;
 
     private String etatValidation;
-    private String text;
+    private String linkFile;
+    private String nameFile;
 
     // Relations
     @ManyToOne(fetch = FetchType.EAGER)
@@ -27,11 +28,11 @@ public class Justificatif {
     public Justificatif() {
     }
 
-    public Justificatif(String idJ, Date dateDepot, String etatValidation, String text, Scolarite scolarite) {
-        this.idJ = idJ;
+    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite) {
         this.dateDepot = dateDepot;
         this.etatValidation = etatValidation;
-        this.text = text;
+        this.linkFile = linkFile;
+        this.nameFile = nameFile;
         this.scolarite = scolarite;
     }
 
@@ -42,8 +43,30 @@ public class Justificatif {
     public void setDateDepot(Date dateDepot) {this.dateDepot = dateDepot;}
     public String getEtatValidation() {return etatValidation;}
     public void setEtatValidation(String etatValidation) {this.etatValidation = etatValidation;}
-    public String getText() {return text;}
-    public void setText(String text) {this.text = text;}
+
+    public String getLinkFile() {
+        return linkFile;
+    }
+
+    public void setLinkFile(String linkFile) {
+        this.linkFile = linkFile;
+    }
+
+    public String getNameFile() {
+        return nameFile;
+    }
+
+    public void setNameFile(String nameFile) {
+        this.nameFile = nameFile;
+    }
+
+    public Scolarite getScolarite() {
+        return scolarite;
+    }
+
+    public void setScolarite(Scolarite scolarite) {
+        this.scolarite = scolarite;
+    }
 
     // HashCode / Equals
     @Override
@@ -57,5 +80,17 @@ public class Justificatif {
     @Override
     public int hashCode() {
         return Objects.hash(idJ);
+    }
+
+    @Override
+    public String toString() {
+        return "Justificatif{" +
+                "idJ='" + idJ + '\'' +
+                ", dateDepot=" + dateDepot +
+                ", etatValidation='" + etatValidation + '\'' +
+                ", linkFile='" + linkFile + '\'' +
+                ", nameFile='" + nameFile + '\'' +
+                ", scolarite=" + scolarite +
+                '}';
     }
 }
