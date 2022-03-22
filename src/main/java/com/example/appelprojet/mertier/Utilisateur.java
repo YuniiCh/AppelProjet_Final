@@ -1,21 +1,39 @@
 package com.example.appelprojet.mertier;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+@Entity(name = "utilisateur")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "Categorie", discriminatorType = DiscriminatorType.STRING)
+@DiscriminatorValue("utilisateur")
 public class Utilisateur {
 //    Prorietes
-    private String idU;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "CodeU")
+    private long idU;
     private String nomU;
     private String prenomU;
     private String mdp;
     private String email;
     private String identifiant;
 
+//    Relation
+
 
 //    Constructeur
 
 
     public Utilisateur() {
+    }
+
+    public Utilisateur(String nomU, String prenomU, String mdp, String email, String identifiant) {
+        this.nomU = nomU;
+        this.prenomU = prenomU;
+        this.mdp = mdp;
+        this.email = email;
+        this.identifiant = identifiant;
     }
 
     public Utilisateur(String prenomU, String mdp, String email, String identifiant) {
@@ -27,11 +45,11 @@ public class Utilisateur {
 
 //    getter and setter
 
-    public String getIdU() {
+    public long getIdU() {
         return idU;
     }
 
-    public void setIdU(String idU) {
+    public void setIdU(long idU) {
         this.idU = idU;
     }
 
