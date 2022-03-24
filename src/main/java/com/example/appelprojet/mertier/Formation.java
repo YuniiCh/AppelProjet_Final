@@ -17,10 +17,7 @@ public class Formation {
     /**
      * Relations.
      */
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "Proposer",
-            joinColumns = @JoinColumn(name = "CodeF"),
-            inverseJoinColumns = @JoinColumn(name = "CodeC"))
+    @OneToMany(mappedBy = "formation", fetch = FetchType.LAZY)
     private Set<Cours> cours = new HashSet(0);
 
     //    Formation_etudiants

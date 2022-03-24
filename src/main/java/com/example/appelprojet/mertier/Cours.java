@@ -21,8 +21,9 @@ public class Cours implements java.io.Serializable{
      * Relations.
      */
     /*--- Formation ---*/
-    @ManyToMany(mappedBy = "cours",fetch = FetchType.EAGER)
-    private Set<Formation> formations = new HashSet(0);
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "idFormation")
+    private Formation formation;
 
     /*---Cours Séance de cours---*/
     @OneToMany(mappedBy = "cour", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -64,12 +65,13 @@ public class Cours implements java.io.Serializable{
         this.typeCours = typeCours;
     }
 
-    public Set<Formation> getFormations() {
-        return formations;
+
+    public Formation getFormation() {
+        return formation;
     }
 
-    public void setFormations(Set<Formation> formations) {
-        this.formations = formations;
+    public void setFormation(Formation formation) {
+        this.formation = formation;
     }
 
     public Set<Seance> getSeances() {
