@@ -20,11 +20,11 @@ public class Etudiant extends Utilisateur{
     //  Relation
     //  Appartenir formation
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idFormation")
+    @JoinColumn(name = "CodeF")
     private Formation formation ;
 
     //    Seance, presence
-    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "etudiant")
     @MapKeyJoinColumn(name = "CodeSE", updatable = false, insertable = false)
     private Map<Seance,Presence> seanPresences = new HashMap(0);
 

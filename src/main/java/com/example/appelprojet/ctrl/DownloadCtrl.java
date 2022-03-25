@@ -1,14 +1,14 @@
 package com.example.appelprojet.ctrl;
 
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import java.io.*;
-
-
-//@WebServlet(name = "RecevoirJustificatifCtrl", value = "/recevoirJustificatifCtrl")
-public class RecevoirJustificatifCtrl extends HttpServlet {
-
+@WebServlet(name = "DownloadCtrl", value = "/downloadCtrl")
+public class DownloadCtrl extends HttpServlet {
     public static final String UPLOAD_DIRECTORY = "upload";
 
     @Override

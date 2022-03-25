@@ -8,7 +8,8 @@ public class Formation {
     //    Priorietes
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idFormation;
+    @Column(name = "CodeF")
+    private long idFormation;
 
     @Column(nullable = false)
     private String nomFormation;
@@ -20,9 +21,14 @@ public class Formation {
     @OneToMany(mappedBy = "formation", fetch = FetchType.LAZY)
     private Set<Cours> cours = new HashSet(0);
 
-    //    Formation_etudiants
+    //    Formation_Etudiants
     @OneToMany(mappedBy = "formation", fetch = FetchType.LAZY)
     private Set<Etudiant> etudiants = new HashSet(0);
+
+    //    Formation_Scolarites
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CodeU")
+    private Scolarite scolarite;
 
 
     //    Contructeur
@@ -30,17 +36,19 @@ public class Formation {
     public Formation() {
     }
 
-    public Formation(String nomFormation) {
+    public Formation(String nomFormation, Scolarite scolarite) {
         this.nomFormation = nomFormation;
+        this.scolarite = scolarite;
     }
+
 
     //    getter and setter
 
-    public int getIdFormation() {
+    public long getIdFormation() {
         return idFormation;
     }
 
-    public void setIdFormation(int idFormation) {
+    public void setIdFormation(long idFormation) {
         this.idFormation = idFormation;
     }
 
@@ -67,6 +75,15 @@ public class Formation {
     public void setEtudiants(Set<Etudiant> etudiants) {
         this.etudiants = etudiants;
     }
+
+    public Scolarite getScolarite() {
+        return scolarite;
+    }
+
+    public void setScolarite(Scolarite scolarite) {
+        this.scolarite = scolarite;
+    }
+
     //    toString
 
     @Override
@@ -76,6 +93,7 @@ public class Formation {
                 ", nomFormation='" + nomFormation + '\'' +
                 ", cours=" + cours.toString() +
                 ", etudiants=" + etudiants.toString() +
+                ", scolarite=" + scolarite.toString() +
                 '}';
     }
 

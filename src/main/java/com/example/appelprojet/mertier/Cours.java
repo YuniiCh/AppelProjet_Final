@@ -9,7 +9,7 @@ public class Cours implements java.io.Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CodeC")
-    private int idCours;
+    private long idCours;
 
     @Column(name = "nomCours")
     private String nomCours;
@@ -22,16 +22,22 @@ public class Cours implements java.io.Serializable{
      */
     /*--- Formation ---*/
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idFormation")
+    @JoinColumn(name = "CodeF")
     private Formation formation;
 
     /*---Cours Séance de cours---*/
-    @OneToMany(mappedBy = "cour", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "cours", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Set<Seance> seances = new HashSet(0);
 
     //        Contructeur
 
     public Cours() {
+    }
+
+    public Cours(String nomCours, String typeCours, Formation formation) {
+        this.nomCours = nomCours;
+        this.typeCours = typeCours;
+        this.formation = formation;
     }
 
     public Cours(String nomCours, String typeCours) {
@@ -41,11 +47,11 @@ public class Cours implements java.io.Serializable{
 
     //    getter and setter
 
-    public int getIdCours() {
+    public long getIdCours() {
         return idCours;
     }
 
-    public void setIdCours(int idCours) {
+    public void setIdCours(long idCours) {
         this.idCours = idCours;
     }
 
@@ -81,6 +87,8 @@ public class Cours implements java.io.Serializable{
     public void setSeances(Set<Seance> seances) {
         this.seances = seances;
     }
+
+
     //    toString
 
     @Override
@@ -106,4 +114,5 @@ public class Cours implements java.io.Serializable{
     public int hashCode() {
         return Objects.hash(getIdCours());
     }
+
 }

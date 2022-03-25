@@ -7,7 +7,7 @@
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/dai</property>
     <property name="hibernate.connection.username">root</property>
-    <property name="hibernate.connection.password">0000</property>
+    <property name="hibernate.connection.password">0828cyn</property>
 <!--    <property name="hibernate.connection.password"/>-->
 
     <!-- Parseur HQL -->
@@ -16,7 +16,7 @@
 
     <!-- Gestion des sessions par Hibernate lui-même -->
     <property name="hibernate.current_session_context_class">thread</property> <!-- Pour getCurrentSession() -->
-    <property name="hibernate.hbm2ddl.auto">create</property> <!-- create, validate, update, none -->
+    <property name="hibernate.hbm2ddl.auto">update</property> <!-- create, validate, update, none -->
 
 </session-factory>
 </hibernate-configuration>

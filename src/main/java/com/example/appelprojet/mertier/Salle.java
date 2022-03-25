@@ -16,7 +16,7 @@ public class Salle {
 
 //    Relation
 //    seance
-    @OneToMany(mappedBy = "salle", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "salle", fetch = FetchType.LAZY)
     @MapKeyJoinColumn(name = "CodeSE",insertable = false, updatable = false)
     private Set<Seance> seances = new HashSet<>(0);
 

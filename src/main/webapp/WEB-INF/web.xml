@@ -3,53 +3,98 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
-
     <servlet>
-        <servlet-name>DeposerJustificatif</servlet-name>
-        <jsp-file>/jsp/DeposerJustificatif.jsp</jsp-file>
+        <servlet-name>Login</servlet-name>
+        <jsp-file>/jsp/login.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>DeposerJustificatif</servlet-name>
-        <url-pattern>/deposerJustificatif</url-pattern>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>RecevoirJustificatif</servlet-name>
-        <jsp-file>/jsp/RecevoirJustificatif.jsp</jsp-file>
+        <servlet-name>LoginCtrl</servlet-name>
+        <servlet-class>com.example.appelprojet.ctrl.LoginCtrl</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RecevoirJustificatif</servlet-name>
-        <url-pattern>/recevoirJustificatif</url-pattern>
+        <servlet-name>LoginCtrl</servlet-name>
+        <url-pattern>/loginCtrl</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>DeposerJustificatifCtrl</servlet-name>
-        <servlet-class>com.example.appelprojet.ctrl.DeposerJustificatifCtrl</servlet-class>
+        <servlet-name>Planning</servlet-name>
+        <jsp-file>/jsp/planning.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>DeposerJustificatifCtrl</servlet-name>
-        <url-pattern>/deposerJustificatifCtrl</url-pattern>
+        <servlet-name>Planning</servlet-name>
+        <url-pattern>/planning</url-pattern>
     </servlet-mapping>
     <servlet>
-        <servlet-name>RecevoirJustificatifCtrl</servlet-name>
-        <servlet-class>com.example.appelprojet.ctrl.RecevoirJustificatifCtrl</servlet-class>
+        <servlet-name>Appel</servlet-name>
+        <jsp-file>/jsp/appel.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
-        <servlet-name>RecevoirJustificatifCtrl</servlet-name>
-        <url-pattern>/recevoirJustificatifCtrl</url-pattern>
+        <servlet-name>Appel</servlet-name>
+        <url-pattern>/appel</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>AppelCtrl</servlet-name>
+        <servlet-class>com.example.appelprojet.ctrl.AppelCtrl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AppelCtrl</servlet-name>
+        <url-pattern>/appelCtrl</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>PlanningCtrl</servlet-name>
+        <servlet-class>com.example.appelprojet.ctrl.PlanningCtrl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PlanningCtrl</servlet-name>
+        <url-pattern>/planningCtrl</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UploadFile</servlet-name>
+        <jsp-file>/jsp/uploadFile.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadFile</servlet-name>
+        <url-pattern>/uploadFile</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>UploadCtrl</servlet-name>
+        <servlet-class>com.example.appelprojet.ctrl.UploadCtrl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UploadCtrl</servlet-name>
+        <url-pattern>/uploadCtrl</url-pattern>
     </servlet-mapping>
     <servlet>
         <servlet-name>Message</servlet-name>
-        <jsp-file>/jsp/Message.jsp</jsp-file>
+        <jsp-file>/jsp/message.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
         <servlet-name>Message</servlet-name>
         <url-pattern>/message</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <servlet-name>LoginMdp</servlet-name>
-        <jsp-file>/jsp/LoginMdp.jsp</jsp-file>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>LoginMdp</servlet-name>
-        <url-pattern>/loginMdp</url-pattern>
-    </servlet-mapping>
+
+    <!--    <servlet>-->
+    <!--        <servlet-name>Download</servlet-name>-->
+    <!--        <jsp-file>/jsp/download.jsp</jsp-file>-->
+    <!--    </servlet>-->
+    <!--    <servlet-mapping>-->
+    <!--        <servlet-name>Download</servlet-name>-->
+    <!--        <url-pattern>/download</url-pattern>-->
+    <!--    </servlet-mapping>-->
+    <!--    <servlet>-->
+    <!--        <servlet-name>DownloadCtrl</servlet-name>-->
+    <!--        <servlet-class>com.example.appelprojet.ctrl.DownloadCtrl</servlet-class>-->
+    <!--    </servlet>-->
+    <!--    <servlet-mapping>-->
+    <!--        <servlet-name>DownloadCtrl</servlet-name>-->
+    <!--        <url-pattern>/downloadCtrl</url-pattern>-->
+    <!--    </servlet-mapping>-->
+    <session-config>
+        <session-timeout>
+            30
+        </session-timeout>
+    </session-config>
 </web-app>

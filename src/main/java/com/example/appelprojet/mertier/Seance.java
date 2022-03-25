@@ -17,12 +17,12 @@ public class Seance {
     private Date dateFin;
     private String etatAppel;
 
-    //    Relaitons
-    //    Cours
+//    Relaitons
+//    Cours
     @ManyToOne(fetch = FetchType.EAGER)
-    private Cours cour;
+    private Cours cours;
 
-    //    enseignant
+//    enseignant
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CodeU")
     private Enseignant enseignant;
@@ -32,8 +32,13 @@ public class Seance {
     @JoinColumn(name = "CodeS")
     private Salle salle;
 
-    //    presence, etudiant
-    @OneToMany(mappedBy = "seance", cascade = CascadeType.ALL)
+//    //    planning
+//    @ManyToOne(fetch = FetchType.EAGER)
+//    @JoinColumn(name = "Date")
+//    private Planning planning;
+
+//    presence, etudiant
+    @OneToMany(mappedBy = "seance")
     @MapKeyJoinColumn(name = "CodeU", updatable = false, insertable = false)
     private Map<Etudiant,Presence> etuPresences = new HashMap(0);
 
@@ -43,19 +48,23 @@ public class Seance {
     private Map<Justificatif,Presence> justPresences = new HashMap(0);
 
 
-    //    Constructeur
+//    Constructeur
 
 
     public Seance() {
     }
 
-    public Seance(Date dateDebut, Date dateFin, String etatAppel) {
+    public Seance(Date dateDebut, Date dateFin, String etatAppel, Cours cours, Enseignant enseignant, Salle salle) {
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
         this.etatAppel = etatAppel;
+        this.cours = cours;
+        this.enseignant = enseignant;
+        this.salle = salle;
     }
 
-    //    getter and setter
+
+//    getter and setter
 
     public long getIdSeance() {return idSeance;}
 
@@ -81,12 +90,9 @@ public class Seance {
         this.enseignant = enseignant;
     }
 
-    public Cours getCour() {
-        return cour;
-    }
 
-    public void setCour(Cours cour) {
-        this.cour = cour;
+    public void setCour(Cours cours) {
+        this.cours = cours;
     }
 
     public Salle getSalle() {
@@ -95,6 +101,14 @@ public class Seance {
 
     public void setSalle(Salle salle) {
         this.salle = salle;
+    }
+
+    public Cours getCours() {
+        return cours;
+    }
+
+    public void setCours(Cours cours) {
+        this.cours = cours;
     }
 
     public Map<Etudiant, Presence> getEtuPresences() {
@@ -121,13 +135,13 @@ public class Seance {
                 ", dateDebut=" + dateDebut +
                 ", dateFin=" + dateFin +
                 ", etatAppel='" + etatAppel + '\'' +
-                ", cour=" + cour.toString() +
+                ", cour=" + cours.toString() +
                 ", enseignant=" + enseignant.toString() +
                 ", salle=" + salle.toString() +
                 '}';
     }
 
-    //    equals and hashCode
+//    equals and hashCode
 
     @Override
     public boolean equals(Object o) {

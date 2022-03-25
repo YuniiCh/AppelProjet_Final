@@ -12,5 +12,6 @@
     String message = (String)request.getSession(false).getAttribute("message");
     out.print(message);
 %>
+<a href="uploadFile">Hello</a>
 </body>
 </html>

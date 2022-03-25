@@ -9,8 +9,13 @@ public class Scolarite extends Utilisateur{
     //    Priorietes
 
     //    Relations
-    @OneToMany(mappedBy = "scolarite", fetch = FetchType.LAZY, cascade= CascadeType.ALL)
+    //    Scolarite-Justificatifs
+    @OneToMany(mappedBy = "scolarite", fetch = FetchType.LAZY)
     private Set<Justificatif> justificatifs = new HashSet(0);
+
+    //    Scolarite-Formations
+    @OneToMany(mappedBy = "scolarite", fetch = FetchType.LAZY)
+    private Set<Formation> formations = new HashSet(0);
 
     //    Contructeur
     public Scolarite() {
