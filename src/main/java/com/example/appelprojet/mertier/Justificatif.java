@@ -35,10 +35,10 @@ private Map<Seance,Presence> seanPresences = new HashMap(0);
     @MapKeyJoinColumn(name = "CodeE", updatable = false, insertable = false)
     private Map<Etudiant,Presence> etudiantPresences = new HashMap(0);
 
-//    Etudiant
-@ManyToOne(fetch = FetchType.EAGER)
-@JoinColumn(name = "CodeU", insertable = false, updatable = false)
-private Etudiant etudiant;
+////    Etudiant
+//@ManyToOne(fetch = FetchType.EAGER)
+//@JoinColumn(name = "CodeU", insertable = false, updatable = false)
+//private Etudiant etudiant;
 
     // Constructors
     public Justificatif() {
@@ -53,14 +53,14 @@ private Etudiant etudiant;
 //    }
 
 
-    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite, Map<Seance, Presence> seanPresences, Etudiant etudiant) {
+    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite) {
         this.dateDepot = dateDepot;
         this.etatValidation = etatValidation;
         this.linkFile = linkFile;
         this.nameFile = nameFile;
         this.scolarite = scolarite;
         this.seanPresences = seanPresences;
-        this.etudiant = etudiant;
+//        this.etudiant = etudiant;
     }
 
     // Getter / Setter
@@ -93,6 +93,22 @@ private Etudiant etudiant;
 
     public void setScolarite(Scolarite scolarite) {
         this.scolarite = scolarite;
+    }
+
+    public Map<Seance, Presence> getSeanPresences() {
+        return seanPresences;
+    }
+
+    public void setSeanPresences(Map<Seance, Presence> seanPresences) {
+        this.seanPresences = seanPresences;
+    }
+
+    public Map<Etudiant, Presence> getEtudiantPresences() {
+        return etudiantPresences;
+    }
+
+    public void setEtudiantPresences(Map<Etudiant, Presence> etudiantPresences) {
+        this.etudiantPresences = etudiantPresences;
     }
 
     // HashCode / Equals

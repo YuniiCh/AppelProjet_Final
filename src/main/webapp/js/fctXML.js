@@ -35,36 +35,53 @@ function changeEtatPresence(obj,nb){
     xhr.send();
 }
 
-function tousPresence() {
-    let xhr = new XMLHttpRequest();
-    let param = "touspresence=" + encodeURIComponent();
-    let url = "appelCtrl";
-    xhr.open("GET", url+"?"+param);
-    // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.onload = function (){
-        if (xhr.status===200){
-            console.log("click");
-            let etat_presence = xhr.responseXML.getElementsByTagName("etatpresence");
-            // let etat = document.getElementById("etatPresent" + numbt_etatp);
-            for (let i = 0; i<etat_presence.length; i++){
-                console.log(etat_presence[i].firstChild.nodeValue);
-                obj.innerHTML = etat_presence[i].firstChild.nodeValue;
-                // obj.CHILD(document.getElementById("etatPresent")).innerHTML = etat_presence[i].firstChild.nodeValue;
-            }
+let nbTousClick = 0;
+function getNbClickALL(obj){
+    if (nbTousClick===1){
+        nbTousClick = 0;
+    }else {
+        nbTousClick++;
+    }
+    console.log(obj.currentTarget);
+    tousPresence(obj,nbTousClick);
+}
+
+function tousPresence(obj, nb) {
+    let btEtat = document.getElementsByClassName("bt_etatp_cl");
+    if (nb === 1) {
+        document.getElementById("toustext").innerHTML = "Tous Absent";
+        for(let i = 0; i<btEtat.length;i++) {
+            btEtat[i].firstElementChild.innerHTML = "Absent";
+        }
+
+    }else {
+        document.getElementById("toustext").innerHTML = "Tous Pésent";
+        for(let i = 0; i<btEtat.length;i++) {
+            btEtat[i].firstElementChild.innerHTML = "Pésent";
         }
     }
-    xhr.send();
 }
+//     let xhr = new XMLHttpRequest();
+//     let param = "touspresence=" + encodeURIComponent(nb);
+//     let url = "appelCtrl";
+//     xhr.open("GET", url+"?"+param);
+//     // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//     xhr.onload = function (){
+//         if (xhr.status===200){
+//             console.log("click");
+//             let etat_presence = xhr.responseXML.getElementsByTagName("allpresence");
+//             for (let i = 0; i<etat_presence.length; i++){
+//                 console.log(etat_presence[i].firstChild.nodeValue);
+//                 document.getElementById("toustext").innerHTML = etat_presence[i].firstChild.nodeValue;
+//             }
+//         }
+//     }
+//     xhr.send();
+// }
 
 // window.onload=function (){
 //
 // }
 document.addEventListener("DOMContentLoaded", () => {
-    // document.getElementsByClassName("bt_etatp_cl").addEventListener("click", getNbClick);
-    // var bt_etatP = document.getElementsByClassName("bt_etatp_cl");
-    // for (let i = 0; i < bt_etatP.length; i++){
-    //     let e = "bt_etatP"+i;
-    //     numbt_etatp++;
-    //     document.getElementById(e).addEventListener("click", getNbClick);
-    // }
+    document.getElementById("touspresence").addEventListener("click", getNbClickALL);
 });

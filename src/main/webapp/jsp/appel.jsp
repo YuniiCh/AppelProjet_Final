@@ -10,25 +10,13 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>Fiche Appel</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<div class="d-sm-flex justify-content-between align-items-center mb-4">--%>
-<%--    <h5>${requestScope.Formation.getNomFormation()} </h5>--%>
-<%--    <h5>${requestScope.Cours.getNomCours} </h5>--%>
-<%--    <h5>Seance N° ${requestScope.Seance.getIdSeance} </h5>--%>
-<%--    <h5>${requestScope.Salle.getNomSalle()}</h5>--%>
-<%--</div>--%>
-<%--</body>--%>
-<%--</html>--%>
-
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
     <title>Fiche Appel</title>
     <link href="${pageContext.request.contextPath}/css/appelStyles.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <!-- Top container -->
@@ -46,7 +34,7 @@
         <h5><%=appel.getCours().getTypeCours() %></h5>
         <p><%=appel.getCours().getNomCours() %></p>
         <p>Seance N°<%=appel.getIdSeance()%>  </p>
-        <p><%=simpleDateFormat.format(appel.getDateDebut())%> - <%=appel.getDateFin().getHours()%>:<%=appel.getDateFin().getMinutes()%></p>
+        <p><%=simpleDateFormat.format(appel.getDateDebut())%> - <%=simpleDateFormat.format(appel.getDateFin()).split(" ")[1].substring(0,5)%></p>
         <p><%=appel.getSalle().getNomSalle()%></p>
 <%--        <h5 style="margin: 0">Master 2 MIAGE IPM</h5>--%>
 <%--        <p style="margin: 0">CM Management Agile</p>--%>
@@ -57,10 +45,10 @@
     </div>
 
 <!-- Liste étudiants -->
-<form action="/mertier/seance" method="post" class="center">
+<form action="" method="post" class="center">
     <br>
     <div class="divButton">
-        <button type="button" class="buttonTop">Tous présents</button>
+        <button id="touspresence" type="button" class="buttonTop"><span id="toustext">Tous présents</span></button>
         <button type="button" class="buttonTop">Ajouter</button>
         <button type="button" class="buttonTop">Supprimer</button>
     </div>
@@ -104,6 +92,13 @@
 <a href="planning">Planning</a>
 </div>
 
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 <script type="text/JavaScript" src="js/fctXML.js"></script>
 </body>
 </html>

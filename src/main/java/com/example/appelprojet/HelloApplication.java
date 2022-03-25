@@ -213,15 +213,17 @@ public class HelloApplication extends Application {
             Seance se6 = new Seance(DF.parse("24-03-2022 10:10"), DF.parse("24-03-2022 12:30"), "false",c3,en2,s1);
             Seance se7 = new Seance(DF.parse("24-03-2022 12:00"), DF.parse("24-03-2022 19:00"), "false",c3,en2,s3);
             Seance se8 = new Seance(DF.parse("24-03-2022 19:00"), DF.parse("25-03-2022 19:00"), "false",c3,en2,s3);
+            Seance se9 = new Seance(DF.parse("25-03-2022 19:00"), DF.parse("30-03-2022 22:00"), "false",c3,en2,s3);
 
-            session.save(se1);
-            session.save(se2);
-            session.save(se3);
-            session.save(se4);
-            session.save(se5);
-            session.save(se6);
-            session.save(se7);
-            session.save(se8);
+//            session.save(se1);
+//            session.save(se2);
+//            session.save(se3);
+//            session.save(se4);
+//            session.save(se5);
+//            session.save(se6);
+//            session.save(se7);
+//            session.save(se8);
+            session.save(se9);
 
 
             t.commit(); // Commit et flush automatique de la session.
@@ -280,16 +282,19 @@ public class HelloApplication extends Application {
                         SeanceDAO seanceDAO = new SeanceDAO();
                         Etudiant etudiant = etudiantDAO.find(Long.parseLong(tab_obj[0].toString()));
                         Seance seance = seanceDAO.find(Long.parseLong(tab_obj[1].toString()));
-//                        Presence presence = new Presence( "presence","", etudiant,seance);
+                        Presence presence = new Presence( "presence","", etudiant,seance,null);
 //                session.save(new PresenceID(listEtudiant.get(0), listEtudiant.get(1)));
                         session.save(presences);
+                        t.commit();
 //                        mapid.put(Long.parseLong(tab_obj[0].toString()),Long.parseLong(tab_obj[1].toString()));
-                    }
+
+                         }
                 }
+               // Commit et flush automatique de la session.
+//                session.close();
             }
 
-            t.commit(); // Commit et flush automatique de la session.
-//            session.close();
+//
         }
     }
 
@@ -380,13 +385,13 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-        enrgScolarite();
-        enrgFormation();
-        enrgUtilisateur();
-        enrgSalle();
-        enrgCours();
-        enrgSeances();
-//        enrgPresence();
+//        enrgScolarite();
+//        enrgFormation();
+//        enrgUtilisateur();
+//        enrgSalle();
+//        enrgCours();
+//        enrgSeances();
+        enrgPresence();
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
         List<Utilisateur> utilisateurList = (List<Utilisateur>) utilisateurDAO.findAll();
         for (Utilisateur u: utilisateurList ) {

@@ -43,7 +43,7 @@ public class Seance {
     private Map<Etudiant,Presence> etuPresences = new HashMap(0);
 
     //    presence, justificatif
-    @OneToMany(mappedBy = "justificatif", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "seance", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeJ", updatable = false, insertable = false)
     private Map<Justificatif,Presence> justPresences = new HashMap(0);
 

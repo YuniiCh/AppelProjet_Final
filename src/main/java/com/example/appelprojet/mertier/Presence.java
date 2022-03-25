@@ -31,16 +31,21 @@ public class Presence {
     @JoinColumn(name = "CodeJ", insertable = false, updatable = false,nullable = false)
     private Justificatif justificatif;
 
-
+    public Presence(String etatPresence, String etatValidation, Etudiant etudiant, Seance seance, Justificatif justificatif) {
+        this.etatPresence = etatPresence;
+        this.etatValidation = etatValidation;
+        this.etudiant = etudiant;
+        this.seance = seance;
+        this.justificatif = justificatif;
+    }
 
 //    Constructeur
 
     public Presence() {
     }
 
-    public Presence(String etatPresence) {
-        this.etatPresence = etatPresence;
-    }
+
+
 
     //    getter and setter
     public PresenceID getIdPresence() {return idPresence;}
