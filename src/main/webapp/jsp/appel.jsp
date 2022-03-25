@@ -81,7 +81,7 @@
             <tr>
                 <td><img src="image/etudiant.png" style="height: 4.5rem; width: 4.5rem;" /></td>
                 <td><% e.getNomU(); e.getPrenomU(); %></td>
-                <td><button id="bt_etatP<%=i%>" class="bt_etatp_cl" type="button" name="etatPresent"><span id="etatPresent<%=i%>" class="etatpresent_cl">Présent</span></button></td>
+                <td><button id="bt_etatP<%=i%>" class="bt_etatp_cl" type="button" name="etatPresent" onclick="getNbClick"><span id="etatPresent<%=i%>" class="etatpresent_cl">Présent</span></button></td>
             </tr>
             <%
                     i++; }

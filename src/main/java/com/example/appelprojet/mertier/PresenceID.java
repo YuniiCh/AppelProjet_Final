@@ -8,59 +8,47 @@ import java.util.Objects;
 @Embeddable
 public class PresenceID implements java.io.Serializable{
 //    Priorietes
-    @Column(name = "CodeSEA")
-    private long codeSEA;
-    @Column(name = "CodeET")
-    private long codeET;
-    @Column(name = "CodeJU")
-    private long codeJu;
+    @Column(name = "CodeSE")
+    private long codeSE;
+    @Column(name = "CodeU")
+    private long codeU;
+
 
 //    Constructeur
-
-
     public PresenceID() {
     }
 
-    public PresenceID(long codeET, long codeJu) {
-        this.codeET = codeET;
-        this.codeJu = codeJu;
+    public PresenceID(long codeSE, long codeU) {
+        this.codeSE = codeSE;
+        this.codeU = codeU;
     }
 
 //    getter and setter
 
-
     public long getCodeSEA() {
-        return codeSEA;
+        return codeSE;
     }
 
     public void setCodeSEA(long codeSEA) {
-        this.codeSEA = codeSEA;
+        this.codeSE = codeSEA;
     }
 
     public long getCodeET() {
-        return codeET;
+        return codeU;
     }
 
     public void setCodeET(long codeET) {
-        this.codeET = codeET;
+        this.codeU = codeET;
     }
 
-    public long getCodeJu() {
-        return codeJu;
-    }
-
-    public void setCodeJu(long codeJu) {
-        this.codeJu = codeJu;
-    }
 
 //    toString
 
     @Override
     public String toString() {
         return "PresenceID{" +
-                "codeSEA=" + codeSEA +
-                ", codeET=" + codeET +
-                ", codeJu=" + codeJu +
+                "codeSEA=" + codeSE +
+                ", codeET=" + codeU +
                 '}';
     }
 
@@ -71,11 +59,11 @@ public class PresenceID implements java.io.Serializable{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PresenceID that = (PresenceID) o;
-        return codeSEA == that.codeSEA && codeET == that.codeET && codeJu == that.codeJu;
+        return codeSE == that.codeSE;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(codeSEA, codeET, codeJu);
+        return Objects.hash(codeSE);
     }
 }

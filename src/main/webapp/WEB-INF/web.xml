@@ -75,23 +75,22 @@
         <servlet-name>Message</servlet-name>
         <url-pattern>/message</url-pattern>
     </servlet-mapping>
-
-    <!--    <servlet>-->
-    <!--        <servlet-name>Download</servlet-name>-->
-    <!--        <jsp-file>/jsp/download.jsp</jsp-file>-->
-    <!--    </servlet>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>Download</servlet-name>-->
-    <!--        <url-pattern>/download</url-pattern>-->
-    <!--    </servlet-mapping>-->
-    <!--    <servlet>-->
-    <!--        <servlet-name>DownloadCtrl</servlet-name>-->
-    <!--        <servlet-class>com.example.appelprojet.ctrl.DownloadCtrl</servlet-class>-->
-    <!--    </servlet>-->
-    <!--    <servlet-mapping>-->
-    <!--        <servlet-name>DownloadCtrl</servlet-name>-->
-    <!--        <url-pattern>/downloadCtrl</url-pattern>-->
-    <!--    </servlet-mapping>-->
+    <servlet>
+        <servlet-name>Download</servlet-name>
+        <jsp-file>/jsp/download.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Download</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DownloadCtrl</servlet-name>
+        <servlet-class>com.example.appelprojet.ctrl.DownloadCtrl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DownloadCtrl</servlet-name>
+        <url-pattern>/downloadCtrl</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

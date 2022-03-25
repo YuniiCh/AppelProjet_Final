@@ -343,12 +343,12 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) {
-//        enrgScolarite();
-//        enrgFormation();
-//        enrgUtilisateur();
-//        enrgSalle();
+        enrgScolarite();
+        enrgFormation();
+        enrgUtilisateur();
+        enrgSalle();
         enrgCours();
-//        enrgSeances();
+        enrgSeances();
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
         List<Utilisateur> utilisateurList = utilisateurDAO.findAll();
         for (Utilisateur u: utilisateurList ) {

@@ -13,8 +13,7 @@ function getNbClick(obj){
         nbClick++;
     }
     console.log(obj.currentTarget);
-    var ele = obj.currentTarget.split("id=").split(" ")[0];
-    changeEtatPresence(ele,nbClick);
+    changeEtatPresence(obj,nbClick);
 }
 function changeEtatPresence(obj,nb){
     let xhr = new XMLHttpRequest();
@@ -30,6 +29,7 @@ function changeEtatPresence(obj,nb){
             for (let i = 0; i<etat_presence.length; i++){
                 console.log(etat_presence[i].firstChild.nodeValue);
                 obj.innerHTML = etat_presence[i].firstChild.nodeValue;
+                // obj.CHILD(document.getElementById("etatPresent")).innerHTML = etat_presence[i].firstChild.nodeValue;
             }
         }
     }
@@ -40,10 +40,11 @@ function changeEtatPresence(obj,nb){
 //
 // }
 document.addEventListener("DOMContentLoaded", () => {
-    var bt_etatP = document.getElementsByClassName("bt_etatp_cl");
-    for (let i = 0; i < bt_etatP.length; i++){
-        let e = "bt_etatP"+i;
-        numbt_etatp++;
-        document.getElementById(e).addEventListener("click", getNbClick);
-    }
+    // document.getElementsByClassName("bt_etatp_cl").addEventListener("click", getNbClick);
+    // var bt_etatP = document.getElementsByClassName("bt_etatp_cl");
+    // for (let i = 0; i < bt_etatP.length; i++){
+    //     let e = "bt_etatP"+i;
+    //     numbt_etatp++;
+    //     document.getElementById(e).addEventListener("click", getNbClick);
+    // }
 });
