@@ -10,7 +10,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link href="css/jsp.css" rel="stylesheet" type="text/css"/>
+    <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
     <title>Login</title>
 </head>
 <body id="connectpage" >
@@ -22,7 +22,7 @@
 						Bienvenue !
 					</span>
             <span class="login100-form-avatar">
-						<img src="resources/images/logoUt1.png" alt="AVATAR">
+						<img src="images/logo.png" alt="logo"/>
             </span>
             <div class="wrap-input100 validate-input m-b-35" data-validate="Entrez votre identifiant">
                 <label for="pseudo">Pseudo</label> <input id="pseudo" type="text" name="psd"/>

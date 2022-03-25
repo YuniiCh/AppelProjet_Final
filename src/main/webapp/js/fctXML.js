@@ -5,10 +5,9 @@
  * de récupérer sous forme de texte le flux envoyé par le serveur.
  */
 let nbClick = 0;
-let numbt_etatp = 0;
 function getNbClick(obj){
-    if (nbClick>2){
-        nbClick = 1;
+    if (nbClick>1){
+        nbClick = 0;
     }else {
         nbClick++;
     }
@@ -18,6 +17,27 @@ function getNbClick(obj){
 function changeEtatPresence(obj,nb){
     let xhr = new XMLHttpRequest();
     let param = "etatpresence=" + encodeURIComponent(nb);
+    let url = "appelCtrl";
+    xhr.open("GET", url+"?"+param);
+    // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function (){
+        if (xhr.status===200){
+            console.log("click");
+            let etat_presence = xhr.responseXML.getElementsByTagName("etatpresence");
+            // let etat = document.getElementById("etatPresent" + numbt_etatp);
+            for (let i = 0; i<etat_presence.length; i++){
+                console.log(etat_presence[i].firstChild.nodeValue);
+                obj.innerHTML = etat_presence[i].firstChild.nodeValue;
+                // obj.CHILD(document.getElementById("etatPresent")).innerHTML = etat_presence[i].firstChild.nodeValue;
+            }
+        }
+    }
+    xhr.send();
+}
+
+function tousPresence() {
+    let xhr = new XMLHttpRequest();
+    let param = "touspresence=" + encodeURIComponent();
     let url = "appelCtrl";
     xhr.open("GET", url+"?"+param);
     // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");

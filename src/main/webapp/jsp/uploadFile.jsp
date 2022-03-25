@@ -8,11 +8,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
+    <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
     <title>Upload File</title>
 </head>
 <body>
-<form method="post" enctype="multipart/form-data" action="uploadCtrl">
-    <p>Justificatif: <input type="text" name="nameJ"></p>
+<form method="POST" action="uploadCtrl" enctype="multipart/form-data" id="pageDeposerJ">    <p>Justificatif: <input type="text" name="nameJ"></p>
     <p>Date: <label>
     <input type="date" name="datefile">
 </label></p>
@@ -23,6 +23,7 @@
     </select>
 </label>
   </p>
+    <p>Choose a file: <input type="file" name="multiPartServlet" /></p >
     <button>Submit</button>
 </form>
 </body>

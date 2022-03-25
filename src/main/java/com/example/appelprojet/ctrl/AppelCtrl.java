@@ -24,10 +24,10 @@ public class AppelCtrl extends HttpServlet {
             String etatpresence = "";
             System.out.println(etat);
             /*------Mettre des données dans XML------*/
-            if (etat.equals("2")) {
+            if (etat.equals("1")) {
                 etatpresence = "<etatpresence>Retard</etatpresence>";
                 out.println("<etatpresence>Retard</etatpresence>");
-            } else if (etat.equals("3")) {
+            } else if (etat.equals("2")) {
                 etatpresence = "<etatpresence>Absent</etatpresence>";
                 out.println("<etatpresence>Absent</etatpresence>");
             }else {

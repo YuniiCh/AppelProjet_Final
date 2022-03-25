@@ -28,13 +28,14 @@
 <html>
 <head>
     <title>Fiche Appel</title>
-    <link href="../css/styles.css" rel="stylesheet" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/appelStyles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <!-- Top container -->
-<div>
-    <div id="div1" style="float: left">
-        <img src="image/logo.png"  style="height: 4.5rem; width: 4.5rem;" />
+<div class="wrap">
+    <div class="center">
+    <div id="div1" >
+        <img src="images/logo.png" />
     </div>
     <div id="div2">
         <%
@@ -42,46 +43,52 @@
             SeanceDAO seanceDAO = new SeanceDAO();
             Seance appel = seanceDAO.infoFicheAppelById((long) request.getAttribute("ficheAppel"));
         %>
-        <h5 style="margin: 0"><%=appel.getCours().getTypeCours() %></h5>
-        <p style="margin: 0"><%=appel.getCours().getTypeCours() %></p>
-        <p style="margin: 0">Seance N°<%=appel.getIdSeance()%>  </p>
-        <p style="margin: 0"><%=simpleDateFormat.format(appel.getDateDebut())%> - <%=appel.getDateFin().getHours()%>:<%=appel.getDateFin().getMinutes()%></p>
-        <p style="margin: 0"><%=appel.getSalle().getNomSalle()%></p>
+        <h5><%=appel.getCours().getTypeCours() %></h5>
+        <p><%=appel.getCours().getNomCours() %></p>
+        <p>Seance N°<%=appel.getIdSeance()%>  </p>
+        <p><%=simpleDateFormat.format(appel.getDateDebut())%> - <%=appel.getDateFin().getHours()%>:<%=appel.getDateFin().getMinutes()%></p>
+        <p><%=appel.getSalle().getNomSalle()%></p>
 <%--        <h5 style="margin: 0">Master 2 MIAGE IPM</h5>--%>
 <%--        <p style="margin: 0">CM Management Agile</p>--%>
 <%--        <p style="margin: 0">Seance N°1</p>--%>
 <%--        <p style="margin: 0"> MC405</p>--%>
+        </div>
+
     </div>
-</div>
 
 <!-- Liste étudiants -->
-<form action="/mertier/seance" method="post">
+<form action="/mertier/seance" method="post" class="center">
     <br>
-    <div>
-        <button type="button">Tous présents</button>
-        <button type="button">Tous absents</button>
-        <button type="button">+</button>
-        <button type="button">-</button>
+    <div class="divButton">
+        <button type="button" class="buttonTop">Tous présents</button>
+        <button type="button" class="buttonTop">Ajouter</button>
+        <button type="button" class="buttonTop">Supprimer</button>
     </div>
     <br>
-    <div>
-        <table style="border: 1px dotted black">
+    <br>
+    <br>
+    <div class="divTable">
+        <table class="listEtudiant">
             <thead>
             <tr>
-
+                <th scope="col">Photo</th>
+                <th scope="col">Nom et prénom</th>
+                <th scope="col">Etat</th>
             </tr>
             </thead>
             <tbody>
             <%
-                List<Etudiant> etudiants = seanceDAO.findEtudiansByID(appel);
+                List<Etudiant> etudiants = SeanceDAO.findEtudiansByID(appel);
                 int i = 0;
                 for (Etudiant e:
                         etudiants) {
             %>
             <tr>
-                <td><img src="image/etudiant.png" style="height: 4.5rem; width: 4.5rem;" /></td>
-                <td><% e.getNomU(); e.getPrenomU(); %></td>
-                <td><button id="bt_etatP<%=i%>" class="bt_etatp_cl" type="button" name="etatPresent" onclick="getNbClick"><span id="etatPresent<%=i%>" class="etatpresent_cl">Présent</span></button></td>
+                <td><img src="https://github.com/PikaMeoow/Photo-Etudiant/blob/main/<%=e.getIdU()%>.png?raw=true"  alt="images"/>
+<%--                    <img src="image/etudiant.png" style="height: 4.5rem; width: 4.5rem;" />--%>
+                </td>
+                <td><%=e.getNomU()%>  <%=e.getPrenomU()%></td>
+                <td><button id="bt_etatP<%=i%>" class="bt_etatp_cl" type="button" name="etatPresent" onclick="getNbClick(this);"><span id="etatPresent<%=i%>" class="etatpresent_cl">Présent</span></button></td>
             </tr>
             <%
                     i++; }
@@ -90,11 +97,12 @@
         </table>
     </div>
     <br>
-    <div style="margin-left: 20px;">
-        <button type="submit" name="submit" value="Valider" style="width: 200px;">Valider</button>
+    <div id="div3">
+        <button type="submit" name="submit" value="Valider" id="valider">Valider</button>
     </div>
 </form>
-<a href="planning">Hello</a>
+<a href="planning">Planning</a>
+</div>
 
 <script type="text/JavaScript" src="js/fctXML.js"></script>
 </body>

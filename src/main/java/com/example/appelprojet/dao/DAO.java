@@ -162,7 +162,7 @@ public abstract class DAO<T> {
     /**
      * Affichage d'une liste de tableaux d'objets.
      */
-    public void affichage(List l)
+    public static void affichage(List l)
     {
         Iterator e = l.iterator();
         while (e.hasNext())

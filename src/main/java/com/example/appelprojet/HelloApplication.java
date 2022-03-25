@@ -1,6 +1,8 @@
 package com.example.appelprojet;
 
 import com.example.appelprojet.config.HibernateUtil;
+import com.example.appelprojet.dao.EtudiantDAO;
+import com.example.appelprojet.dao.PresenceDAO;
 import com.example.appelprojet.dao.SeanceDAO;
 import com.example.appelprojet.dao.UtilisateurDAO;
 import com.example.appelprojet.mertier.*;
@@ -16,9 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 @ApplicationPath("/api")
 public class HelloApplication extends Application {
@@ -256,6 +256,43 @@ public class HelloApplication extends Application {
         }
     }
 
+
+    /*----- Création et enregistrement des salles -----*/
+    public static void enrgPresence ()
+    {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+        {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+
+            // Création des nouvelles séances
+            List presences = PresenceDAO.geneTablePresence();
+            Iterator e = presences.iterator();
+//            List<HashMap> listSeanEtu =  new ArrayList<>();
+//            HashMap<Long,Long> mapid = new HashMap<>();
+            while (e.hasNext())
+            {
+                Object[] tab_obj = ((Object[]) e.next());
+                for (int i =0 ; i<tab_obj.length-1; i++){
+                    if (i%2==0){
+                        EtudiantDAO etudiantDAO = new EtudiantDAO();
+                        SeanceDAO seanceDAO = new SeanceDAO();
+                        Etudiant etudiant = etudiantDAO.find(Long.parseLong(tab_obj[0].toString()));
+                        Seance seance = seanceDAO.find(Long.parseLong(tab_obj[1].toString()));
+//                        Presence presence = new Presence( "presence","", etudiant,seance);
+//                session.save(new PresenceID(listEtudiant.get(0), listEtudiant.get(1)));
+                        session.save(presences);
+//                        mapid.put(Long.parseLong(tab_obj[0].toString()),Long.parseLong(tab_obj[1].toString()));
+                    }
+                }
+            }
+
+            t.commit(); // Commit et flush automatique de la session.
+//            session.close();
+        }
+    }
+
     /*----- une formation récupère des étudiants -----*/
 
     public static void ajoutEtudiantFormation()
@@ -349,28 +386,29 @@ public class HelloApplication extends Application {
         enrgSalle();
         enrgCours();
         enrgSeances();
+//        enrgPresence();
         UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-        List<Utilisateur> utilisateurList = utilisateurDAO.findAll();
+        List<Utilisateur> utilisateurList = (List<Utilisateur>) utilisateurDAO.findAll();
         for (Utilisateur u: utilisateurList ) {
             System.out.println("Nom: " + u.getNomU() + "  Prenom: " + u.getPrenomU() + " Email: "
                     + u.getEmail() + " Mode de passe: " + u.getMdp());
             System.out.println("User Role : " + u.getClass());
         }
-        Utilisateur utilisateur = utilisateurDAO.getLoginInfo("hugo@com", "hugo");
+        Utilisateur utilisateur = UtilisateurDAO.getLoginInfo("hugo@com", "hugo");
 
 if (utilisateur != null){
-    boolean user = utilisateurDAO.emailExiste(utilisateur.getEmail());
+    boolean user = UtilisateurDAO.emailExiste(utilisateur.getEmail());
     System.out.println("User exist : " + user);
 }else {
     System.out.println("User NULL");
 }
 
-SeanceDAO seanceDAO = new SeanceDAO();
-boolean exist =seanceDAO.isFindSeanceActuelByUser(utilisateurDAO.find(5L));
+//SeanceDAO seanceDAO = new SeanceDAO();
+boolean exist = SeanceDAO.isFindSeanceActuelByUser(utilisateurDAO.find(5L));
 System.out.println("Appel existe: " + exist);
-Seance appel = seanceDAO.infoFicheAppel(utilisateurDAO.find(5L));
+Seance appel = SeanceDAO.infoFicheAppel(utilisateurDAO.find(5L));
 System.out.println("Appel infos : " + appel);
-List<Seance> seances = seanceDAO.findSeanceByUser(utilisateurDAO.find(5L));
+List<Seance> seances = SeanceDAO.findSeanceByUser(utilisateurDAO.find(5L));
         for (Seance s: seances) {
             System.out.println("Seances list : " + s.getIdSeance());
         }

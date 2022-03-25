@@ -2,13 +2,13 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>JSP - Hello World</title>
+    <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
+    <title>Hello Fihe Appel</title>
 </head>
 <body>
 <h1><%= "Hello World!" %>
 </h1>
 <br/>
-<a href="hello-servlet">Hello Servlet</a>
 <a href="login">Hello Login</a>
 </body>
 </html>

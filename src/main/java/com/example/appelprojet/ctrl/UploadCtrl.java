@@ -42,7 +42,7 @@ public class UploadCtrl extends HttpServlet {
                 upload.setSizeMax(MAX_REQUEST_SIZE);
                 String uploadPath = getServletContext().getRealPath("")
                         + File.separator + UPLOAD_DIRECTORY;
-                //System.out.println(uploadPath);
+                System.out.println(uploadPath);
                 File uploadDir = new File(uploadPath);
 
                 String message = "";

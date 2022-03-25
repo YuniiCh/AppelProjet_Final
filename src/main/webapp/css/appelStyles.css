@@ -1,0 +1,99 @@
+.wrap {
+    position: relative;
+    height: 100%;
+    color: azure;
+}
+
+.center {
+    width: 100%;
+    color: azure;
+}
+
+h5 {
+    margin: 0;
+    color: blue;
+}
+
+p {
+    margin: 0;
+    color: black;
+}
+
+#div1 {
+    float: left;
+    width: 20%;
+    margin: 10px;
+}
+
+#div2 {
+    margin-left: 20%;
+    padding-top: 10px;
+    width: 80%;
+    text-align: center;
+}
+
+img {
+    height: 4.5rem; width: 4.5rem;
+}
+
+table {
+    border: 1px dotted black;
+}
+
+#div3 {
+    text-align: center;
+}
+
+#valider {
+    width: 200px;
+    padding: 5px;
+    background: lightgreen;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 0 0 0 1px #82c8a0 inset,
+    0 0 0 2px rgba(255,255,255,0.15) inset,
+    0 8px 0 0 rgba(126, 194, 155, .7),
+    0 8px 0 1px rgba(0,0,0,.4),
+    0 8px 8px 1px rgba(0,0,0,0.5);
+}
+
+#valider:active {
+    box-shadow: 0 0 0 1px #82c8a0 inset,
+    0 0 0 2px rgba(255,255,255,0.15) inset,
+    0 0 0 1px rgba(0,0,0,0.4);
+}
+
+.buttonTop {
+    float: left;
+    width: 32%;
+    padding: 5px;
+    margin-right: 1%;
+    background: #7fccde;
+    border-radius: 10px;
+    border: 0;
+    box-shadow:0px 4px 0px whitesmoke;
+}
+.buttonTop:hover   {background-color: #82D1E3;}
+
+.listEtudiant {
+    width: 100%;
+    text-align: center;
+}
+
+.divButton, .divTable{
+    padding: 1%;
+}
+
+.bt_etatp_cl{
+    padding: 5px;
+    width: 70px;
+    background: #a8e2f8;
+    border-radius: 10px;
+    border: 0;
+    box-shadow: 0px 4px 0px whitesmoke;
+}
+
+tr:nth-child(even) {
+    background-color: aliceblue;
+}
+

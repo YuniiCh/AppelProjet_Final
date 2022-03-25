@@ -28,7 +28,7 @@ public class Presence {
 
     //    justificatif
     @ManyToOne
-    @JoinColumn(name = "CodeJ", insertable = false, updatable = false)
+    @JoinColumn(name = "CodeJ", insertable = false, updatable = false,nullable = false)
     private Justificatif justificatif;
 
 

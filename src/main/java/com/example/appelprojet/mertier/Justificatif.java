@@ -20,20 +20,47 @@ public class Justificatif {
     private String nameFile;
 
     // Relations
+//    Scolarite
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CodeU")
     private Scolarite scolarite;
+//    Seances-Presences
+//    Seance, presence
+@OneToMany(mappedBy = "justificatif")
+@MapKeyJoinColumn(name = "CodeSE", updatable = false, insertable = false)
+private Map<Seance,Presence> seanPresences = new HashMap(0);
+
+//    Etudiant, presence
+    @OneToMany(mappedBy = "justificatif", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "CodeE", updatable = false, insertable = false)
+    private Map<Etudiant,Presence> etudiantPresences = new HashMap(0);
+
+//    Etudiant
+@ManyToOne(fetch = FetchType.EAGER)
+@JoinColumn(name = "CodeU", insertable = false, updatable = false)
+private Etudiant etudiant;
 
     // Constructors
     public Justificatif() {
     }
 
-    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite) {
+//    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite) {
+//        this.dateDepot = dateDepot;
+//        this.etatValidation = etatValidation;
+//        this.linkFile = linkFile;
+//        this.nameFile = nameFile;
+//        this.scolarite = scolarite;
+//    }
+
+
+    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite, Map<Seance, Presence> seanPresences, Etudiant etudiant) {
         this.dateDepot = dateDepot;
         this.etatValidation = etatValidation;
         this.linkFile = linkFile;
         this.nameFile = nameFile;
         this.scolarite = scolarite;
+        this.seanPresences = seanPresences;
+        this.etudiant = etudiant;
     }
 
     // Getter / Setter
