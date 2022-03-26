@@ -1,12 +1,16 @@
 package com.example.appelprojet.dao;
 
 import com.example.appelprojet.config.HibernateUtil;
+import com.example.appelprojet.mertier.Etudiant;
 import com.example.appelprojet.mertier.Utilisateur;
+import com.example.appelprojet.util.FontionsUtiles;
 import com.example.appelprojet.util.Role;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -68,13 +72,13 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
         return existe;
     }
 
-    public static Role findRoleById(Utilisateur u) {
+    public static Role findRoleById(Long idU) {
         try (Session session =HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction transaction = getTransaction(session);
             Query q = session.createSQLQuery("SELECT u.Categorie " +
                     "FROM Utilisateur u " +
                     "WHERE u.CodeU = :id");
-            q.setParameter("id", u.getIdU());
+            q.setParameter("id", idU);
             String categorie = (String) q.uniqueResult();
             session.close();
             switch (categorie){
@@ -88,7 +92,8 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
                     return Role.SCOLARITE;
             }
         }
-
     }
+
+
 
 }

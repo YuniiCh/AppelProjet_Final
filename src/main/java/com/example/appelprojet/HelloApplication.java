@@ -391,32 +391,34 @@ public class HelloApplication extends Application {
 //        enrgSalle();
 //        enrgCours();
 //        enrgSeances();
-        enrgPresence();
-        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-        List<Utilisateur> utilisateurList = (List<Utilisateur>) utilisateurDAO.findAll();
-        for (Utilisateur u: utilisateurList ) {
-            System.out.println("Nom: " + u.getNomU() + "  Prenom: " + u.getPrenomU() + " Email: "
-                    + u.getEmail() + " Mode de passe: " + u.getMdp());
-            System.out.println("User Role : " + u.getClass());
-        }
-        Utilisateur utilisateur = UtilisateurDAO.getLoginInfo("hugo@com", "hugo");
+//        enrgPresence();
+//        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
+//        List<Utilisateur> utilisateurList = (List<Utilisateur>) utilisateurDAO.findAll();
+//        for (Utilisateur u: utilisateurList ) {
+//            System.out.println("Nom: " + u.getNomU() + "  Prenom: " + u.getPrenomU() + " Email: "
+//                    + u.getEmail() + " Mode de passe: " + u.getMdp());
+//            System.out.println("User Role : " + u.getClass());
+//        }
+//        Utilisateur utilisateur = UtilisateurDAO.getLoginInfo("hugo@com", "hugo");
+//
+//if (utilisateur != null){
+//    boolean user = UtilisateurDAO.emailExiste(utilisateur.getEmail());
+//    System.out.println("User exist : " + user);
+//}else {
+//    System.out.println("User NULL");
+//}
 
-if (utilisateur != null){
-    boolean user = UtilisateurDAO.emailExiste(utilisateur.getEmail());
-    System.out.println("User exist : " + user);
-}else {
-    System.out.println("User NULL");
-}
+EtudiantDAO.findByName("chen");
 
-//SeanceDAO seanceDAO = new SeanceDAO();
-boolean exist = SeanceDAO.isFindSeanceActuelByUser(utilisateurDAO.find(5L));
-System.out.println("Appel existe: " + exist);
-Seance appel = SeanceDAO.infoFicheAppel(utilisateurDAO.find(5L));
-System.out.println("Appel infos : " + appel);
-List<Seance> seances = SeanceDAO.findSeanceByUser(utilisateurDAO.find(5L));
-        for (Seance s: seances) {
-            System.out.println("Seances list : " + s.getIdSeance());
-        }
+////SeanceDAO seanceDAO = new SeanceDAO();
+//boolean exist = SeanceDAO.isFindSeanceActuelByUser(utilisateurDAO.find(5L));
+//System.out.println("Appel existe: " + exist);
+//Seance appel = SeanceDAO.infoFicheAppel(utilisateurDAO.find(5L));
+//System.out.println("Appel infos : " + appel);
+//List<Seance> seances = SeanceDAO.findSeanceByUser(utilisateurDAO.find(5L));
+//        for (Seance s: seances) {
+//            System.out.println("Seances list : " + s.getIdSeance());
+//        }
 
 //        SeanceDAO seanceDAO = new SeanceDAO();
 //        Date date = new Date();

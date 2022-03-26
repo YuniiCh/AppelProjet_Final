@@ -28,6 +28,8 @@ public class SeanceDAO extends DAO<Seance>{
             if (query.uniqueResult()!=null){
                 seance = query.uniqueResult();
             }
+            transaction.commit();
+            session.close();
         }
         return seance;
     }

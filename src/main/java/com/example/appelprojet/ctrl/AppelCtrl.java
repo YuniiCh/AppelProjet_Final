@@ -1,9 +1,17 @@
 package com.example.appelprojet.ctrl;
 
+import com.example.appelprojet.dao.EtudiantDAO;
+import com.example.appelprojet.dao.UtilisateurDAO;
+import com.example.appelprojet.mertier.Etudiant;
+import com.example.appelprojet.mertier.Utilisateur;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 @WebServlet(name = "AppelCtrl", value = "/appelCtrl")
 public class AppelCtrl extends HttpServlet {
@@ -51,33 +59,70 @@ public class AppelCtrl extends HttpServlet {
                 System.out.println(allpresence);
             }
 
-            //            Paramètre pour ajouter une un étudiant
-            String ajouter = request.getParameter("ajoute");
+
+            //            Paramètre pour montrer des étudiants à choisir
+            String search = request.getParameter("search_student");
+            String seance = request.getParameter("seance");
             System.out.println(touspresence);
             /*------Mettre des données dans XML------*/
-            if (ajouter !=null){
-                String ajouteEtudiant = "ajouter";
-                if (ajouter.equals("1")) {
-                    ajouteEtudiant = "ajouter";
-                    out.println("ajouter");
+            if(search!=null){
+                List<Etudiant> list_students = EtudiantDAO.findByName(search);
+                System.out.println(list_students);
+                if (list_students != null){
+                    for (Etudiant student : list_students) {
+//                        out.println("<student>" + student.getIdU() + " <![CDATA[" + student.getNomU() + "]]> <![CDATA[" + student.getPrenomU() + "]]></student>");
+                        out.println("<student>" + student.getIdU() + "  " + student.getNomU() + " " + student.getPrenomU() + "</student>");
+                        System.out.println("<student>" + student.getIdU() + "  " + student.getNomU() + " " + student.getPrenomU() + "</student>");
+                    }
+                }else {
+                    out.println("<student>Ne pas trouver</student>");
+                    System.out.println("<student>Ne pas trouver</student>");
                 }
-                out.println("<ajouter>" + ajouteEtudiant + "</ajouter>");
-                System.out.println(ajouteEtudiant);
             }
 
 
-            //            Paramètre pour supprimer une un étudiant
-            String supprimer = request.getParameter("supperimer");
-            System.out.println(touspresence);
+            //            Paramètre pour ajouter une un étudiant
+            String addstudent = request.getParameter("addstudent");
+            System.out.println(addstudent);
             /*------Mettre des données dans XML------*/
-            if (supprimer !=null){
-                String supEtudiant = "supprimer";
-                if (supprimer.equals("1")) {
-                    supEtudiant = "supperimer";
-                    out.println("supperimer");
-                }
-                out.println("<supperimer>" + supEtudiant + "</supperimer>");
-                System.out.println(supEtudiant);
+//            if (addstudent !=null){
+//                try {
+//                    //把学生组别换成这个Seance的组
+//                    EtudiantDAO etudiantDAO = new EtudiantDAO();
+//                    ArrayList<String> list_students = etudiantDAO.find(choix);
+//                    if (Bd.existMots(sm) == true) {
+//                        Bd.supprimerMot(sm);
+//                        out.println("<student>add</student>");
+//                        System.out.println("<student>add</student>");
+//                    }
+//
+//                } catch (ClassNotFoundException | SQLException ex) {
+//                    out.println("<student>Erreur - " + ex.getMessage() + "</student>");
+//                    System.out.println("<student>Erreur - " + ex.getMessage() + "</student>");
+//                }
+//            }
+
+
+
+            //            Paramètre pour supprimer une un étudiant
+            String supprimer = request.getParameter("deletestudent");
+            System.out.println(supprimer);
+            /*------Mettre des données dans XML------*/
+            if (supprimer !=null && seance != null){
+                out.println("<student>delete</student>");
+                System.out.println("<student>delete</student>");
+//                try {
+//                    //把学生从这个Seance删除
+//                    if (Bd.existMots(sm) == true) {
+//                        Bd.supprimerMot(sm);
+//                        out.println("<student>add</student>");
+//                        System.out.println("<student>add</student>");
+//                    }
+//
+//                } catch (ClassNotFoundException | SQLException ex) {
+//                    out.println("<student>Erreur - " + ex.getMessage() + "</student>");
+//                    System.out.println("<student>Erreur - " + ex.getMessage() + "</student>");
+//                }
             }
             out.println("</liste_etat>");
         }

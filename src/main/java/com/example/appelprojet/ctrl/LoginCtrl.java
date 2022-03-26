@@ -54,7 +54,7 @@ public class LoginCtrl extends HttpServlet {
                 }
 
                 if(msg_avert.isEmpty()) {
-                   if (UtilisateurDAO.findRoleById(utilisateur)== Role.ENSEIGNANT){
+                   if (UtilisateurDAO.findRoleById(utilisateur.getIdU())== Role.ENSEIGNANT){
                        System.out.println("get: " + Role.ENSEIGNANT);
                        if (SeanceDAO.isFindSeanceActuelByUser(utilisateur)) {
                            System.out.println("Find: Seance!");
@@ -69,7 +69,7 @@ public class LoginCtrl extends HttpServlet {
                            System.out.println("if not found seances!");
                            request.getRequestDispatcher("planning").forward(request, response);
                        }
-                   } else if (UtilisateurDAO.findRoleById(utilisateur)==Role.ETUDIANT) {
+                   } else if (UtilisateurDAO.findRoleById(utilisateur.getIdU())==Role.ETUDIANT) {
                        System.out.println("get: " + Role.ETUDIANT);
                        request.getRequestDispatcher("uploadFile").forward(request, response);
                    }else {

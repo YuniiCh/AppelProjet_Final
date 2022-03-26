@@ -33,7 +33,7 @@
         %>
         <h5><%=appel.getCours().getTypeCours() %></h5>
         <p><%=appel.getCours().getNomCours() %></p>
-        <p>Seance N°<%=appel.getIdSeance()%>  </p>
+        <p id="id_seance">Seance N°<%=appel.getIdSeance()%>  </p>
         <p><%=simpleDateFormat.format(appel.getDateDebut())%> - <%=simpleDateFormat.format(appel.getDateFin()).split(" ")[1].substring(0,5)%></p>
         <p><%=appel.getSalle().getNomSalle()%></p>
 <%--        <h5 style="margin: 0">Master 2 MIAGE IPM</h5>--%>
@@ -48,10 +48,34 @@
 <form action="" method="post" class="center">
     <br>
     <div class="divButton">
-        <button id="touspresence" type="button" class="buttonTop"><span id="toustext">Tous présents</span></button>
-        <button type="button" class="buttonTop">Ajouter</button>
-        <button type="button" class="buttonTop">Supprimer</button>
+        <button id="btn_touspresence" type="button" class="buttonTop"><span id="toustext">Tous présents</span></button>
+        <!-- Open Pop-Up -->
+        <button id="btn_add" type="button" class="buttonTop">Ajouter</button>
+        <!-- Pop -->
+        <div id="add_student_pop" class="add_student_pop">
+            <!-- Pop Content-->
+            <div class="add_student_content">
+                <div class="pop-header">
+                    <span class="close">&times;</span>
+                    <h2>Ajouter Etudiant</h2>
+                </div>
+                <div class="pop-body">
+                    <p>Ajouter un étudiant:<label for="search_student"><input id="search_student" type="text" placeholder="nom prénom identifiant" autofocus /></label><span id="delete_search">&times;</span><span id="addmsg"> </span></p>
+                    <div id="zone_show" class="zone_show_cl"></div>
+                    <div id="zone_students_chosen" class="zone_students_chosen_cl"></div>
+                </div>
+                <div class="pop-footer">
+                    <h3>***************************</h3>
+                </div>
+<%--                    <select id="choose_student_list">--nom prénom identifiant--</select>--%>
+<%--                    <option>nom1 prénom1 identifiant1</option>--%>
+<%--                    <option>nom2 prénom2 identifiant2</option>--%>
+            </div>
+        </div>
+
+        <button id="btn_delete" type="button" class="buttonTop">Supprimer</button>
     </div>
+
     <br>
     <br>
     <br>
@@ -68,15 +92,23 @@
             <%
                 List<Etudiant> etudiants = SeanceDAO.findEtudiansByID(appel);
                 int i = 0;
-                for (Etudiant e:
-                        etudiants) {
+                String formation = "FI";
+                for (Etudiant e:etudiants) {
+                    if (!e.getFormation().getNomFormation().toUpperCase().contains(formation)){
+                        formation = "FA";
+                    }
             %>
             <tr>
                 <td><img src="https://github.com/PikaMeoow/Photo-Etudiant/blob/main/<%=e.getIdU()%>.png?raw=true"  alt="images"/>
 <%--                    <img src="image/etudiant.png" style="height: 4.5rem; width: 4.5rem;" />--%>
                 </td>
-                <td><%=e.getNomU()%>  <%=e.getPrenomU()%></td>
-                <td><button id="bt_etatP<%=i%>" class="bt_etatp_cl" type="button" name="etatPresent" onclick="getNbClick(this);"><span id="etatPresent<%=i%>" class="etatpresent_cl">Présent</span></button></td>
+                <td class="student_info"><span class="formation_color"
+                    <% if(formation.equals("FI")) out.println("style = 'corlor:darkviolet'"); else out.println("style = 'corlor:darkblue'");%>
+                ><%=formation%> </span>
+                    <span><%=e.getNomU()%>  <%=e.getPrenomU()%><span>
+                </td>
+                <td><button id="btn_etatP<%=i%>" class="btn_etatp_cl" type="button" name="etatPresent" onclick="getNbClick(this);"><span id="etatPresent<%=i%>" class="etatpresent_cl">Présent</span></button></td>
+                <td><span class="btn_delet_one" id="delet_<%=e.getIdU()%>" style="pointer-events: none; display: none">&circleddash;</span></td>
             </tr>
             <%
                     i++; }

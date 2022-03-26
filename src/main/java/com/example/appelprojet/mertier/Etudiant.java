@@ -73,6 +73,15 @@ public class Etudiant extends Utilisateur{
 
     //    toString
 
+    @Override
+    public String toString() {
+        return "Etudiant{" +
+                "typeEtudiant=" + typeEtudiant +
+                ", tdGroup='" + tdGroup + '\'' +
+                ", formation=" + formation.toString() +
+                '}';
+    }
+
     //    equals and hashCode
 
 }
