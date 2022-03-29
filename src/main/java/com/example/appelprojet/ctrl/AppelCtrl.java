@@ -2,10 +2,12 @@ package com.example.appelprojet.ctrl;
 
 import com.example.appelprojet.config.HibernateUtil;
 import com.example.appelprojet.dao.EtudiantDAO;
+import com.example.appelprojet.dao.PresenceDAO;
 import com.example.appelprojet.dao.SeanceDAO;
 import com.example.appelprojet.mertier.Etudiant;
 import com.example.appelprojet.mertier.Presence;
 import com.example.appelprojet.mertier.Seance;
+import com.example.appelprojet.util.EtatPresence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -76,6 +78,9 @@ public class AppelCtrl extends HttpServlet {
                 }
             }
 
+            //            Les infos de la séance
+            Seance seance = (Seance) request.getSession().getAttribute("utilisateur");
+
             //            Paramètre pour ajouter une un étudiant
             String addstudent = request.getParameter("addstudent");
             System.out.println(addstudent);
@@ -104,8 +109,6 @@ public class AppelCtrl extends HttpServlet {
                 String supprimer = request.getParameter("deletestudent");
 //                String supprimer = request.getParameter("deletestudent").split("_")[0];
                 System.out.println(supprimer);
-//            //            Les infos de la séance
-                Seance seance = (Seance) request.getSession().getAttribute("utilisateur");
 //            HttpSession session = request.getSession(true);
 //                String idSeance = request.getParameter("deletestudent").split("_")[1];
                 /*------Mettre des données dans XML------*/
@@ -133,13 +136,23 @@ public class AppelCtrl extends HttpServlet {
 
 //            Parametres pour valider la fiche d'appel
             String etats = request.getParameter("etats");
+            EtatPresence etatPresenceEtudiant = EtatPresence.PRESENCE;
+            EtudiantDAO etudiantDAO = new EtudiantDAO();
             if (etats != null){
-                String[] idStudents = etats.split(",");
-                for (String ids : idStudents){
-                    try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
-                        Transaction transaction = session.getTransaction();
+                String[] idStu_etatStu = etats.split(",");
+                for (String ids : idStu_etatStu){
+                    if (ids.toLowerCase().contains("retard")){
+                        Etudiant etudiant = etudiantDAO.find(Long.parseLong(ids.split("-")[0]));
+                        try {
+                            PresenceDAO.updateEtatPreEtu(EtatPresence.RETART, etudiant, seance);
+                            out.println("<student>update</student>");
+                        }catch (Exception e){
+                            out.println("<student>null</student>");
+                        }
                     }
                 }
+            }else {
+                out.println("<student>erreur</student>");
             }
 
 

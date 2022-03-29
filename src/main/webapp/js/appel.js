@@ -259,9 +259,11 @@ function deleteOneStudent(id){
 function confirmAppel() {
     let xhr = new XMLHttpRequest();
     let presences = document.getElementsByClassName("btn_etatp_cl");
-    let etats = presences.item(0).nodeName + "-" + presences.item(0).firstChild.nodeValue;
+    console.log(presences.item(0).nodeName);
+    console.log(presences.item(0).firstChild.nodeValue);
+    let etats = presences.item(0).nodeName.replace(" ","") + "-" + presences.item(0).firstChild.nodeValue.replace(" ","");
     for (let i = 1; i < presences.length; i++){
-        etats = etats + "," + presences.item(i).nodeName + "-" + presences.item(i).firstChild.nodeValue;
+        etats = etats + "," + presences.item(i).nodeName.replace(" ","") + "-" + presences.item(i).firstChild.nodeValue.replace(" ","");
     }
     let param = "etats=" + encodeURIComponent(etats);
     console.log(param);
