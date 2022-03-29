@@ -77,7 +77,7 @@ public class SeanceDAO extends DAO<Seance>{
                     "and sysdate() <= s.dateFin ");
 
             if (!query.getResultList().isEmpty()){
-                appel = (Seance) query.uniqueResult();
+                appel = (Seance) query.getResultList().get(0);
             }
             session.close();
         }

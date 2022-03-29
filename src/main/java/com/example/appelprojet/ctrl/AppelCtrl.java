@@ -23,13 +23,6 @@ import java.util.List;
 public class AppelCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
-
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-//        doGet(request, response);
         /*----- Type de la réponse -----*/
         response.setContentType("application/xml;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -78,8 +71,6 @@ public class AppelCtrl extends HttpServlet {
                 }
             }
 
-            //            Les infos de la séance
-            Seance seance = (Seance) request.getSession().getAttribute("utilisateur");
 
             //            Paramètre pour ajouter une un étudiant
             String addstudent = request.getParameter("addstudent");
@@ -106,6 +97,8 @@ public class AppelCtrl extends HttpServlet {
 
             //            Paramètre pour supprimer une un étudiant
             if (request.getParameter("deletestudent")!=null){
+                //            Les infos de la séance
+                Seance seance = (Seance) request.getSession().getAttribute("utilisateur");
                 String supprimer = request.getParameter("deletestudent");
 //                String supprimer = request.getParameter("deletestudent").split("_")[0];
                 System.out.println(supprimer);
@@ -140,27 +133,42 @@ public class AppelCtrl extends HttpServlet {
             EtudiantDAO etudiantDAO = new EtudiantDAO();
             if (etats != null){
                 String[] idStu_etatStu = etats.split(",");
+                //            Les infos de la séance
+                Seance seance = (Seance) request.getSession().getAttribute("utilisateur");
+                System.out.println("Seance: " + seance);
                 for (String ids : idStu_etatStu){
-                    if (ids.toLowerCase().contains("retard")){
-                        Etudiant etudiant = etudiantDAO.find(Long.parseLong(ids.split("-")[0]));
-                        try {
+                    Etudiant etudiant = etudiantDAO.find(Long.parseLong(ids.split("-")[0]));
+                    System.out.println("Etudiant: " + etudiant);
+                    try {
+                        if (ids.toLowerCase().contains("retard")) {
                             PresenceDAO.updateEtatPreEtu(EtatPresence.RETART, etudiant, seance);
-                            out.println("<student>update</student>");
-                        }catch (Exception e){
-                            out.println("<student>null</student>");
+                        }else if (ids.toLowerCase().contains("absent")){
+                            PresenceDAO.updateEtatPreEtu(EtatPresence.ABSENCE, etudiant, seance);
+                        }else {
+                            PresenceDAO.updateEtatPreEtu(EtatPresence.PRESENCE, etudiant, seance);
                         }
+                        out.println("<student>update</student>");
+                        System.out.println("<student>update</student>");
+                    }catch (Exception e){
+                        out.println("<student>null</student>");
+                        System.out.println("<student>null</student>");
                     }
                 }
             }else {
                 out.println("<student>erreur</student>");
+                System.out.println("<student>erreur</student>");
             }
-
-
 
 
             out.println("</liste_etat>");
         }
 
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        doGet(request, response);
     }
 
 }

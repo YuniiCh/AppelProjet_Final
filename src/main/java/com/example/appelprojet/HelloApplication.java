@@ -277,47 +277,7 @@ public class HelloApplication extends Application {
         }
     }
 
-
-    /*----- Création et enregistrement des salles -----*/
-//    public static void enrgPresence ()
-//    {
-//        /*----- Ouverture de la session -----*/
-//        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
-//        {
-//            /*----- Ouverture d'une transaction -----*/
-//            Transaction t = session.beginTransaction();
-//
-//            // Création des nouvelles séances
-//            List presences = PresenceDAO.geneTablePresence();
-//            Iterator e = presences.iterator();
-////            List<HashMap> listSeanEtu =  new ArrayList<>();
-////            HashMap<Long,Long> mapid = new HashMap<>();
-//            while (e.hasNext())
-//            {
-//                Object[] tab_obj = ((Object[]) e.next());
-//                for (int i =0 ; i<tab_obj.length-1; i++){
-//                    if (i%2==0){
-//                        EtudiantDAO etudiantDAO = new EtudiantDAO();
-//                        SeanceDAO seanceDAO = new SeanceDAO();
-//                        Etudiant etudiant = session.get(Etudiant.class,Long.parseLong(tab_obj[0].toString()));
-//                        Seance seance = session.get(Seance.class, Long.parseLong(tab_obj[1].toString()));
-//                        Presence presence = new Presence( "presence","", etudiant,seance,null);
-////                session.save(new PresenceID(listEtudiant.get(0), listEtudiant.get(1)));
-//                        session.save(presences);
-//                        t.commit();
-////                        mapid.put(Long.parseLong(tab_obj[0].toString()),Long.parseLong(tab_obj[1].toString()));
-//
-//                         }
-//                }
-//               // Commit et flush automatique de la session.
-////                session.close();
-//            }
-//
-////
-//        }
-//    }
-
-    /*----- Création et enregistrement des présence -----*/
+//    /*----- Création et enregistrement des présence -----*/
 //    public static void enrgPresence ()
 //    {
 //        List presences = PresenceDAO.geneTablePresence();
@@ -342,7 +302,7 @@ public class HelloApplication extends Application {
 //                        Etudiant etudiant = session.get(Etudiant.class,Long.parseLong(String.valueOf(tab_obj[1])));
 //                        Seance seance = session.get(Seance.class, Long.parseLong(String.valueOf(tab_obj[0])));
 //
-//                        Presence presence = new Presence("presence", new PresenceID(seance.getIdSeance(),etudiant.getIdU()));
+//                        Presence presence = new Presence("presence", new PresenceID(seance.getIdSeance(),etudiant.getIdU()), null);
 //                        etudiant.getSeanPresences().put(seance,presence);
 //                        seance.getEtuPresences().put(etudiant,presence);
 //

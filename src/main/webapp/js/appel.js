@@ -257,21 +257,31 @@ function deleteOneStudent(id){
 }
 
 function confirmAppel() {
-    let xhr = new XMLHttpRequest();
     let presences = document.getElementsByClassName("btn_etatp_cl");
-    console.log(presences.item(0).nodeName);
-    console.log(presences.item(0).firstChild.nodeValue);
-    let etats = presences.item(0).nodeName.replace(" ","") + "-" + presences.item(0).firstChild.nodeValue.replace(" ","");
+    console.log(presences.item(0).getAttribute("name"));
+    console.log(presences.item(0).firstChild.textContent);
+    let etats = presences.item(0).getAttribute("name").replace(" ","") + "-" + presences.item(0).firstChild.nodeValue.replace(" ","");
     for (let i = 1; i < presences.length; i++){
-        etats = etats + "," + presences.item(i).nodeName.replace(" ","") + "-" + presences.item(i).firstChild.nodeValue.replace(" ","");
+        etats = etats + "," + presences.item(i).getAttribute("name").replace(" ","") + "-" + presences.item(i).firstChild.textContent.replace(" ","");
     }
+    console.log(etats);
+    let xhr = new XMLHttpRequest();
     let param = "etats=" + encodeURIComponent(etats);
     console.log(param);
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function () {
+        console.log("xhr.status : " + xhr.status);
         if (xhr.status === 200) {
-
+            let update_status = xhr.responseXML.getElementsByTagName("student");
+            for (let i = 0; i < update_status.length; i++){
+                if (update_status[i].firstElementChild.nodeValue === "update"){
+                    document.getElementById("valideEtat").innerHTML = "Valider!";
+                }else {
+                    document.getElementById("valideEtat").style.color = "red";
+                    document.getElementById("valideEtat").innerHTML = "Erreur!";
+                }
+            }
         }
 
     };

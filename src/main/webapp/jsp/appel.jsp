@@ -115,7 +115,7 @@
     </div>
     <br>
     <div id="div3">
-        <button type="submit" name="submit" value="Valider" id="valider">Valider</button>
+        <button type="submit" name="submit" value="Valider" id="valider">Valider</button><span id="valideEtat"></span>
     </div>
 </form>
 <a href="planning">Planning</a>
