@@ -23,73 +23,70 @@ public class PlanningCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
                     /*----- Récupération des paramètres -----*/
-//            Paramètre pour la date du début d'une semaine
+
+        //        Obtenir l'id séance cliqué du Page Pllanning.jsp
+        String idSeance = request.getParameter("idSeance");
+        if (idSeance != null){
+            SeanceDAO seanceDAO = new SeanceDAO();
+            Seance appel = seanceDAO.find(Long.parseLong(idSeance));
+            RequestDispatcher rd = request.getRequestDispatcher("appel");
+            request.setAttribute("seance", (Seance) appel);
+            rd.forward(request, response);
+        }else{
+            //            Paramètre pour la date du début d'une semaine
 
             Date getDate = new Date();
             String getStrDate = request.getParameter("date");
             System.out.println(getStrDate);
 
             Calendar calendar = Calendar.getInstance();
-        String planningAction = request.getParameter("planning_action");
-        try {
-            if (!(planningAction == null || planningAction.isEmpty()) && !(getStrDate == null || getStrDate.isEmpty())) {
-                try {
-                    getDate = SDF.parse(getStrDate);
-                } catch (ParseException e) {
-                    getDate = new Date();
-                    e.printStackTrace();
+            String planningAction = request.getParameter("planning_action");
+            try {
+                if (!(planningAction == null || planningAction.isEmpty()) && !(getStrDate == null || getStrDate.isEmpty())) {
+                    try {
+                        getDate = SDF.parse(getStrDate);
+                    } catch (ParseException e) {
+                        getDate = new Date();
+                        e.printStackTrace();
+                    }
+                    System.out.println(getDate);
+                    calendar.setTime(getDate);
+                    switch (planningAction) {
+                        case "previous" :
+                            calendar.add(Calendar.WEEK_OF_MONTH, -1);
+                            getDate = calendar.getTime();
+                            break;
+                        case "next" :
+                            calendar.add(Calendar.WEEK_OF_MONTH, 1);
+                            getDate = calendar.getTime();
+                            break;
+                    }
                 }
-                System.out.println(getDate);
-                calendar.setTime(getDate);
-                switch (planningAction) {
-                    case "previous" :
-                        calendar.add(Calendar.WEEK_OF_MONTH, -1);
-                        getDate = calendar.getTime();
-                        break;
-                    case "next" :
-                        calendar.add(Calendar.WEEK_OF_MONTH, 1);
-                        getDate = calendar.getTime();
-                        break;
+                System.out.println("Planning date: " + getDate);
+                /*------Transofoer des données au jsp------*/
+                Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
+                System.out.println(utilisateur.getIdU() + " " + utilisateur.getNomU() + " prenom " + utilisateur.getPrenomU());
+                List<Seance> seances = SeanceDAO.findSeancesSemaine(utilisateur, getDate);
+                Planning planning = new Planning(getDate);
+                List<Date> week = planning.weekDate;
+                Map<String, List<Seance>> seancesMap = planning.weekPlanning;
+                if (seances != null){
+                    for (Seance seance:seances){
+                        seancesMap.get(Planning.getDateWithFormat(seance.getDateDebut(), "yyyy-MM-dd")).add(seance);
+                    }
                 }
+                System.out.println("SeancesMap: " + seancesMap);
+                RequestDispatcher rd = request.getRequestDispatcher("planning");
+                request.setAttribute("week", (List<Date>) week);
+                request.setAttribute("date", Planning.getDateWithFormat(getDate, "yyyy-MM-dd"));
+                request.setAttribute("seances", (TreeMap<String, List<Seance>>) seancesMap );
+                rd.forward(request, response);
+            } catch (ServletException e) {
+                e.printStackTrace();
+                RequestDispatcher rd = request.getRequestDispatcher("profil");
+                request.setAttribute("avert", "Ne pas pouvoir chargement. ");
+                rd.forward(request, response);
             }
-            System.out.println("Planning date: " + getDate);
-            /*------Transofoer des données au jsp------*/
-            Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
-            System.out.println(utilisateur.getIdU() + " " + utilisateur.getNomU() + " prenom " + utilisateur.getPrenomU());
-            List<Seance> seances = SeanceDAO.findSeancesSemaine(utilisateur, getDate);
-            Planning planning = new Planning(getDate);
-            List<Date> week = planning.weekDate;
-            Map<String, List<Seance>> seancesMap = planning.weekPlanning;
-            if (seances != null){
-                for (Seance seance:seances){
-                    seancesMap.get(Planning.getDateWithFormat(seance.getDateDebut(), "yyyy-MM-dd")).add(seance);
-                }
-            }
-            System.out.println("SeancesMap: " + seancesMap);
-            RequestDispatcher rd = request.getRequestDispatcher("planning");
-            request.setAttribute("week", (List<Date>) week);
-            request.setAttribute("date", Planning.getDateWithFormat(getDate, "yyyy-MM-dd"));
-            request.setAttribute("seances", (TreeMap<String, List<Seance>>) seancesMap );
-            rd.forward(request, response);
-        } catch (ServletException e) {
-            e.printStackTrace();
-            RequestDispatcher rd = request.getRequestDispatcher("profil");
-            request.setAttribute("avert", "Ne pas pouvoir chargement. ");
-            rd.forward(request, response);
-        }
-
-        //        Obtenir l'id séance cliqué du Page Pllanning.jsp
-        String idSeance = request.getParameter("idSeance");
-        SeanceDAO seanceDAO = new SeanceDAO();
-        Seance seance = seanceDAO.find(Long.parseLong(idSeance));
-        if (idSeance != null){
-            RequestDispatcher rd = request.getRequestDispatcher("appel");
-            request.setAttribute("seance", (Seance) seance);
-            rd.forward(request, response);
-        }else{
-            RequestDispatcher rd = request.getRequestDispatcher("message");
-            request.setAttribute("avert", "Ne pas trouver!");
-            rd.forward(request, response);
         }
 
 //        /*----- Type de la réponse -----*/

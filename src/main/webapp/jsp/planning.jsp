@@ -103,6 +103,7 @@
 //                System.out.println(getDate);
 
                 /*------Obtenir des données------*/
+                String[] week = {"Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samdi", "Dimanche"};
                 Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
                 System.out.println(utilisateur.getIdU() + " " + utilisateur.getNomU() + " prenom " + utilisateur.getPrenomU());
                 TreeMap<String, List<Seance>> seancesMap = (TreeMap<String, List<Seance>>) request.getAttribute("seances");
@@ -112,10 +113,12 @@
 //                StringBuilder semaine = new StringBuilder();
                 System.out.println("Planning jsp page:  " + seancesMap);
                 System.out.println("Seances Map:  " + seancesMap.keySet());
+                int n = 0;
                 for (String d: seancesMap.keySet()){
                     out.println("<li class=\"events-group\"> <div class=\"top-info\">");
-                    out.println("<span>" + d + "</span></div><ul>");
+                    out.println("<span>" +week[n] + "</span><span>" + d + "</span></div><ul>");
                     if (seancesMap.get(d) != null) {
+                        n++;
                         for (Seance seance : seancesMap.get(d)) {
                             String dataEvent = seance.getEtatAppel().equals("true")? "event-1" : "event-2";
                             String appelUrl = "planningCtrl?idSeance=" + seance.getIdSeance();
