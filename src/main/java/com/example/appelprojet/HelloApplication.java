@@ -197,6 +197,7 @@ public class HelloApplication extends Application {
             //Enseignant
             Enseignant en1 = session.get(Enseignant.class, 4L);
             Enseignant en2 = session.get(Enseignant.class, 5L);
+            Enseignant en3 = session.get(Enseignant.class, 6L);
 
             //Salle
             Salle s1 = session.get(Salle.class, 1L);
@@ -209,11 +210,20 @@ public class HelloApplication extends Application {
             Seance se2 = new Seance(DF.parse("16-03-2021 09:30"), DF.parse("16-03-2021 12:30"), "false",c2,en1,s2);
             Seance se3 = new Seance(DF.parse("16-03-2021 14:00"), DF.parse("16-03-2021 17:00"), "false",c3,en2,s3);
             Seance se4 = new Seance(DF.parse("17-03-2021 09:30"), DF.parse("17-03-2021 12:30"), "false",c2,en2,s1);
-            Seance se5 = new Seance(DF.parse("23-03-2022 12:00"), DF.parse("23-03-2022 19:00"), "false",c3,en1,s3);
+            Seance se5 = new Seance(DF.parse("23-03-2022 12:00"), DF.parse("23-03-2022 19:00"), "false",c2,en1,s3);
             Seance se6 = new Seance(DF.parse("24-03-2022 10:10"), DF.parse("24-03-2022 12:30"), "false",c3,en2,s1);
             Seance se7 = new Seance(DF.parse("24-03-2022 12:00"), DF.parse("24-03-2022 19:00"), "false",c3,en2,s3);
             Seance se8 = new Seance(DF.parse("24-03-2022 19:00"), DF.parse("25-03-2022 19:00"), "false",c3,en2,s3);
             Seance se9 = new Seance(DF.parse("25-03-2022 19:00"), DF.parse("30-03-2022 22:00"), "false",c3,en2,s3);
+            Seance se10 = new Seance(DF.parse("28-03-2022 9:30"), DF.parse("28-03-2022 12:30"), "false",c3,en2,s3);
+            Seance se11 = new Seance(DF.parse("28-03-2022 11:00"), DF.parse("28-03-2022 12:30"), "false",c3,en2,s3);
+            Seance se12 = new Seance(DF.parse("29-03-2022 14:00"), DF.parse("29-03-2022 17:00"), "false",c3,en2,s3);
+            Seance se13 = new Seance(DF.parse("30-03-2022 15:00"), DF.parse("29-03-2022 18:00"), "false",c3,en2,s3);
+            Seance se14 = new Seance(DF.parse("30-03-2022 17:00"), DF.parse("29-03-2022 18:30"), "false",c3,en2,s3);
+            Seance se15 = new Seance(DF.parse("27-03-2022 17:00"), DF.parse("27-03-2022 18:30"), "false",c2,en1,s3);
+            Seance se16 = new Seance(DF.parse("28-03-2022 09:30"), DF.parse("28-03-2022 12:30"), "false",c2,en1,s2);
+            Seance se17 = new Seance(DF.parse("29-03-2022 09:30"), DF.parse("29-03-2022 12:30"), "false",c2,en1,s2);
+            Seance se18 = new Seance(DF.parse("29-03-2022 09:30"), DF.parse("29-03-2022 12:30"), "false",c1,en3,s1);
 
 //            session.save(se1);
 //            session.save(se2);
@@ -223,7 +233,16 @@ public class HelloApplication extends Application {
 //            session.save(se6);
 //            session.save(se7);
 //            session.save(se8);
-            session.save(se9);
+//            session.save(se9);
+//            session.save(se10);
+//            session.save(se11);
+//            session.save(se12);
+//            session.save(se13);
+//            session.save(se14);
+//            session.save(se15);
+//            session.save(se16);
+//            session.save(se17);
+            session.save(se18);
 
 
             t.commit(); // Commit et flush automatique de la session.
@@ -260,43 +279,82 @@ public class HelloApplication extends Application {
 
 
     /*----- Création et enregistrement des salles -----*/
-    public static void enrgPresence ()
-    {
-        /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
-        {
-            /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction();
-
-            // Création des nouvelles séances
-            List presences = PresenceDAO.geneTablePresence();
-            Iterator e = presences.iterator();
-//            List<HashMap> listSeanEtu =  new ArrayList<>();
-//            HashMap<Long,Long> mapid = new HashMap<>();
-            while (e.hasNext())
-            {
-                Object[] tab_obj = ((Object[]) e.next());
-                for (int i =0 ; i<tab_obj.length-1; i++){
-                    if (i%2==0){
-                        EtudiantDAO etudiantDAO = new EtudiantDAO();
-                        SeanceDAO seanceDAO = new SeanceDAO();
-                        Etudiant etudiant = etudiantDAO.find(Long.parseLong(tab_obj[0].toString()));
-                        Seance seance = seanceDAO.find(Long.parseLong(tab_obj[1].toString()));
-                        Presence presence = new Presence( "presence","", etudiant,seance,null);
-//                session.save(new PresenceID(listEtudiant.get(0), listEtudiant.get(1)));
-                        session.save(presences);
-                        t.commit();
-//                        mapid.put(Long.parseLong(tab_obj[0].toString()),Long.parseLong(tab_obj[1].toString()));
-
-                         }
-                }
-               // Commit et flush automatique de la session.
-//                session.close();
-            }
-
+//    public static void enrgPresence ()
+//    {
+//        /*----- Ouverture de la session -----*/
+//        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession())
+//        {
+//            /*----- Ouverture d'une transaction -----*/
+//            Transaction t = session.beginTransaction();
 //
-        }
-    }
+//            // Création des nouvelles séances
+//            List presences = PresenceDAO.geneTablePresence();
+//            Iterator e = presences.iterator();
+////            List<HashMap> listSeanEtu =  new ArrayList<>();
+////            HashMap<Long,Long> mapid = new HashMap<>();
+//            while (e.hasNext())
+//            {
+//                Object[] tab_obj = ((Object[]) e.next());
+//                for (int i =0 ; i<tab_obj.length-1; i++){
+//                    if (i%2==0){
+//                        EtudiantDAO etudiantDAO = new EtudiantDAO();
+//                        SeanceDAO seanceDAO = new SeanceDAO();
+//                        Etudiant etudiant = session.get(Etudiant.class,Long.parseLong(tab_obj[0].toString()));
+//                        Seance seance = session.get(Seance.class, Long.parseLong(tab_obj[1].toString()));
+//                        Presence presence = new Presence( "presence","", etudiant,seance,null);
+////                session.save(new PresenceID(listEtudiant.get(0), listEtudiant.get(1)));
+//                        session.save(presences);
+//                        t.commit();
+////                        mapid.put(Long.parseLong(tab_obj[0].toString()),Long.parseLong(tab_obj[1].toString()));
+//
+//                         }
+//                }
+//               // Commit et flush automatique de la session.
+////                session.close();
+//            }
+//
+////
+//        }
+//    }
+
+    /*----- Création et enregistrement des présence -----*/
+//    public static void enrgPresence ()
+//    {
+//        List presences = PresenceDAO.geneTablePresence();
+//        /*----- Ouverture de la session -----*/
+//        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+//            /*----- Ouverture d'une transaction -----*/
+//            Transaction t = session.beginTransaction();
+//
+//            // Création des nouvelles séances
+//            Iterator e = presences.iterator();
+//
+//            while (e.hasNext())
+//            {
+//                Object[] tab_obj = ((Object[]) e.next());
+//                for (int i =0 ; i<tab_obj.length-1; i++){
+//                    if(tab_obj[0]!=null && tab_obj[1]!=null) {
+//                        //EtudiantDAO etudiantDAO = new EtudiantDAO();
+//                        //SeanceDAO seanceDAO = new SeanceDAO();
+//                        //Etudiant etudiant = etudiantDAO.find(Long.parseLong(String.valueOf(tab_obj[1])));
+//                        //Seance seance = seanceDAO.find(Long.parseLong(String.valueOf(tab_obj[0])));
+//
+//                        Etudiant etudiant = session.get(Etudiant.class,Long.parseLong(String.valueOf(tab_obj[1])));
+//                        Seance seance = session.get(Seance.class, Long.parseLong(String.valueOf(tab_obj[0])));
+//
+//                        Presence presence = new Presence("presence", new PresenceID(seance.getIdSeance(),etudiant.getIdU()));
+//                        etudiant.getSeanPresences().put(seance,presence);
+//                        seance.getEtuPresences().put(etudiant,presence);
+//
+//                        presence.setEtudiant(etudiant);
+//                        presence.setSeance(seance);
+//                    }
+//                }
+//            }
+//            t.commit();
+//            session.close();
+//        }
+//    }
 
     /*----- une formation récupère des étudiants -----*/
 
@@ -408,8 +466,43 @@ public class HelloApplication extends Application {
 //    System.out.println("User NULL");
 //}
 
-EtudiantDAO.findByName("chen");
+//EtudiantDAO.findByName("chen");
 
+//        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
+//        Utilisateur utilisateur = utilisateurDAO.find(5L);
+//        List<Seance> seances = SeanceDAO.findSeancesSemaine(utilisateur, new Date());
+//        for (Seance s: seances) {
+//            System.out.println("Seances list : " + s.getIdSeance());
+//        }
+//List<Etudiant> etudiants = EtudiantDAO.findByName("a");
+//        for (Etudiant e: etudiants){
+//            System.out.println("Nom :" + e.getNomU() + " Prenom: " + e.getPrenomU() ) ;
+//        }
+//        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
+//        Date date = new Date();
+//        List<Seance> seances = SeanceDAO.findSeancesSemaine(utilisateurDAO.find(4L), date);
+//if (seances !=null){
+//    for (Seance seance : seances){
+//        System.out.println(seance.getIdSeance() + " enseignant: " + seance.getEnseignant() + " date: " + seance.getDateDebut());
+//        float startTime = seance.getDateDebut().getHours();
+//        float endTime = seance.getDateDebut().getHours();
+//        if (seance.getDateDebut().getMinutes() == 30){
+//            startTime = seance.getDateDebut().getHours() + 0.5F;
+//        }
+//        if (seance.getDateFin().getMinutes()== 30){
+//            endTime = seance.getDateFin().getHours() + 0.5F;
+//        }
+//        int startLine = (int) ((startTime - 8) / 0.5 + 1);
+//        int endLine = (int) ((endTime - 8) / 0.5 + 1);
+//        Planning planning = new Planning(seance.getDateDebut());
+//        List<Date> week = planning.weekDate;
+//        System.out.println(week);
+////        System.out.println(planning.day);
+//        System.out.println("Start_line : " + startLine + " End_Line: " + endLine + " Week Day: " + planning.day);
+//    }
+//}else {
+//    System.out.println("NULL");
+//}
 ////SeanceDAO seanceDAO = new SeanceDAO();
 //boolean exist = SeanceDAO.isFindSeanceActuelByUser(utilisateurDAO.find(5L));
 //System.out.println("Appel existe: " + exist);

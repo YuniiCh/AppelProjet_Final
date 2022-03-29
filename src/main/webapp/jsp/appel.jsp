@@ -1,14 +1,15 @@
-<%@ page import="java.util.List" %>
-<%@ page import="com.example.appelprojet.mertier.Seance" %>
-<%@ page import="com.example.appelprojet.dao.SeanceDAO" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.example.appelprojet.mertier.Etudiant" %><%--
+<%--
   Created by IntelliJ IDEA.
   User: CYN
   Date: 2022/3/23
   Time: 19:45
   To change this template use File | Settings | File Templates.
 --%>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.appelprojet.mertier.Seance" %>
+<%@ page import="com.example.appelprojet.dao.SeanceDAO" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.example.appelprojet.mertier.Etudiant" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -28,11 +29,11 @@
     <div id="div2">
         <%
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
-            SeanceDAO seanceDAO = new SeanceDAO();
-            Seance appel = seanceDAO.infoFicheAppelById((long) request.getAttribute("ficheAppel"));
+            Seance appel = (Seance) request.getAttribute("seance");
+            System.out.println("appel" + appel);
         %>
-        <h5><%=appel.getCours().getTypeCours() %></h5>
-        <p><%=appel.getCours().getNomCours() %></p>
+        <h5><%=appel.getCours().getTypeCours().toUpperCase() %></h5>
+        <p><%=appel.getCours().getNomCours().toUpperCase() %></p>
         <p id="id_seance">Seance N°<%=appel.getIdSeance()%>  </p>
         <p><%=simpleDateFormat.format(appel.getDateDebut())%> - <%=simpleDateFormat.format(appel.getDateFin()).split(" ")[1].substring(0,5)%></p>
         <p><%=appel.getSalle().getNomSalle()%></p>
@@ -67,9 +68,6 @@
                 <div class="pop-footer">
                     <h3>***************************</h3>
                 </div>
-<%--                    <select id="choose_student_list">--nom prénom identifiant--</select>--%>
-<%--                    <option>nom1 prénom1 identifiant1</option>--%>
-<%--                    <option>nom2 prénom2 identifiant2</option>--%>
             </div>
         </div>
 
@@ -80,7 +78,7 @@
     <br>
     <br>
     <div class="divTable">
-        <table class="listEtudiant">
+        <table class="listEtudiant" id="listEtudiant">
             <thead>
             <tr>
                 <th scope="col">Photo</th>
@@ -102,13 +100,12 @@
                 <td><img src="https://github.com/PikaMeoow/Photo-Etudiant/blob/main/<%=e.getIdU()%>.png?raw=true"  alt="images"/>
 <%--                    <img src="image/etudiant.png" style="height: 4.5rem; width: 4.5rem;" />--%>
                 </td>
-                <td class="student_info"><span class="formation_color"
-                    <% if(formation.equals("FI")) out.println("style = 'corlor:darkviolet'"); else out.println("style = 'corlor:darkblue'");%>
+                <td class="student_info"><span class="formation_color" style="<% if(formation.equals("FI")) out.println("background-color: mediumpurple;"); else out.println("background-color: mediumslateblue;");%>"
                 ><%=formation%> </span>
-                    <span><%=e.getNomU()%>  <%=e.getPrenomU()%><span>
+                    <span class="id_student"><%=e.getNomU()%>  <%=e.getPrenomU()%></span>
                 </td>
-                <td><button id="btn_etatP<%=i%>" class="btn_etatp_cl" type="button" name="etatPresent" onclick="getNbClick(this);"><span id="etatPresent<%=i%>" class="etatpresent_cl">Présent</span></button></td>
-                <td><span class="btn_delet_one" id="delet_<%=e.getIdU()%>" style="pointer-events: none; display: none">&circleddash;</span></td>
+                <td><button id="btn_etatP<%=i%>" class="btn_etatp_cl" type="button" name="<%=e.getIdU()%>" onclick="getNbClick(this);"><span id="etatPresent<%=i%>" class="etatpresent_cl">Présent</span></button></td>
+                <td><span class="btn_delet_one" id="delet_<%=e.getIdU()%>" style="pointer-events: none; display: none; ">&circleddash;</span></td>
             </tr>
             <%
                     i++; }
@@ -131,7 +128,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
-<script type="text/JavaScript" src="js/fctXML.js"></script>
+<script type="text/JavaScript" src="js/appel.js"></script>
 </body>
 </html>
 

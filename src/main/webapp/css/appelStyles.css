@@ -111,6 +111,11 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
+.formation_color{
+    color: white;
+    font-size:10px;
+    font-family: Comic Sans MS,serif;
+}
 
 /* ******************************************     POP ******************************************** */
 .add_student_pop {

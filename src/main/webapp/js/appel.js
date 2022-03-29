@@ -7,13 +7,29 @@
 const url = "appelCtrl";
 let nbClick = 0;
 let id_seance = document.getElementById("id_seance").innerText.split("°")[1];
+
+function iniAppel(){
+    let xhr = new XMLHttpRequest();
+    let param = "etatpresence=" + encodeURIComponent(nb);
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+
+        }
+    }
+}
 function getNbClick(obj){
+    if (obj.innerHTML.nodeValue == "Retard"){
+        nbClick = 1;
+    }else if(obj.innerHTML.nodeValue == "Absent"){
+        nbClick = 2;
+    }
     if (nbClick>1){
         nbClick = 0;
     }else {
         nbClick++;
     }
-    console.log(obj.currentTarget);
     changeEtatPresence(obj,nbClick);
 }
 function changeEtatPresence(obj,nb){
@@ -29,10 +45,22 @@ function changeEtatPresence(obj,nb){
             for (let i = 0; i<etat_presence.length; i++){
                 console.log(etat_presence[i].firstChild.nodeValue);
                 obj.firstElementChild.innerHTML = etat_presence[i].firstChild.nodeValue;
+                console.log(obj);
+                if (etat_presence[i].firstChild.nodeValue === "Absent"){
+                    console.log(etat_presence[i].firstChild.nodeValue);
+                    obj.style.backgroundColor = "#ffcc99";
+                }else if (etat_presence[i].firstChild.nodeValue === "Retard"){
+                    console.log( etat_presence[i].firstChild.nodeValue);
+                    obj.style.backgroundColor = "#ffff66";
+                }else {
+                    console.log(etat_presence[i].firstChild.nodeValue);
+                    obj.style.backgroundColor = "#a8e2f8";
+                }
+
                 // obj.CHILD(document.getElementById("etatPresent")).innerHTML = etat_presence[i].firstChild.nodeValue;
             }
         }
-    }
+    };
     xhr.send(param);
 }
 
@@ -50,16 +78,20 @@ function getNbClickALL(obj){
 function tousPresence(obj, nb) {
     let btEtat = document.getElementsByClassName("btn_etatp_cl");
     if (nb === 1) {
+        document.getElementById("btn_touspresence").style.backgroundColor = "#ffcc99";
         document.getElementById("toustext").innerHTML = "Tous Absent";
         for(let i = 0; i<btEtat.length;i++) {
             // btEtat[i].getElementsByClassName("etatpresent_cl")[0].innerHTML = "Pésent";
             btEtat[i].firstElementChild.innerHTML = "Absent";
+            btEtat[i].style.backgroundColor = "#ffcc99";
         }
     }else {
+        document.getElementById("btn_touspresence").style.backgroundColor = "#a8e2f8";
         document.getElementById("toustext").innerHTML = "Tous Pésent";
         for(let i = 0; i<btEtat.length;i++) {
             // btEtat[i].getElementsByClassName("etatpresent_cl")[0].innerHTML = "Pésent";
             btEtat[i].firstElementChild.innerHTML = "Pésent";
+            btEtat[i].style.backgroundColor = "#a8e2f8";
         }
     }
 }
@@ -98,7 +130,8 @@ function showStudents() {
     let xhr = new XMLHttpRequest();
     let search_student = document.getElementById("search_student");
     console.log(search_student.value);
-    let param = "search_student=" + encodeURIComponent(search_student.value)  + "&seance=" + encodeURIComponent(id_seance);
+    let param = "search_student=" + encodeURIComponent(search_student.value);
+    console.log(param);
     xhr.open("POST", url)
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     xhr.onload = function () {
@@ -111,9 +144,21 @@ function showStudents() {
                     zone.style.display = "none";
                 } else {
                     zone.style.display = "inline";
+                    let style = "background-color: mediumpurple;";
                     for (let i = 0; i < students.length; i++){
                         console.log(students[i].firstChild.nodeValue);
+                        if (students[i].firstChild.nodeValue.split(", ")[1]=="FA"){
+                            style = "background-color: mediumslateblue;"
+                        }
+                        let idStudent = students[i].firstChild.nodeValue.split(", ")[0];
+                        let nom = students[i].firstChild.nodeValue.split(", ")[2];
+                        let btn_num = document.getElementsByClassName("btn_etatp_cl").length + 1;
+                        let insert = " <tr><td><img src=\"https://github.com/PikaMeoow/Photo-Etudiant/blob/main/" +idStudent + ".png?raw=true\"  alt=\"images\"/></td>" +
+                            "                <td class=\"student_info\"><span class=\"formation_color\" style=\""+ style +"\"</span><span class=\""+ idStudent +"\">" + nom + "</span></td>" +
+                            "                <td><button id=\"btn_etatP" + btn_num + "\" class=\"btn_etatp_cl\" type=\"button\" name=\"" + idStudent + "\" onclick=\"getNbClick(this);\"><span id=\"etatPresent" + btn_num + "\" class=\"etatpresent_cl\">Présent</span></button></td>" +
+                            "                <td><span class=\"btn_delet_one\" id=\"delet_" + btn_num + "\" style=\"pointer-events: none; display: none; \">&circleddash;</span></td></tr>";
                         zone.insertAdjacentHTML("beforeend", "<div class = 'student' id='student" +students[i].firstChild.nodeValue.split(" ")[0] +"'><span>" + students[i].firstChild.nodeValue + "</span></div>");
+                        document.getElementById("listEtudiant").firstElementChild.insertAdjacentHTML("beforeend", insert);
                     }
                     let list_students = document.getElementsByClassName("student");
                     for (let i = 0; i < list_students.length; i++){
@@ -175,12 +220,19 @@ function deleteStudent(){
         });
         nbDeleteClick = 1;
     }
-
+    window.onclick = function(event) {
+        document.querySelectorAll('.btn_delet_one').forEach(item => {
+            if (event.target === item) {
+                item.style.display = "none";
+                item.style.pointerEvents = "none";
+            }
+        });
+    }
 }
 
 function deleteOneStudent(id){
     let xhr = new XMLHttpRequest();
-    let param = "deletestudent=" + encodeURIComponent(id) + "&seance=" + encodeURIComponent(id_seance);
+    let param = "deletestudent=" + encodeURIComponent(id + "_" + id_seance);
     console.log(param);
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -197,40 +249,43 @@ function deleteOneStudent(id){
                         student_info = student_info + " " +  info[i].split("\t")[0].replace(/(^[\s\n\t]+|[\s\n\t]+$)/g, "");
                     }
                     alert("Supprimer Etudiant: " + student_info);
-                // /(^[\s\n\t]+|[\s\n\t]+$)/g
                 }
             }
         }
     };
     xhr.send(param);
 }
-//     let xhr = new XMLHttpRequest();
-//     let param = "touspresence=" + encodeURIComponent(nb);
-//     let url = "appelCtrl";
-//     xhr.open("GET", url+"?"+param);
-//     // xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//     xhr.onload = function (){
-//         if (xhr.status===200){
-//             console.log("click");
-//             let etat_presence = xhr.responseXML.getElementsByTagName("allpresence");
-//             for (let i = 0; i<etat_presence.length; i++){
-//                 console.log(etat_presence[i].firstChild.nodeValue);
-//                 document.getElementById("toustext").innerHTML = etat_presence[i].firstChild.nodeValue;
-//             }
-//         }
-//     }
-//     xhr.send();
-// }
 
-// window.onload=function (){
-//
-// }
+function confirmAppel() {
+    let xhr = new XMLHttpRequest();
+    let presences = document.getElementsByClassName("btn_etatp_cl");
+    let etats = presences.item(0).nodeName + "-" + presences.item(0).firstChild.nodeValue;
+    for (let i = 1; i < presences.length; i++){
+        etats = etats + "," + presences.item(i).nodeName + "-" + presences.item(i).firstChild.nodeValue;
+    }
+    let param = "etats=" + encodeURIComponent(etats);
+    console.log(param);
+    xhr.open("POST", url);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+
+        }
+
+    };
+    xhr.send(param);
+}
+
+
+
+//----------------Listener-------------------------
 document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btn_touspresence").addEventListener("click", getNbClickALL);
     document.getElementById("btn_add").addEventListener("click", addStudent);
     document.getElementById("search_student").addEventListener("keyup",showStudents);
     document.getElementById("delete_search").addEventListener("click", deleteSearchInfo);
     document.getElementById("btn_delete").addEventListener("click", deleteStudent);
+    document.getElementById("valider").addEventListener("click", confirmAppel);
     document.getElementsByClassName("close")[0].addEventListener("click", closePOP);
     document.querySelectorAll('.btn_delet_one').forEach(item => {
         item.addEventListener('click', event => {

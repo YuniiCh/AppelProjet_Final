@@ -1,90 +1,67 @@
 package com.example.appelprojet.mertier;
 
-import javax.persistence.*;
-import java.text.ParseException;
+import com.example.appelprojet.dao.SeanceDAO;
+
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-@Entity
 public class Planning {
-//Priorietes
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "Lundi")
-    private Date monday;
-    @Column(name = "Dimanche")
-    private Date sunday;
-    private static final SimpleDateFormat SDP_FR = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-    private static final SimpleDateFormat SDP_HOUR_MINUTE = new SimpleDateFormat("HH:mm:ss");
+//    Prioprete
+    public  int day;
+    public List<Date> weekDate = new ArrayList<Date>();
+    public Map<String, List<Seance>> weekPlanning = new TreeMap<>();
+    private static final SimpleDateFormat SDF_FR = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private static final SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-//    //    Relation
-//    @OneToMany(mappedBy = "planning",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-//    private Set<Seance> seances = new HashSet<>(0);
-
-//Contructeur
-    public Planning() {
-    }
+//    Constructor
 
     public Planning(Date date) {
         initWeek(date);
     }
 
+    private void initWeek(Date date){
+        // Get calendar set to current date and time
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
 
-    private void initWeek(Date date) {
-        // Create a calendar to define a calendar for the parameter date
-        Calendar c = Calendar.getInstance();
-        //Define the new calendar for the parameter date
-        c.setTime(date);
-
-        // set monday of this date's week as the first day for the week calendar
-        c.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
-        c.set(Calendar.HOUR_OF_DAY, 0);
-
-        // put all the dates of the current week starting on Monday in the calendar
-        this.monday = c.getTime();
-        //Calcul Sunday for the week
-        for (int i = 0; i <6; i++) {
-            c.add(Calendar.DATE, 1);
+        //If the date is sunday, -1
+        int thisDay = calendar.get(Calendar.DAY_OF_WEEK);
+        if(thisDay == 1){
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
         }
-        this.sunday = c.getTime();
+        // Set the calendar to monday of the current week
+        calendar.setFirstDayOfWeek(Calendar.MONDAY);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+//      Get the weekday for this day in the new calendar
+        day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        //Get Monday of this week
+        calendar.add(Calendar.DATE, calendar.getFirstDayOfWeek() - day);
+//        Put all the dates of this week in the hashmap
+        weekDate.add(calendar.getTime());
+        weekPlanning.put(getDateWithFormat(calendar.getTime(),"yyyy-MM-dd"), new ArrayList<Seance>());
+        for (int i = 0; i <6; i++) {
+            calendar.add(Calendar.DATE, 1);
+            weekDate.add(calendar.getTime());
+            weekPlanning.put(getDateWithFormat(calendar.getTime(),"yyyy-MM-dd"), new ArrayList<Seance>());
+        }
     }
 
-//    getter and setter
-public Date getMonday() {
-    return monday;
-}
-
-    public void setMonday(Date monday) {
-        this.monday = monday;
-    }
-
-    public Date getSunday() {
-        return sunday;
-    }
-
-    public void setSunday(Date sunday) {
-        this.sunday = sunday;
-    }
-
-
-//    the date if in the defined week
-    public boolean isInWeek(Date date) {
-        return !(date.before(this.monday) || date.after(this.sunday));
-    }
-
-    public static boolean isWeek(Date date, Date startDate, Date endDate) {
+//    If the date is in this week
+    public static boolean isInWeek(Date date, Date startDate, Date endDate) {
         return !(date.before(startDate) || date.after(endDate));
     }
 
-//    Set the calendar with a date  in format Long and Return a number day fot this day (First day is Sunday as 0)
-    public static int getDayInMillis(long date) {
+//    Transform the day in long to Millis
+    public static int getLongtoMillis(long date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(date);
         return calendar.get(Calendar.DAY_OF_WEEK);
     }
 
-//    Change a number day in string date in week
-    public static String getWeekDayInStr(int value) {
+//    Transform the number day to the string day of this week
+    public static String getNumToStr(int value) {
         String day = "";
         switch (value) {
             case 1:
@@ -112,29 +89,17 @@ public Date getMonday() {
         return day;
     }
 
-//    transforme a Date to a defined format
+//    Tranform the date format to String format
     public static String getDateWithFormat(Date date, String format) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.format(date);
     }
 
-//    Transform a Date in format Long to String format
-    public static String getLongtoString(Long date, String format) {
+//    Transform the Long date to String format
+    public static String getStringToLong(Long date, String format) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(format);
         return simpleDateFormat.format(date);
 
-    }
-
-
-    public static void main(String[] args) throws ParseException {
-
-        Date date = new Date();
-        String dateStr = SDP_HOUR_MINUTE.format(date);
-        System.out.println(dateStr);
-        getDayInMillis(date.getTime());
-        System.out.println(getDayInMillis(date.getTime()));
-        Planning planning = new Planning(date);
-        System.out.println(planning.getSunday());
     }
 
 }

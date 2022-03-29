@@ -1,22 +1,33 @@
 package com.example.appelprojet.ctrl;
 
+import com.example.appelprojet.config.HibernateUtil;
 import com.example.appelprojet.dao.EtudiantDAO;
-import com.example.appelprojet.dao.UtilisateurDAO;
+import com.example.appelprojet.dao.SeanceDAO;
 import com.example.appelprojet.mertier.Etudiant;
-import com.example.appelprojet.mertier.Utilisateur;
+import com.example.appelprojet.mertier.Presence;
+import com.example.appelprojet.mertier.Seance;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "AppelCtrl", value = "/appelCtrl")
 public class AppelCtrl extends HttpServlet {
     @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+
+
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+//        doGet(request, response);
         /*----- Type de la réponse -----*/
         response.setContentType("application/xml;charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
@@ -25,10 +36,12 @@ public class AppelCtrl extends HttpServlet {
             out.println("<?xml version=\"1.0\"?>");
             out.println("<liste_etat>");
 
+
             /*----- Récupération des paramètres -----*/
-//            Paramètre pour changer l'état d'un étudiant
+//            Paramètre pour changer l'état d'un student
             String etat = request.getParameter("etatpresence");
             String etatpresence;
+            System.out.println(etat);
 
             /*------Mettre des données dans XML------*/
             if(etat != null){
@@ -45,33 +58,16 @@ public class AppelCtrl extends HttpServlet {
                 System.out.println(etatpresence);
             }
 
-            //            Paramètre pour changer tous les états pour tous les étudiants
-            String touspresence = request.getParameter("touspresence");
-            System.out.println(touspresence);
-            /*------Mettre des données dans XML------*/
-            if(touspresence!=null){
-                String allpresence = "Tous Présent";
-                if (touspresence.equals("1")) {
-                    allpresence = "Tous Absent";
-                    out.println("Absent");
-                }
-                out.println("<allpresence>" + allpresence + "</allpresence>");
-                System.out.println(allpresence);
-            }
-
-
             //            Paramètre pour montrer des étudiants à choisir
             String search = request.getParameter("search_student");
-            String seance = request.getParameter("seance");
-            System.out.println(touspresence);
+            System.out.println(search);
             /*------Mettre des données dans XML------*/
             if(search!=null){
                 List<Etudiant> list_students = EtudiantDAO.findByName(search);
-                System.out.println(list_students);
                 if (list_students != null){
                     for (Etudiant student : list_students) {
 //                        out.println("<student>" + student.getIdU() + " <![CDATA[" + student.getNomU() + "]]> <![CDATA[" + student.getPrenomU() + "]]></student>");
-                        out.println("<student>" + student.getIdU() + "  " + student.getNomU() + " " + student.getPrenomU() + "</student>");
+                        out.println("<student>" + student.getIdU()  + ", " + student.getFormation().getNomFormation() + ", " + student.getNomU() + " " + student.getPrenomU()  +  "</student>");
                         System.out.println("<student>" + student.getIdU() + "  " + student.getNomU() + " " + student.getPrenomU() + "</student>");
                     }
                 }else {
@@ -79,7 +75,6 @@ public class AppelCtrl extends HttpServlet {
                     System.out.println("<student>Ne pas trouver</student>");
                 }
             }
-
 
             //            Paramètre pour ajouter une un étudiant
             String addstudent = request.getParameter("addstudent");
@@ -105,12 +100,18 @@ public class AppelCtrl extends HttpServlet {
 
 
             //            Paramètre pour supprimer une un étudiant
-            String supprimer = request.getParameter("deletestudent");
-            System.out.println(supprimer);
-            /*------Mettre des données dans XML------*/
-            if (supprimer !=null && seance != null){
-                out.println("<student>delete</student>");
-                System.out.println("<student>delete</student>");
+            if (request.getParameter("deletestudent")!=null){
+                String supprimer = request.getParameter("deletestudent");
+//                String supprimer = request.getParameter("deletestudent").split("_")[0];
+                System.out.println(supprimer);
+//            //            Les infos de la séance
+                Seance seance = (Seance) request.getSession().getAttribute("utilisateur");
+//            HttpSession session = request.getSession(true);
+//                String idSeance = request.getParameter("deletestudent").split("_")[1];
+                /*------Mettre des données dans XML------*/
+                if (supprimer !=null){
+                    out.println("<student>delete</student>");
+                    System.out.println("<student>delete</student>");
 //                try {
 //                    //把学生从这个Seance删除
 //                    if (Bd.existMots(sm) == true) {
@@ -123,13 +124,30 @@ public class AppelCtrl extends HttpServlet {
 //                    out.println("<student>Erreur - " + ex.getMessage() + "</student>");
 //                    System.out.println("<student>Erreur - " + ex.getMessage() + "</student>");
 //                }
+                }else if (seance != null){
+                    out.println("<student>Non Id Seance</student>");
+                    System.out.println("<student>Non Id Seance</student>");
+                }
             }
+
+
+//            Parametres pour valider la fiche d'appel
+            String etats = request.getParameter("etats");
+            if (etats != null){
+                String[] idStudents = etats.split(",");
+                for (String ids : idStudents){
+                    try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
+                        Transaction transaction = session.getTransaction();
+                    }
+                }
+            }
+
+
+
+
             out.println("</liste_etat>");
         }
+
     }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        doGet(request, response);
-    }
 }

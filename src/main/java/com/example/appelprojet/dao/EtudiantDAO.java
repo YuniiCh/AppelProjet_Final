@@ -50,6 +50,7 @@ public class EtudiantDAO extends DAO<Etudiant> {
                 list_name.add(id);
             }
         }
+
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()){
             Transaction transaction = getTransaction(session);
             Query query = session.createQuery("from com.example.appelprojet.mertier.Etudiant e where lower(e.nomU) like :nom  and lower(e.prenomU ) like :prenom ");
@@ -61,7 +62,6 @@ public class EtudiantDAO extends DAO<Etudiant> {
             System.out.println("id: " + list_name.get(2) + "%");
 
             etudiants = query.list();
-//            affichage(etudiants);
             transaction.commit();
             session.close();
         }catch (Exception e) {

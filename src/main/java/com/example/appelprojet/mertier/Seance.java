@@ -20,6 +20,7 @@ public class Seance {
 //    Relaitons
 //    Cours
     @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CodeC")
     private Cours cours;
 
 //    enseignant

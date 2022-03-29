@@ -5,17 +5,27 @@
   Time: 21:08
   To change this template use File | Settings | File Templates.
 --%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ page contentType="text/html; charset=UTF-8" language="java" %>
 <%@ page import="com.example.appelprojet.mertier.Planning" %>
 <%@ page import="java.util.Date" %>
-<style>
-    <%@include file="/css/planning.css"%>
-</style>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.text.ParseException" %>
+<%@ page import="com.example.appelprojet.mertier.Utilisateur" %>
+<%@ page import="com.example.appelprojet.mertier.Seance" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.example.appelprojet.dao.SeanceDAO" %>
+<%@ page import="java.util.HashMap" %>
+<%@ page import="java.util.TreeMap" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Download File</title>
+    <style>
+        <%@include file="/css/planning.css"%>
+    </style>
+    <title>Planning</title>
+<%--    <link href="${pageContext.request.contextPath}/css/planning.css" rel="stylesheet" type="text/css">--%>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <%
@@ -30,6 +40,7 @@
     <h3 class="text-dark mb-0">Planning</h3>
 </div>
 
+<!-- .start timeline -->
 <div class="container">
     <div class="p-3" style="background: #f5f5f5;">
         <form method="post" action="planningCtrl">
@@ -54,188 +65,76 @@
 <div class="cd-schedule loading">
     <div class="timeline">
         <ul>
-            <li><span>08:00</span></li>
+<%--            <li><span>08:00</span></li>--%>
+<%--            <li><span>08:30</span></li>--%>
+            <li><span>09:00</span></li>
+            <li><span>09:30</span></li>
+            <li><span>10:00</span></li>
+            <li><span>10:30</span></li>
+            <li><span>11:00</span></li>
+            <li><span>11:30</span></li>
+            <li><span>12:00</span></li>
+            <li><span>12:30</span></li>
+            <li><span>13:00</span></li>
+            <li><span>13:30</span></li>
+            <li><span>14:00</span></li>
+            <li><span>14:30</span></li>
+            <li><span>15:00</span></li>
+            <li><span>15:30</span></li>
+            <li><span>16:00</span></li>
+            <li><span>16:30</span></li>
+            <li><span>17:00</span></li>
+            <li><span>17:30</span></li>
+            <li><span>18:00</span></li>
+        </ul>
+    </div> <!-- .cd-schedule__timeline -->
+
+<%--    Planning   --%>
+<div class="events">
+    <ul class="wrap">
             <%
-                int nbDistances = (int) ((20 - 8) / 0.5) + 1;
-                int heure = 8;
-                for (int i = 0; i<=nbDistances; i++){
-                    String minute = "00";
-                    if(i % 2 == 0){
-                        minute = "30";
-                    }else{
-                        heure ++;
+//                Date getDate = (Date) request.getAttribute("monday");
+//                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//                try {
+//                    getDate = sdf.parse(date);
+//                } catch (ParseException e) {
+//                    e.printStackTrace();
+//                }
+//                System.out.println(getDate);
+
+                /*------Obtenir des données------*/
+                Utilisateur utilisateur = (Utilisateur) request.getSession().getAttribute("utilisateur");
+                System.out.println(utilisateur.getIdU() + " " + utilisateur.getNomU() + " prenom " + utilisateur.getPrenomU());
+                TreeMap<String, List<Seance>> seancesMap = (TreeMap<String, List<Seance>>) request.getAttribute("seances");
+//                Planning planning = new Planning(getDate);
+//                List<Date> week = planning.weekDate;
+//                SimpleDateFormat sdf1 = new SimpleDateFormat("dd-MM-yyyy");
+//                StringBuilder semaine = new StringBuilder();
+                System.out.println("Planning jsp page:  " + seancesMap);
+                System.out.println("Seances Map:  " + seancesMap.keySet());
+                for (String d: seancesMap.keySet()){
+                    out.println("<li class=\"events-group\"> <div class=\"top-info\">");
+                    out.println("<span>" + d + "</span></div><ul>");
+                    if (seancesMap.get(d) != null) {
+                        for (Seance seance : seancesMap.get(d)) {
+                            String dataEvent = seance.getEtatAppel().equals("true")? "event-1" : "event-2";
+                            String appelUrl = "planningCtrl?idSeance=" + seance.getIdSeance();
+                            out.println("<li class=\"single-event\">");
+                            out.println("<a data-start='" + Planning.getDateWithFormat(seance.getDateDebut(),"HH:mm") + "' ");
+                            out.println("data-end=\"" + Planning.getDateWithFormat(seance.getDateFin(), "HH:mm") +"\" ");
+                            out.println("data-content= 'event-rowing-workout' data-event=\"" + dataEvent + "\" ");
+                            out.println("href=\"" + appelUrl + "\">");
+                            out.println("<em class=\"event-name\">" + seance.getCours().getNomCours().toUpperCase() +" " +seance.getCours().getFormation().getNomFormation().toUpperCase() + "<br>" + seance.getEnseignant().getNomU().toUpperCase() + " " + seance.getEnseignant().getPrenomU().toUpperCase() + "<br>" + seance.getSalle().getNomSalle().toUpperCase() + "</em> </a></li>");
+                        }
+                        out.println("</ul> </li>");
                     }
-                    String strHeure = Integer.toString(heure);
-                    if(strHeure.length()==1){
-                        strHeure = "0" + strHeure;
-                    }
-                    out.println("<li><span>" + strHeure + ":" + minute + " </span></li>");
                 }
-            %>
-        </ul>
-    </div> <!-- .timeline -->
+%>
 
-    <div class="events">
-        <ul class="wrap">
-            <c:forEach var="seances" items="${requestScope.seancesFilter}">
-                <li class="events-group">
-                    <div class="top-info">
-                        <span>${Planning.getWeekDayInStr(Planning.getDayInMillis(seances.key))}</span>
-                        <small>${Planning.getLongtoString(seances.key, "dd/MM")}</small>
-                    </div>
-                    <ul>
-                        <c:forEach var="seance" items="${seances.value}">
-                            <li class="single-event" data-start="${Planning.getDateWithFormat(seance.dateDebut, "HH:mm")}" data-end="${Planning.getDateWithFormat(seance.dateFin, "HH:mm")}" data-content="event-rowing-workout" data-event="event-2">
-                                <a href="${pageContext.request.contextPath}/appel?id=${seance.idSeance}" >
-                                    <em class="event-name">${seance.cour.nomCours}</em>
-                                </a>
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </li>
-            </c:forEach>
+    </ul>
+</div>
+<%--    v<!-- .end timeline -->--%>
 
-<%--            <li class="events-group">--%>
-<%--                <div class="top-info"><span>Tuesday</span></div>--%>
-
-<%--                <ul>--%>
-<%--                    <li class="single-event" data-start="10:00" data-end="11:00"  data-content="event-rowing-workout" data-event="event-2">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Rowing Workout</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="11:30" data-end="13:00"  data-content="event-restorative-yoga" data-event="event-4">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Restorative Yoga</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="13:30" data-end="15:00" data-content="event-abs-circuit" data-event="event-1">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Abs Circuit</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="15:45" data-end="16:45"  data-content="event-yoga-1" data-event="event-3">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Yoga Level 1</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-<%--                </ul>--%>
-<%--            </li>--%>
-
-<%--            <li class="events-group">--%>
-<%--                <div class="top-info"><span>Wednesday</span></div>--%>
-
-<%--                <ul>--%>
-<%--                    <li class="single-event" data-start="09:00" data-end="10:15" data-content="event-restorative-yoga" data-event="event-4">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Restorative Yoga</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="10:45" data-end="11:45" data-content="event-yoga-1" data-event="event-3">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Yoga Level 1</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="12:00" data-end="13:45"  data-content="event-rowing-workout" data-event="event-2">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Rowing Workout</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="13:45" data-end="15:00" data-content="event-yoga-1" data-event="event-3">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Yoga Level 1</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-<%--                </ul>--%>
-<%--            </li>--%>
-
-<%--            <li class="events-group">--%>
-<%--                <div class="top-info"><span>Thursday</span></div>--%>
-
-<%--                <ul>--%>
-<%--                    <li class="single-event" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Abs Circuit</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="12:00" data-end="13:45" data-content="event-restorative-yoga" data-event="event-4">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Restorative Yoga</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="15:30" data-end="16:30" data-content="event-abs-circuit" data-event="event-1">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Abs Circuit</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="17:00" data-end="18:30"  data-content="event-rowing-workout" data-event="event-2">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Rowing Workout</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-<%--                </ul>--%>
-<%--            </li>--%>
-
-<%--            <li class="events-group">--%>
-<%--                <div class="top-info"><span>Friday</span></div>--%>
-
-<%--                <ul>--%>
-<%--                    <li class="single-event" data-start="10:00" data-end="11:00"  data-content="event-rowing-workout" data-event="event-2">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Rowing Workout</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="12:30" data-end="14:00" data-content="event-abs-circuit" data-event="event-1">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Abs Circuit</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="15:45" data-end="16:45"  data-content="event-yoga-1" data-event="event-3">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Yoga Level 1</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-<%--                </ul>--%>
-<%--            </li>--%>
-<%--            <!--        -->--%>
-<%--            <li class="events-group">--%>
-<%--                <div class="top-info"><span>Saturday</span></div>--%>
-<%--                <ul>--%>
-<%--                    <li class="single-event" data-start="09:30" data-end="10:30" data-content="event-abs-circuit" data-event="event-1">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Abs Circuit</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="11:00" data-end="12:30" data-content="event-rowing-workout" data-event="event-2">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Rowing Workout</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-
-<%--                    <li class="single-event" data-start="14:00" data-end="15:15"  data-content="event-yoga-1" data-event="event-3">--%>
-<%--                        <a href="#0">--%>
-<%--                            <em class="event-name">Yoga Level 1</em>--%>
-<%--                        </a>--%>
-<%--                    </li>--%>
-<%--                </ul>--%>
-<%--            </li>--%>
-            <!--        -->
-            <!--        -->
-            <!--        -->
-        </ul>
-    </div>
 
     <div class="event-modal">
         <header class="header">
@@ -257,10 +156,11 @@
     </div>
 
     <div class="cover-layer"></div>
-</div> <!-- .cd-schedule -->
+<%--</div> <!-- .cd-schedule -->--%>
 
-
-<script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
-<script src="/js/planning.js"></script>
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js'></script>
+    <script src="${pageContext.request.contextPath}/js/planning1.js"></script>
+</body>
+</html>

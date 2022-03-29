@@ -1,7 +1,10 @@
 package com.example.appelprojet.dao;
 
 import com.example.appelprojet.config.HibernateUtil;
+import com.example.appelprojet.mertier.Etudiant;
 import com.example.appelprojet.mertier.Presence;
+import com.example.appelprojet.mertier.Seance;
+import com.example.appelprojet.util.EtatPresence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -35,6 +38,25 @@ public class PresenceDAO extends DAO<Presence>{
 //            session.close();
         }
         return presences;
+    }
+
+
+    /*----- mettre à jour l'etatPresence d'un étudiant dans une séance-----*/
+    public static void updateEtatPreEtu (EtatPresence etatPresence, Etudiant e, Seance s)
+    {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+
+            Presence p = e.getSeanPresences().get(s);
+            p.setEtatPresence(etatPresence.toString());
+
+            session.update(p);
+
+            t.commit();
+            session.close();
+        }
     }
 
 }

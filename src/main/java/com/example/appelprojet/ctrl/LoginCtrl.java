@@ -30,15 +30,15 @@ public class LoginCtrl extends HttpServlet {
         System.out.println(password);
 
         String msg_avert = "";
-        if (email.isEmpty()) {
+        if (email==null || email.isEmpty()) {
             msg_avert = "Saisez votre compte";
         }
 
-        if (password.isEmpty()) {
+        if ( password==null || password.isEmpty()) {
             msg_avert = "Saisez votre mot de passe";
         }
 
-        if (msg_avert.isEmpty()) {
+        if (msg_avert==null || msg_avert.isEmpty()) {
             try {
                 Utilisateur utilisateur = UtilisateurDAO.getLoginInfo(email, password);
                 System.out.println("2222 " + password);
@@ -54,20 +54,25 @@ public class LoginCtrl extends HttpServlet {
                 }
 
                 if(msg_avert.isEmpty()) {
+                    HttpSession session = request.getSession(true);
+//                    session.setAttribute("idu", utilisateur.getIdU());
+                    session.setAttribute("utilisateur", (Utilisateur) utilisateur);
                    if (UtilisateurDAO.findRoleById(utilisateur.getIdU())== Role.ENSEIGNANT){
                        System.out.println("get: " + Role.ENSEIGNANT);
                        if (SeanceDAO.isFindSeanceActuelByUser(utilisateur)) {
                            System.out.println("Find: Seance!");
                            Seance ficheAppel = SeanceDAO.infoFicheAppel(utilisateur);
 //                        HttpSession session = request.getSession();
+//                           session.setAttribute("seance", ficheAppel.getIdSeance());
+                           session.setAttribute("seance", (Seance) ficheAppel);
                            System.out.println("Seance actelle: " + ficheAppel.toString());
                            System.out.println("Seance is not null!");
                            RequestDispatcher rd = request.getRequestDispatcher("appel");
-                           request.setAttribute("ficheAppel", ficheAppel.getIdSeance());
+                           request.setAttribute("seance", (Seance) ficheAppel);
                            rd.forward(request, response);
                        } else {
                            System.out.println("if not found seances!");
-                           request.getRequestDispatcher("planning").forward(request, response);
+                           request.getRequestDispatcher("planningCtrl").forward(request, response);
                        }
                    } else if (UtilisateurDAO.findRoleById(utilisateur.getIdU())==Role.ETUDIANT) {
                        System.out.println("get: " + Role.ETUDIANT);

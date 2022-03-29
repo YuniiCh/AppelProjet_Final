@@ -2,6 +2,7 @@ package com.example.appelprojet.dao;
 
 import com.example.appelprojet.config.HibernateUtil;
 import com.example.appelprojet.mertier.Etudiant;
+import com.example.appelprojet.mertier.Planning;
 import com.example.appelprojet.mertier.Seance;
 import com.example.appelprojet.mertier.Utilisateur;
 import org.hibernate.Session;
@@ -9,13 +10,16 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 public class SeanceDAO extends DAO<Seance>{
     /*----- Format de date -----*/
     private static final SimpleDateFormat DF = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+    private static final SimpleDateFormat SDP_FR = new SimpleDateFormat("dd-MM-yyyy");
+    private static final SimpleDateFormat SDF_OLD_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+
     public SeanceDAO() {super.setEntity(Seance.class);}
 
     public static Seance findSeanceByTimeByIdU(Date date, Long idU){
@@ -116,6 +120,35 @@ public class SeanceDAO extends DAO<Seance>{
             session.close();
         }
         return etudiants;
+    }
+
+
+    /*----- Toutes les séances d'une semaine -----*/
+    public static List<Seance> findSeancesSemaine(Utilisateur utilisateur, Date date) {
+        /*----- Ouverture de la session -----*/
+        List<Seance> seances = null;
+        Planning planning = new Planning(date);
+        Calendar calendar = Calendar.getInstance();
+//        calendar.setTime(new Date());
+//        calendar.add(Calendar.DATE, -7);
+//        Date d = calendar.getTime();
+//        Planning planning = new Planning(d);
+        Date monday = planning.weekDate.get(0);
+        Date sunday = planning.weekDate.get(6);
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Query query = session.createQuery("from com.example.appelprojet.mertier.Seance s where s.enseignant.idU = :id " +
+                    "and s.dateDebut between :monday and :sunday");
+            query.setParameter("id", utilisateur.getIdU());
+            query.setParameter("monday", monday);
+            query.setParameter("sunday", sunday);
+            if (!query.getResultList().isEmpty()){
+                seances = (List<Seance>) query.list();
+            }
+            t.commit();
+            session.close();
+        }
+        return seances;
     }
 
 

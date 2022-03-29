@@ -8,7 +8,7 @@ public class Justificatif {
 
     // Propriétés
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CodeJ")
     private String idJ;
 
@@ -32,7 +32,7 @@ private Map<Seance,Presence> seanPresences = new HashMap(0);
 
 //    Etudiant, presence
     @OneToMany(mappedBy = "justificatif", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn(name = "CodeE", updatable = false, insertable = false)
+    @MapKeyJoinColumn(name = "CodeU", updatable = false, insertable = false)
     private Map<Etudiant,Presence> etudiantPresences = new HashMap(0);
 
 ////    Etudiant
