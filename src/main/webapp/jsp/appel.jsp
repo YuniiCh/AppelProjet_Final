@@ -10,6 +10,11 @@
 <%@ page import="com.example.appelprojet.dao.SeanceDAO" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 <%@ page import="com.example.appelprojet.mertier.Etudiant" %>
+<%@ page import="com.example.appelprojet.dao.EtudiantDAO" %>
+<%@ page import="com.example.appelprojet.util.EtatPresence" %>
+<%@ page import="com.example.appelprojet.mertier.Presence" %>
+<%@ page import="com.example.appelprojet.dao.PresenceDAO" %>
+<%@ page import="java.util.Objects" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -31,6 +36,11 @@
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm");
             Seance appel = (Seance) request.getAttribute("seance");
             System.out.println("appel" + appel);
+            session.setAttribute("seance", appel);
+            String disable = "disabled=\"disabled\"";
+            if (!appel.getEtatAppel().equals("valide")){
+                disable = "";
+            }
         %>
         <h5><%=appel.getCours().getTypeCours().toUpperCase() %></h5>
         <p><%=appel.getCours().getNomCours().toUpperCase() %></p>
@@ -49,9 +59,9 @@
 <form action="" method="post" class="center">
     <br>
     <div class="divButton">
-        <button id="btn_touspresence" type="button" class="buttonTop"><span id="toustext">Tous présents</span></button>
+        <button id="btn_touspresence" type="button" class="buttonTop" <%=disable%>><span id="toustext">Tous présents</span></button>
         <!-- Open Pop-Up -->
-        <button id="btn_add" type="button" class="buttonTop">Ajouter</button>
+        <button id="btn_add" type="button" class="buttonTop"  <%=disable%>>Ajouter</button>
         <!-- Pop -->
         <div id="add_student_pop" class="add_student_pop">
             <!-- Pop Content-->
@@ -71,7 +81,7 @@
             </div>
         </div>
 
-        <button id="btn_delete" type="button" class="buttonTop">Supprimer</button>
+        <button id="btn_delete" type="button" class="buttonTop"  <%=disable%>>Supprimer</button>
     </div>
 
     <br>
@@ -88,24 +98,42 @@
             </thead>
             <tbody>
             <%
-                List<Etudiant> etudiants = SeanceDAO.findEtudiansByID(appel);
+                List<Presence> presences = PresenceDAO.findPresenceByIdSeance(appel);
                 int i = 0;
                 String formation = "FI";
-                for (Etudiant e:etudiants) {
-                    if (!e.getFormation().getNomFormation().toUpperCase().contains(formation)){
+                String unitDisable =  "disabled=\"disabled\"";
+                for (Presence p:presences) {
+                    if (!p.getEtudiant().getFormation().getNomFormation().toUpperCase().contains(formation)){
                         formation = "FA";
+                    }
+                    if (p.getEtatPresence() != EtatPresence.ABSENCE || appel.getEtatAppel().equals( "valide")){
+                        unitDisable = "";
                     }
             %>
             <tr>
-                <td><img src="https://github.com/PikaMeoow/Photo-Etudiant/blob/main/<%=e.getIdU()%>.png?raw=true"  alt="images"/>
+                <td><img src="https://github.com/PikaMeoow/Photo-Etudiant/blob/main/<%=p.getEtudiant().getIdU()%>.png?raw=true"  alt="images"/>
 <%--                    <img src="image/etudiant.png" style="height: 4.5rem; width: 4.5rem;" />--%>
                 </td>
                 <td class="student_info"><span class="formation_color" style="<% if(formation.equals("FI")) out.println("background-color: mediumpurple;"); else out.println("background-color: mediumslateblue;");%>"
                 ><%=formation%> </span>
-                    <span class="id_student"><%=e.getNomU()%>  <%=e.getPrenomU()%></span>
+                    <span class="id_student"><%=p.getEtudiant().getNomU()%>  <%=p.getEtudiant().getPrenomU()%></span>
                 </td>
-                <td><button id="btn_etatP<%=i%>" class="btn_etatp_cl" type="button" name="<%=e.getIdU()%>" onclick="getNbClick(this);"><span id="etatPresent<%=i%>" class="etatpresent_cl">Présent</span></button></td>
-                <td><span class="btn_delet_one" id="delet_<%=e.getIdU()%>" style="pointer-events: none; display: none; ">&circleddash;</span></td>
+                <td><button id="btn_etatP<%=i%>" class="btn_etatp_cl" type="button" name="<%=p.getEtudiant().getIdU()%>" onclick="getNbClick(this);"  <%=disable%> <%=unitDisable%>>
+                    <span id="etatPresent<%=i%>" class="etatpresent_cl">
+                    <%
+                    if(p.getEtatPresence() == EtatPresence.RETART) {
+                        out.println("Retard");
+                    }else if(p.getEtatPresence() == EtatPresence.ABSENCE_SIGNALE) {
+
+                        out.println("Signaler");
+                    }else if(p.getEtatPresence() == EtatPresence.PRESENCE){
+                            out.println("Pésent");
+                    }else {
+                        out.println("Absent");
+                    }
+                %>
+                    </span></button></td>
+                <td><span class="btn_delet_one" id="delet_<%=p.getEtudiant().getIdU()%>" style="pointer-events: none; display: none; ">&circleddash;</span></td>
             </tr>
             <%
                     i++; }
@@ -115,7 +143,8 @@
     </div>
     <br>
     <div id="div3">
-        <button type="submit" name="submit" value="Valider" id="valider">Valider</button><span id="valideEtat"></span>
+        <button type="button" name="save" value="save" id="save"  <%=disable%>>Enregistrer</button><span id="saveEtat"></span>
+        <button type="button" name="submit" value="valide" id="valider"  <%=disable%>>Valider</button><span id="valideEtat"></span>
     </div>
 </form>
 <a href="planning">Planning</a>

@@ -8,9 +8,9 @@ public class Justificatif {
 
     // Propriétés
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CodeJ")
-    private String idJ;
+    private Long idJ;
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateDepot;
@@ -20,52 +20,38 @@ public class Justificatif {
     private String nameFile;
 
     // Relations
-//    Scolarite
+    //    Scolarite
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CodeU")
+    @JoinColumn(name = "CodeSC")
     private Scolarite scolarite;
-//    Seances-Presences
-//    Seance, presence
-@OneToMany(mappedBy = "justificatif")
-@MapKeyJoinColumn(name = "CodeSE", updatable = false, insertable = false)
-private Map<Seance,Presence> seanPresences = new HashMap(0);
 
-//    Etudiant, presence
+
+    //    Seances
     @OneToMany(mappedBy = "justificatif", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn(name = "CodeU", updatable = false, insertable = false)
-    private Map<Etudiant,Presence> etudiantPresences = new HashMap(0);
+    @MapKeyJoinColumn(name = "CodeSE")
+    private Map<Seance,Justifier> lesSeances = new HashMap(0);
 
-////    Etudiant
-//@ManyToOne(fetch = FetchType.EAGER)
-//@JoinColumn(name = "CodeU", insertable = false, updatable = false)
-//private Etudiant etudiant;
+    // Etudiant
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CodeE")
+    private Etudiant etudiant;
 
     // Constructors
     public Justificatif() {
     }
 
-//    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite) {
-//        this.dateDepot = dateDepot;
-//        this.etatValidation = etatValidation;
-//        this.linkFile = linkFile;
-//        this.nameFile = nameFile;
-//        this.scolarite = scolarite;
-//    }
-
-
-    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite) {
+    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite, Etudiant etudiant) {
         this.dateDepot = dateDepot;
         this.etatValidation = etatValidation;
         this.linkFile = linkFile;
         this.nameFile = nameFile;
         this.scolarite = scolarite;
-        this.seanPresences = seanPresences;
-//        this.etudiant = etudiant;
+        this.etudiant = etudiant;
     }
 
     // Getter / Setter
-    public String getIdJ() {return idJ;}
-    public void setIdJ(String idJ) {this.idJ = idJ;}
+    public long getIdJ() {return idJ;}
+    public void setIdJ(long idJ) {this.idJ = idJ;}
     public Date getDateDepot() {return dateDepot;}
     public void setDateDepot(Date dateDepot) {this.dateDepot = dateDepot;}
     public String getEtatValidation() {return etatValidation;}
@@ -95,29 +81,24 @@ private Map<Seance,Presence> seanPresences = new HashMap(0);
         this.scolarite = scolarite;
     }
 
-    public Map<Seance, Presence> getSeanPresences() {
-        return seanPresences;
+    public Map<Seance, Justifier> getJustifiers() {return lesSeances;}
+
+    public void setJustifiers(Map<Seance, Justifier> justifiers) {this.lesSeances = justifiers;}
+
+    public Etudiant getEtudiant() {
+        return etudiant;
     }
 
-    public void setSeanPresences(Map<Seance, Presence> seanPresences) {
-        this.seanPresences = seanPresences;
+    public void setEtudiant(Etudiant etudiant) {
+        this.etudiant = etudiant;
     }
 
-    public Map<Etudiant, Presence> getEtudiantPresences() {
-        return etudiantPresences;
-    }
-
-    public void setEtudiantPresences(Map<Etudiant, Presence> etudiantPresences) {
-        this.etudiantPresences = etudiantPresences;
-    }
-
-    // HashCode / Equals
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Justificatif that = (Justificatif) o;
-        return idJ.equals(that.idJ);
+        return idJ == that.idJ;
     }
 
     @Override
@@ -133,7 +114,8 @@ private Map<Seance,Presence> seanPresences = new HashMap(0);
                 ", etatValidation='" + etatValidation + '\'' +
                 ", linkFile='" + linkFile + '\'' +
                 ", nameFile='" + nameFile + '\'' +
-                ", scolarite=" + scolarite +
+                ", scolarite=" + scolarite.toString() +
+                ", etudiant=" + etudiant.toString() +
                 '}';
     }
 }

@@ -1,10 +1,8 @@
 package com.example.appelprojet.dao;
 
 import com.example.appelprojet.config.HibernateUtil;
-import com.example.appelprojet.mertier.Etudiant;
-import com.example.appelprojet.mertier.Planning;
-import com.example.appelprojet.mertier.Seance;
-import com.example.appelprojet.mertier.Utilisateur;
+import com.example.appelprojet.mertier.*;
+import com.example.appelprojet.util.EtatPresence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -103,25 +101,6 @@ public class SeanceDAO extends DAO<Seance>{
         return appel;
     }
 
-    /*----- liste des étudiants de la fiche d'appel d'une séance -----*/
-    public static List<Etudiant> findEtudiansByID(Seance seance)
-    {
-        List<Etudiant> etudiants = null;
-        /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-
-            etudiants = session.createQuery("select e " +
-                    "from com.example.appelprojet.mertier.Etudiant e, com.example.appelprojet.mertier.Seance s, com.example.appelprojet.mertier.Cours c, com.example.appelprojet.mertier.Formation f " +
-                    "where f.id = c.formation.id " +
-                    "and e.formation.idFormation = f.idFormation " +
-                    "and s.cours.idCours = c.idCours " +
-                    "and s.idSeance = ' " + seance.getIdSeance() + "' " ).list();
-            session.close();
-        }
-        return etudiants;
-    }
-
 
     /*----- Toutes les séances d'une semaine -----*/
     public static List<Seance> findSeancesSemaine(Utilisateur utilisateur, Date date) {
@@ -150,6 +129,27 @@ public class SeanceDAO extends DAO<Seance>{
         }
         return seances;
     }
+
+
+    /*----- mettre à jour l'etatAppel d'une séance-----*/
+    public static void updateEtatAppelBySeance (Seance s)
+    {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+
+            Seance seance = session.get(Seance.class,s.getIdSeance());
+            seance.setEtatAppel("valide");
+            session.update(seance);
+            System.out.println("Valider Secessful!");
+            t.commit();
+            session.close();
+        }catch (Exception ignored){
+            System.out.println("Valider Failed !");
+        }
+    }
+
 
 
 //    public static Seance findSeanceActuel() {

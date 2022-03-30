@@ -12,7 +12,7 @@ public class Enseignant extends Utilisateur{
 
     //    Relation
     //    seances
-    @OneToMany (mappedBy = "enseignant", fetch = FetchType.LAZY)
+    @OneToMany (mappedBy = "enseignant", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<Seance>  seances = new HashSet<>(0);
 
     //    Contructeur

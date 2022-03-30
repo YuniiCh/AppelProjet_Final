@@ -20,11 +20,11 @@ public class Etudiant extends Utilisateur{
     //  Relation
     //  Appartenir formation
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "CodeF")
+    @JoinColumn(name = "idFormation")
     private Formation formation ;
 
     //    Seance, presence
-    @OneToMany(mappedBy = "etudiant")
+    @OneToMany(mappedBy = "etudiant", cascade = CascadeType.ALL)
     @MapKeyJoinColumn(name = "CodeSE", updatable = false, insertable = false)
     private Map<Seance,Presence> seanPresences = new HashMap(0);
 
@@ -34,11 +34,11 @@ public class Etudiant extends Utilisateur{
     private Map<Justificatif,Presence> justPresences = new HashMap(0);
 
 
-   //    Contructeur
+    //    Contructeur
     public Etudiant() {
     }
 
-    public Etudiant(String nomU, String prenomU, String mdp, String email, String identifiant, TypeEtudiant typeEtudiant,String tdGroup, Formation formation) {
+    public Etudiant(String nomU, String prenomU, String mdp, String email, String identifiant, TypeEtudiant typeEtudiant, String tdGroup, Formation formation) {
         super(nomU, prenomU, mdp, email, identifiant);
         this.typeEtudiant = typeEtudiant;
         this.tdGroup = tdGroup;
@@ -72,15 +72,6 @@ public class Etudiant extends Utilisateur{
     }
 
     //    toString
-
-    @Override
-    public String toString() {
-        return "Etudiant{" +
-                "typeEtudiant=" + typeEtudiant +
-                ", tdGroup='" + tdGroup + '\'' +
-                ", formation=" + formation.toString() +
-                '}';
-    }
 
     //    equals and hashCode
 

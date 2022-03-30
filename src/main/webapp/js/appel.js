@@ -7,7 +7,6 @@
 const url = "appelCtrl";
 let nbClick = 0;
 let id_seance = document.getElementById("id_seance").innerText.split("°")[1];
-
 function iniAppel(){
     let xhr = new XMLHttpRequest();
     let param = "etatpresence=" + encodeURIComponent(nb);
@@ -260,9 +259,14 @@ function confirmAppel() {
     let presences = document.getElementsByClassName("btn_etatp_cl");
     console.log(presences.item(0).getAttribute("name"));
     console.log(presences.item(0).firstChild.textContent);
-    let etats = presences.item(0).getAttribute("name").replace(" ","") + "-" + presences.item(0).firstChild.nodeValue.replace(" ","");
+    let etats = presences.item(0).getAttribute("name") + " " +presences.item(0).firstChild.textContent.replace("é","e");
+    console.log("etat 0: " + etats);
     for (let i = 1; i < presences.length; i++){
-        etats = etats + "," + presences.item(i).getAttribute("name").replace(" ","") + "-" + presences.item(i).firstChild.textContent.replace(" ","");
+        console.log(presences.item(i).getAttribute("name"));
+        console.log(presences.item(i).firstChild.textContent);
+        if (presences.item(i).firstChild.textContent !== "Signaler"){
+            etats = etats + "," + presences.item(i).getAttribute("name") + " " + presences.item(i).firstChild.textContent.replace("é","e");
+        }
     }
     console.log(etats);
     let xhr = new XMLHttpRequest();
@@ -274,19 +278,41 @@ function confirmAppel() {
         console.log("xhr.status : " + xhr.status);
         if (xhr.status === 200) {
             let update_status = xhr.responseXML.getElementsByTagName("student");
+            let update_ok = true;
+            let check_not_ok = true;
             for (let i = 0; i < update_status.length; i++){
-                if (update_status[i].firstElementChild.nodeValue === "update"){
-                    document.getElementById("valideEtat").innerHTML = "Valider!";
+                if (update_status[i].firstChild.nodeValue !== "update"){
+                    update_ok = false;
+                    check_not_ok = false;
                 }else {
-                    document.getElementById("valideEtat").style.color = "red";
-                    document.getElementById("valideEtat").innerHTML = "Erreur!";
+                    presences.item(i).disabled = true;
                 }
+            }
+            if (check_not_ok !== false){
+                document.getElementById("valideEtat").style.color = "green";
+                document.getElementById("valideEtat").innerHTML = "Valider!";
+                document.getElementById("valider").disabled = true;
+            }else {
+                document.getElementById("valideEtat").style.color = "red";
+                document.getElementById("valideEtat").innerHTML = "Erreur!";
             }
         }
 
     };
     xhr.send(param);
 }
+
+// function strNoAccent(a) {
+//     var b="áàâäãåçéèêëíïîìñóòôöõúùûüýÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ",
+//         c="aaaaaaceeeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY",
+//         d = "";
+//     for(var i = 0, j = a.length; i < j; i++) {
+//         var e = a.substr(i, 1);
+//         d += (b.indexOf(e) !== -1) ? c.substr(b.indexOf(e), 1) : e;
+//     }
+//     return d;
+// }
+
 
 
 

@@ -7,14 +7,14 @@ import java.util.Objects;
 
 @Embeddable
 public class PresenceID implements java.io.Serializable{
-//    Priorietes
+    //    Priorietes
     @Column(name = "CodeSE")
     private long codeSE;
     @Column(name = "CodeU")
     private long codeU;
 
 
-//    Constructeur
+    //    Constructeur
     public PresenceID() {
     }
 
@@ -23,7 +23,7 @@ public class PresenceID implements java.io.Serializable{
         this.codeU = codeU;
     }
 
-//    getter and setter
+    //    getter and setter
 
     public long getCodeSEA() {
         return codeSE;

@@ -1,5 +1,8 @@
 package com.example.appelprojet.mertier;
 
+import com.example.appelprojet.util.EtatPresence;
+import com.example.appelprojet.util.EtatValidation;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -9,11 +12,8 @@ public class Presence {
     @EmbeddedId
     private PresenceID idPresence;
 
-    @Column(name = "EtatPresence")
-    private String etatPresence;
-
-    @Column(name = "EtatValidation")
-    private String etatValidation;
+    @Enumerated(EnumType.STRING)
+    private EtatPresence etatPresence;
 
     //    Relations
     //    etudiant
@@ -28,16 +28,9 @@ public class Presence {
 
     //    justificatif
     @ManyToOne
-    @JoinColumn(name = "CodeJ", insertable = false, updatable = false,nullable = false)
+    @JoinColumn(name = "CodeJ", insertable = false, updatable = false)
     private Justificatif justificatif;
 
-    public Presence(String etatPresence, String etatValidation, Etudiant etudiant, Seance seance, Justificatif justificatif) {
-        this.etatPresence = etatPresence;
-        this.etatValidation = etatValidation;
-        this.etudiant = etudiant;
-        this.seance = seance;
-        this.justificatif = justificatif;
-    }
 
 //    Constructeur
 
@@ -45,30 +38,26 @@ public class Presence {
     }
 
 
-
+    public Presence(EtatPresence etatPresence,PresenceID idPresence, Justificatif justificatif) {
+        this.etatPresence = etatPresence;
+        this.idPresence = idPresence;
+        this.justificatif = justificatif;
+    }
 
     //    getter and setter
     public PresenceID getIdPresence() {return idPresence;}
 
     public void setIdPresence(PresenceID idPresence) {this.idPresence = idPresence;}
 
-    public String getEtatPresence() {return etatPresence;}
+    public EtatPresence getEtatPresence() {return etatPresence;}
 
-    public void setEtatPresence(String etatPresence) {this.etatPresence = etatPresence;}
+    public void setEtatPresence(EtatPresence etatPresence) {this.etatPresence = etatPresence;}
 
     public Etudiant getEtudiant() {return etudiant;}
 
     public void setEtudiant(Etudiant etudiant) {this.etudiant = etudiant;}
 
     public Seance getSeance() {return seance;}
-
-    public String getEtatValidation() {
-        return etatValidation;
-    }
-
-    public void setEtatValidation(String etatValidation) {
-        this.etatValidation = etatValidation;
-    }
 
     public void setSeance(Seance seance) {this.seance = seance;}
 
@@ -82,7 +71,6 @@ public class Presence {
         return "Presence{" +
                 "idPresence=" + idPresence +
                 ", etatPresence='" + etatPresence + '\'' +
-                ", etatValidation='" + etatValidation + '\'' +
                 ", etudiant=" + etudiant.toString() +
                 ", seance=" + seance.toString() +
                 ", justificatif=" + justificatif.toString() +
@@ -90,6 +78,7 @@ public class Presence {
     }
 
     //  equals and hashCode
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

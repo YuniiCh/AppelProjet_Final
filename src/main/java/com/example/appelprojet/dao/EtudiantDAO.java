@@ -3,6 +3,8 @@ package com.example.appelprojet.dao;
 import com.example.appelprojet.config.HibernateUtil;
 import com.example.appelprojet.mertier.Cours;
 import com.example.appelprojet.mertier.Etudiant;
+import com.example.appelprojet.mertier.Seance;
+import com.example.appelprojet.util.EtatPresence;
 import com.example.appelprojet.util.FontionsUtiles;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -69,4 +71,31 @@ public class EtudiantDAO extends DAO<Etudiant> {
         }
         return etudiants;
     }
+
+    /*----- liste des étudiants de la fiche d'appel d'une séance -----*/
+    public static List<Etudiant> findEtudiansByID(Seance seance)
+    {
+        List<Etudiant> etudiants = null;
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            etudiants = session.createQuery("select p.etudiant from com.example.appelprojet.mertier.Presence p where p.seance.idSeance = '" + seance.getIdSeance() + "' " ).list();
+            session.close();
+        }
+        return etudiants;
+    }
+
+//    public static String findEtudiantEtatByEtu(Etudiant etudiant, Seance seance){
+//        String etat = null;
+//        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+//            Transaction t = session.beginTransaction();
+//            Query query = session.createQuery("select p.etatPresence from com.example.appelprojet.mertier.Presence p where p.seance.idSeance = '" + seance.getIdSeance() + "' and p.etudiant.idU = '" + etudiant.getIdU() + "'");
+//           if (!query.getResultList().isEmpty()){
+//               etat = query.getResultList().get(0).toString();
+//           }
+//        }
+//        return etat;
+//    }
+
 }

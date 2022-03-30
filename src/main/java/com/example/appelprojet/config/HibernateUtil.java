@@ -27,6 +27,8 @@ public class HibernateUtil {
             configuration.addAnnotatedClass(Etudiant.class);
             configuration.addAnnotatedClass(Formation.class);
             configuration.addAnnotatedClass(Justificatif.class);
+            configuration.addAnnotatedClass(Justifier.class);
+            configuration.addAnnotatedClass(JustifierID.class);
             configuration.addAnnotatedClass(Presence.class);
             configuration.addAnnotatedClass(PresenceID.class);
             configuration.addAnnotatedClass(Salle.class);

@@ -1,7 +1,7 @@
 package com.example.appelprojet.util;
 
 public enum TypeEtudiant {
-    INITIAL,
-    ALTERNANT,
+    FI,
+    FA,
     NONE
 }
