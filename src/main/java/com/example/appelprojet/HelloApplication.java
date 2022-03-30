@@ -4,11 +4,13 @@ import com.example.appelprojet.config.HibernateUtil;
 import com.example.appelprojet.dao.*;
 import com.example.appelprojet.mertier.*;
 import com.example.appelprojet.util.EtatPresence;
+import com.example.appelprojet.util.FontionsUtiles;
 import com.example.appelprojet.util.TypeEtudiant;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import javax.swing.text.StyleConstants;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.sql.Timestamp;
@@ -695,7 +697,7 @@ public class HelloApplication extends Application {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 //        enrgFormation();
 //        enrgUtilisateur();
 //        enrgSalle();
@@ -778,8 +780,14 @@ public class HelloApplication extends Application {
 //        SeanceDAO seanceDAO = new SeanceDAO();
 //        Seance seance = seanceDAO.find(17L);
 //        PresenceDAO.updateEtatPreEtuByID(EtatPresence.RETART,7L,9L);
-        SeanceDAO seanceDAO = new SeanceDAO();
-        SeanceDAO.updateEtatAppelBySeance(seanceDAO.find(10L));
+//        SeanceDAO seanceDAO = new SeanceDAO();
+//        SeanceDAO.updateEtatAppelBySeance(seanceDAO.find(10L), "valide");
+//       List<Presence> presences =  PresenceDAO.findPresenceByIdSeance(20L);
+//       for (Presence p: presences){
+//           System.out.println("Find presence: " + p.getEtudiant().getEmail());
+//       }
+//        List<Presence> presences = PresenceDAO.findPresenceByIdSeance(15L);
+//        FontionsUtiles.notifyAbsenceSeance();
     }
 
 }

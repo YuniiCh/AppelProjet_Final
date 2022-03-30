@@ -3,6 +3,7 @@ package com.example.appelprojet.dao;
 import com.example.appelprojet.config.HibernateUtil;
 import com.example.appelprojet.mertier.*;
 import com.example.appelprojet.util.EtatPresence;
+import com.example.appelprojet.util.FontionsUtiles;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -11,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class SeanceDAO extends DAO<Seance>{
     /*----- Format de date -----*/
@@ -132,7 +134,7 @@ public class SeanceDAO extends DAO<Seance>{
 
 
     /*----- mettre à jour l'etatAppel d'une séance-----*/
-    public static void updateEtatAppelBySeance (Seance s)
+    public static void updateEtatAppelBySeance (Seance s, String action)
     {
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -140,15 +142,18 @@ public class SeanceDAO extends DAO<Seance>{
             Transaction t = session.beginTransaction();
 
             Seance seance = session.get(Seance.class,s.getIdSeance());
-            seance.setEtatAppel("valide");
+            seance.setEtatAppel(action);
             session.update(seance);
-            System.out.println("Valider Secessful!");
+            System.out.println( action + " Secessful!");
             t.commit();
             session.close();
         }catch (Exception ignored){
-            System.out.println("Valider Failed !");
+            System.out.println(action + " Failed !");
         }
     }
+
+
+
 
 
 

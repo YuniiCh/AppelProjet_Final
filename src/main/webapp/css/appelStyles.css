@@ -44,7 +44,7 @@ table {
     text-align: center;
 }
 
-#valider {
+#valider, #save {
     width: 200px;
     padding: 5px;
     background: lightgreen;
@@ -57,7 +57,7 @@ table {
     0 8px 8px 1px rgba(0,0,0,0.5);
 }
 
-#valider:active {
+#valider:active , #save:active{
     box-shadow: 0 0 0 1px #82c8a0 inset,
     0 0 0 2px rgba(255,255,255,0.15) inset,
     0 0 0 1px rgba(0,0,0,0.4);

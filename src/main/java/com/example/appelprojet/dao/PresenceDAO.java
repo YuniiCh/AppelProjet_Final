@@ -41,7 +41,7 @@ public class PresenceDAO extends DAO<Presence>{
     }
 
     /*----- liste des étudiants de la fiche d'appel d'une séance -----*/
-    public static List<Presence> findPresenceByIdSeance(Seance seance)
+    public static List<Presence> findPresenceBySeance(Seance seance)
     {
         List<Presence> presences = null;
         /*----- Ouverture de la session -----*/
@@ -49,8 +49,27 @@ public class PresenceDAO extends DAO<Presence>{
             Transaction t = session.beginTransaction();
 
             presences = session.createQuery("select p from com.example.appelprojet.mertier.Presence p where p.seance.idSeance = '" + seance.getIdSeance() + "' " ).list();
+            t.commit();
             session.close();
         }
+        return presences;
+    }
+
+
+
+    /*----- liste des étudiants de la fiche d'appel d'une séance -----*/
+    public static List<Presence> findPresenceByIdSeance(Long id)
+    {
+        List<Presence> presences = null;
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            presences = session.createQuery("select p from com.example.appelprojet.mertier.Presence p where p.seance.idSeance = '" + id + "' " ).list();
+            t.commit();
+            session.close();
+        }
+
         return presences;
     }
 

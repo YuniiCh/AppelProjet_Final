@@ -4,6 +4,8 @@
  * On utilise la propriété 'responseText' de l'objet XMLHttpRequest afin
  * de récupérer sous forme de texte le flux envoyé par le serveur.
  */
+
+
 const url = "appelCtrl";
 let nbClick = 0;
 let id_seance = document.getElementById("id_seance").innerText.split("°")[1];
@@ -149,15 +151,15 @@ function showStudents() {
                         if (students[i].firstChild.nodeValue.split(", ")[1]=="FA"){
                             style = "background-color: mediumslateblue;"
                         }
-                        let idStudent = students[i].firstChild.nodeValue.split(", ")[0];
-                        let nom = students[i].firstChild.nodeValue.split(", ")[2];
-                        let btn_num = document.getElementsByClassName("btn_etatp_cl").length + 1;
-                        let insert = " <tr><td><img src=\"https://github.com/PikaMeoow/Photo-Etudiant/blob/main/" +idStudent + ".png?raw=true\"  alt=\"images\"/></td>" +
-                            "                <td class=\"student_info\"><span class=\"formation_color\" style=\""+ style +"\"</span><span class=\""+ idStudent +"\">" + nom + "</span></td>" +
-                            "                <td><button id=\"btn_etatP" + btn_num + "\" class=\"btn_etatp_cl\" type=\"button\" name=\"" + idStudent + "\" onclick=\"getNbClick(this);\"><span id=\"etatPresent" + btn_num + "\" class=\"etatpresent_cl\">Présent</span></button></td>" +
-                            "                <td><span class=\"btn_delet_one\" id=\"delet_" + btn_num + "\" style=\"pointer-events: none; display: none; \">&circleddash;</span></td></tr>";
+                        // let idStudent = students[i].firstChild.nodeValue.split(", ")[0];
+                        // let nom = students[i].firstChild.nodeValue.split(", ")[2];
+                        // let btn_num = document.getElementsByClassName("btn_etatp_cl").length + 1;
+                        // let insert = " <tr><td><img src=\"https://github.com/PikaMeoow/Photo-Etudiant/blob/main/" +idStudent + ".png?raw=true\"  alt=\"images\"/></td>" +
+                        //     "                <td class=\"student_info\"><span class=\"formation_color\" style=\""+ style +"\"</span><span class=\""+ idStudent +"\">" + nom + "</span></td>" +
+                        //     "                <td><button id=\"btn_etatP" + btn_num + "\" class=\"btn_etatp_cl\" type=\"button\" name=\"" + idStudent + "\" onclick=\"getNbClick(this);\"><span id=\"etatPresent" + btn_num + "\" class=\"etatpresent_cl\">Présent</span></button></td>" +
+                        //     "                <td><span class=\"btn_delet_one\" id=\"delet_" + btn_num + "\" style=\"pointer-events: none; display: none; \">&circleddash;</span></td></tr>";
                         zone.insertAdjacentHTML("beforeend", "<div class = 'student' id='student" +students[i].firstChild.nodeValue.split(" ")[0] +"'><span>" + students[i].firstChild.nodeValue + "</span></div>");
-                        document.getElementById("listEtudiant").firstElementChild.insertAdjacentHTML("beforeend", insert);
+                        // document.getElementById("listEtudiant").firstElementChild.insertAdjacentHTML("beforeend", insert);
                     }
                     let list_students = document.getElementsByClassName("student");
                     for (let i = 0; i < list_students.length; i++){
@@ -173,7 +175,8 @@ function showStudents() {
 
 function showStrudentsList(){
     let student = this.firstChild.firstChild.nodeValue;
-    let show_student = document.getElementById("zone_students_chosen");
+    console.log(this.firstChild.firstChild.nodeValue);
+    let add_student = document.getElementById("listEtudiant");
     let xhr = new XMLHttpRequest();
     let param = "addstudent=" + encodeURIComponent(student.split(" ")[0]);
     console.log(param);
@@ -182,10 +185,22 @@ function showStrudentsList(){
     xhr.onload = function () {
         if (xhr.status === 200) {
             let add_status = xhr.responseXML.getElementsByTagName("student");
+            let idStudent = student.split(", ")[0];
+            let nom = student.split(", ")[2];
+            let style = "background-color: mediumpurple;";
+            if (student.split(", ")[1]=="FA"){
+                style = "background-color: mediumslateblue;"
+            }
+            let btn_num = document.getElementsByClassName("btn_etatp_cl").length + 1;
+            let insert = " <tr><td><img src=\"https://github.com/PikaMeoow/Photo-Etudiant/blob/main/" +idStudent + ".png?raw=true\"  alt=\"images\"/></td>" +
+                "                <td class=\"student_info\"><span class=\"formation_color\" style=\""+ style +"\">" + student.split(", ")[1] + "</span></span><span class=\""+ idStudent +"\">" + nom + "</span></td>" +
+                "                <td><button id=\"btn_etatP" + btn_num + "\" class=\"btn_etatp_cl\" type=\"button\" name=\"" + idStudent + "\" onclick=\"getNbClick(this);\"><span id=\"etatPresent" + btn_num + "\" class=\"etatpresent_cl\">Présent</span></button></td>" +
+                "                <td><span class=\"btn_delet_one\" id=\"delet_" + btn_num + "\" style=\"pointer-events: none; display: none; \">&circleddash;</span></td></tr>";
             for(let i=0; i< add_status.length; i++){
-                show_student.insertAdjacentHTML("beforeend","<p>"+student+"</p>")
+                // add_student.insertAdjacentHTML("beforeend","<p>"+student+"</p>")
                 let msg = document.getElementById("addmsg");
                 if(add_status[i].firstChild.nodeValue === "add"){
+                    document.getElementById("listEtudiant").firstElementChild.insertAdjacentHTML("beforeend", insert);
                     msg.innerHTML = "Ajouter "+ student ;
                     showStudents();
                 }else{
@@ -255,22 +270,28 @@ function deleteOneStudent(id){
     xhr.send(param);
 }
 
+
+// $(document).ready(getEtats());
 function confirmAppel() {
+    // let presences = document.getElementsByClassName("btn_etatp_cl");
     let presences = document.getElementsByClassName("btn_etatp_cl");
+    let btn_name = this.getAttribute("name");
+    console.log("this button " + btn_name);
     console.log(presences.item(0).getAttribute("name"));
     console.log(presences.item(0).firstChild.textContent);
-    let etats = presences.item(0).getAttribute("name") + " " +presences.item(0).firstChild.textContent.replace("é","e");
-    console.log("etat 0: " + etats);
+    let etatsConfirm = presences.item(0).getAttribute("name") + " " +presences.item(0).firstChild.textContent;
+    console.log("etat 0: " + etatsConfirm);
     for (let i = 1; i < presences.length; i++){
         console.log(presences.item(i).getAttribute("name"));
         console.log(presences.item(i).firstChild.textContent);
         if (presences.item(i).firstChild.textContent !== "Signaler"){
-            etats = etats + "," + presences.item(i).getAttribute("name") + " " + presences.item(i).firstChild.textContent.replace("é","e");
+            etatsConfirm = etatsConfirm + "," + presences.item(i).getAttribute("name") + " " + presences.item(i).firstChild.textContent;
         }
     }
-    console.log(etats);
+    // let etatsConfirm = getEtats();
+    console.log(etatsConfirm);
     let xhr = new XMLHttpRequest();
-    let param = "etats=" + encodeURIComponent(etats);
+    let param = "etats=" + encodeURIComponent(etatsConfirm) + "&action=" + btn_name;
     console.log(param);
     xhr.open("POST", url);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -288,19 +309,139 @@ function confirmAppel() {
                     presences.item(i).disabled = true;
                 }
             }
+            let span = document.getElementById(btn_name+ "Etat");
             if (check_not_ok !== false){
-                document.getElementById("valideEtat").style.color = "green";
-                document.getElementById("valideEtat").innerHTML = "Valider!";
-                document.getElementById("valider").disabled = true;
+                span.style.color = "green";
+                console.log(span.id);
+                // this.nextSibling.style.color  = "green";
+                if (btn_name === "submit"){
+                   span.innerText = "Valider";
+                    span.style.disabled = true;
+                }else {
+                    span.innerText = "Enregistrer";
+                }
+                // document.getElementById("valideEtat").style.color = "green";
+                // document.getElementById("valideEtat").innerHTML = "Valider!";
+                // document.getElementById("valider").disabled = true;
             }else {
-                document.getElementById("valideEtat").style.color = "red";
-                document.getElementById("valideEtat").innerHTML = "Erreur!";
+                span.style.color  = "red";
+                span.innerText = "Erreur";
+                // document.getElementById("valideEtat").style.color = "red";
+                // document.getElementById("valideEtat").innerHTML = "Erreur!";
             }
         }
-
+        location.reload();
     };
     xhr.send(param);
 }
+
+
+// function confirmAppel() {
+//     // let presences = document.getElementsByClassName("btn_etatp_cl");
+//     let presences = getEtats();
+//     presences = document.getElementsByClassName("btn_etatp_cl");
+//     console.log(presences.item(0).getAttribute("name"));
+//     console.log(presences.item(0).firstChild.nodeValue);
+//     console.log(presences.item(0).firstChild.textContent);
+//     let etatsConfirm = presences.item(0).getAttribute("name") + " " +presences.item(0).firstChild.textContent;
+//     console.log("etat 0: " + etatsConfirm);
+//     for (let i = 1; i < presences.length; i++){
+//         console.log(presences.item(i).getAttribute("name"));
+//         console.log(presences.item(i).firstChild.textContent);
+//         if (presences.item(i).firstChild.textContent !== "Signaler"){
+//             etatsConfirm = etatsConfirm + "," + presences.item(i).getAttribute("name") + " " + presences.item(i).firstChild.textContent;
+//         }
+//     }
+//     // let etatsConfirm = getEtats();
+//     console.log(etatsConfirm);
+//     let xhr = new XMLHttpRequest();
+//     let param = "etats=" + encodeURIComponent(etatsConfirm);
+//     console.log(param);
+//     xhr.open("POST", url);
+//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//     xhr.onload = function () {
+//         console.log("xhr.status : " + xhr.status);
+//         if (xhr.status === 200) {
+//             let update_status = xhr.responseXML.getElementsByTagName("student");
+//             let update_ok = true;
+//             let check_not_ok = true;
+//             for (let i = 0; i < update_status.length; i++){
+//                 if (update_status[i].firstChild.nodeValue !== "update"){
+//                     update_ok = false;
+//                     check_not_ok = false;
+//                 }else {
+//                     presences.item(i).disabled = true;
+//                 }
+//             }
+//             if (check_not_ok !== false){
+//                 document.getElementById("valideEtat").style.color = "green";
+//                 document.getElementById("valideEtat").innerHTML = "Valider!";
+//                 document.getElementById("valider").disabled = true;
+//             }else {
+//                 document.getElementById("valideEtat").style.color = "red";
+//                 document.getElementById("valideEtat").innerHTML = "Erreur!";
+//             }
+//         }
+//         location.reload();
+//     };
+//     xhr.send(param);
+// }
+
+// function saveAppel(){
+//     let etatsSave = getEtats();
+//     console.log(etatsSave);
+//     let xhr = new XMLHttpRequest();
+//     let param = "etatsSave=" + encodeURIComponent(etatsSave);
+//     console.log(param);
+//     xhr.open("POST", url);
+//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+//     xhr.onload = function () {
+//         console.log("xhr.status : " + xhr.status);
+//         if (xhr.status === 200) {
+//             let update_status = xhr.responseXML.getElementsByTagName("student");
+//             getActionResponse(presences, update_status);
+//         }
+//
+//     };
+//     xhr.send(param);
+// }
+
+// function getEtats(){
+//     let presences = document.getElementsByClassName("btn_etatp_cl");
+//     console.log(presences.item(0).getAttribute("name"));
+//     console.log(presences.item(0).firstChild.textContent);
+//     let etats = presences.item(0).getAttribute("name") + " " +presences.item(0).firstChild.textContent.replace("é","e");
+//     console.log("etat 0: " + etats);
+//     for (let i = 1; i < presences.length; i++){
+//         console.log(presences.item(i).getAttribute("name"));
+//         console.log(presences.item(i).firstChild.textContent);
+//         if (presences.item(i).firstChild.textContent !== "Signaler"){
+//             etats = etats + "," + presences.item(i).getAttribute("name") + " " + presences.item(i).firstChild.textContent.replace("é","e");
+//         }
+//     }
+//     return etats;
+// }
+//
+// function getActionResponse(presences,update){
+//     let update_ok = true;
+//     let check_not_ok = true;
+//     for (let i = 0; i < update.length; i++){
+//         if (update[i].firstChild.nodeValue !== "update"){
+//             update_ok = false;
+//             check_not_ok = false;
+//         }else {
+//             presences.item(i).disabled = true;
+//         }
+//     }
+//     if (check_not_ok !== false){
+//         document.getElementById("saveEtat").style.color = "green";
+//         document.getElementById("saveEtat").innerHTML = "Enregistrer!";
+//         document.getElementById("save").disabled = true;
+//     }else {
+//         document.getElementById("saveEtat").style.color = "red";
+//         document.getElementById("saveEtat").innerHTML = "Erreur!";
+//     }
+// }
 
 // function strNoAccent(a) {
 //     var b="áàâäãåçéèêëíïîìñóòôöõúùûüýÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ",
@@ -324,6 +465,8 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("delete_search").addEventListener("click", deleteSearchInfo);
     document.getElementById("btn_delete").addEventListener("click", deleteStudent);
     document.getElementById("valider").addEventListener("click", confirmAppel);
+    document.getElementById("save").addEventListener("click", confirmAppel);
+    // document.getElementById("save").addEventListener("click", saveAppel);
     document.getElementsByClassName("close")[0].addEventListener("click", closePOP);
     document.querySelectorAll('.btn_delet_one').forEach(item => {
         item.addEventListener('click', event => {

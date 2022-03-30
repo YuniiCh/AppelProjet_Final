@@ -67,6 +67,22 @@
             <version>4.0.1</version>
             <scope>provided</scope>
         </dependency>
+<!--        &lt;!&ndash; for send email  &ndash;&gt;-->
+        <dependency>
+            <groupId>org.jodd</groupId>
+            <artifactId>jodd-all</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.mail</groupId>
+            <artifactId>javax.mail</artifactId>
+            <version>1.6.1</version>
+        </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-frontend-jaxrs</artifactId>

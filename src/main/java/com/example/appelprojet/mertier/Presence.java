@@ -73,7 +73,6 @@ public class Presence {
                 ", etatPresence='" + etatPresence + '\'' +
                 ", etudiant=" + etudiant.toString() +
                 ", seance=" + seance.toString() +
-                ", justificatif=" + justificatif.toString() +
                 '}';
     }
 

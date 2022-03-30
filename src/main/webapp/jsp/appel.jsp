@@ -60,6 +60,7 @@
     <br>
     <div class="divButton">
         <button id="btn_touspresence" type="button" class="buttonTop" <%=disable%>><span id="toustext">Tous présents</span></button>
+
         <!-- Open Pop-Up -->
         <button id="btn_add" type="button" class="buttonTop"  <%=disable%>>Ajouter</button>
         <!-- Pop -->
@@ -80,6 +81,7 @@
                 </div>
             </div>
         </div>
+        <!-- POP END-->
 
         <button id="btn_delete" type="button" class="buttonTop"  <%=disable%>>Supprimer</button>
     </div>
@@ -98,7 +100,7 @@
             </thead>
             <tbody>
             <%
-                List<Presence> presences = PresenceDAO.findPresenceByIdSeance(appel);
+                List<Presence> presences = PresenceDAO.findPresenceByIdSeance(appel.getIdSeance());
                 int i = 0;
                 String formation = "FI";
                 String unitDisable =  "disabled=\"disabled\"";
@@ -109,6 +111,19 @@
                     if (p.getEtatPresence() != EtatPresence.ABSENCE || appel.getEtatAppel().equals( "valide")){
                         unitDisable = "";
                     }
+                    String etat = "Présent";
+                    String btnStyle = "style=\"background-color: #a8e2f8;\"";
+                    if(p.getEtatPresence() == EtatPresence.RETART) {
+                        etat = "Retard";
+                        btnStyle = "style=\"background-color: #ffff66;\"";
+                    }else if(p.getEtatPresence() == EtatPresence.ABSENCE_SIGNALE) {
+                        etat = "Signaler";
+                        btnStyle = "style=\"background-color: #ffcc99;\"";
+                    }else if(p.getEtatPresence() == EtatPresence.PRESENCE){
+                        etat = "Présent";
+                    }else {etat = "Absent";
+                        btnStyle = "style=\"background-color: #ffcc99;\"";
+                    }
             %>
             <tr>
                 <td><img src="https://github.com/PikaMeoow/Photo-Etudiant/blob/main/<%=p.getEtudiant().getIdU()%>.png?raw=true"  alt="images"/>
@@ -118,21 +133,7 @@
                 ><%=formation%> </span>
                     <span class="id_student"><%=p.getEtudiant().getNomU()%>  <%=p.getEtudiant().getPrenomU()%></span>
                 </td>
-                <td><button id="btn_etatP<%=i%>" class="btn_etatp_cl" type="button" name="<%=p.getEtudiant().getIdU()%>" onclick="getNbClick(this);"  <%=disable%> <%=unitDisable%>>
-                    <span id="etatPresent<%=i%>" class="etatpresent_cl">
-                    <%
-                    if(p.getEtatPresence() == EtatPresence.RETART) {
-                        out.println("Retard");
-                    }else if(p.getEtatPresence() == EtatPresence.ABSENCE_SIGNALE) {
-
-                        out.println("Signaler");
-                    }else if(p.getEtatPresence() == EtatPresence.PRESENCE){
-                            out.println("Pésent");
-                    }else {
-                        out.println("Absent");
-                    }
-                %>
-                    </span></button></td>
+                <td><button id="btn_etatP<%=i%>" class="btn_etatp_cl" type="button" name="<%=p.getEtudiant().getIdU()%>" onclick="getNbClick(this);"  <%=btnStyle%> <%=disable%> <%=unitDisable%>><span id="etatPresent<%=i%>" class="etatpresent_cl"><%=etat%></span></button></td>
                 <td><span class="btn_delet_one" id="delet_<%=p.getEtudiant().getIdU()%>" style="pointer-events: none; display: none; ">&circleddash;</span></td>
             </tr>
             <%
@@ -144,7 +145,7 @@
     <br>
     <div id="div3">
         <button type="button" name="save" value="save" id="save"  <%=disable%>>Enregistrer</button><span id="saveEtat"></span>
-        <button type="button" name="submit" value="valide" id="valider"  <%=disable%>>Valider</button><span id="valideEtat"></span>
+        <button type="button" name="submit" value="valider" id="valider" <%=disable%>>Valider</button><span id="submitEtat"></span>
     </div>
 </form>
 <a href="planning">Planning</a>
