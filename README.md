@@ -17,7 +17,6 @@
 1. Préparer l’Intellij environnement
 2. Copier l’url Github et import Projet
 3. Configurer le tomcat en cliquant Add Configuration
-(Notre projet utilise une base de données déploiée sur SKYSQL donc pas de configuration en plus) 
 4. Adapdation de chemin d'accès 
       1. Rajouter le tomcat dans Application server
       3. Choix de la version Tomcat
