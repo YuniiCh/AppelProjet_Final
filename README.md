@@ -30,7 +30,7 @@
 ![MVC](captures/MVC_Structure.png)
 
 ## 5. Technologie
-![TECH](img/tech.png)
+![TECH](captures/tech.png)
 ### 5.1 APIs
 
 **Technologie**
