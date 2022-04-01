@@ -4,11 +4,14 @@ import com.example.appelprojet.config.HibernateUtil;
 import com.example.appelprojet.dao.*;
 import com.example.appelprojet.mertier.*;
 import com.example.appelprojet.util.EtatPresence;
+import com.example.appelprojet.util.EtatVerifier;
+import com.example.appelprojet.util.FontionsUtiles;
 import com.example.appelprojet.util.TypeEtudiant;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import javax.swing.text.StyleConstants;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 import java.sql.Timestamp;
@@ -29,6 +32,7 @@ public class HelloApplication extends Application {
      */
 
 
+
     /*----- Création et enregistrement des utilisateurs -----*/
     public static void enrgUtilisateur ()
     {
@@ -40,7 +44,7 @@ public class HelloApplication extends Application {
 
             // Création des nouvelles employées
             Enseignant e1 = new Enseignant("RAVAT ", "Franck", "frank","Franck.Ravat@ut-capitole.fr","100");
-            Enseignant e2 = new Enseignant("PERRUSSEL", "Laurent","lurent","lurent@ut-capitole.fr","101");
+            Enseignant e2 = new Enseignant("PERRUSSEL", "Laurent","laurent","laurent.perrussel@ut-capitole.fr","101");
             Enseignant e3 = new Enseignant("DOUTRE", "Sylvie","sylvie","Sylvie.Doutre@ut-capitole.fr","102");
             Enseignant en1 = new Enseignant("VALLES ", "Nathalie","nathalie","nathalie.valles-parlangeau@ut-capitole.fr","103");
             Enseignant en2 = new Enseignant("BERRO ", "Alain","alain", "Alain.Berro@ut-capitole.fr","104");
@@ -48,15 +52,28 @@ public class HelloApplication extends Application {
             // Formation
             Formation f1 = session.get(Formation.class, 1L);
             Formation f2 = session.get(Formation.class, 2L);
-            Etudiant et1 = new Etudiant("Doutre", "Aline","aline","aline@gmail.com","105", TypeEtudiant.FI, "TD1", f1);
-            Etudiant et2 = new Etudiant("CHEN", "Yuni","yuni","yuni@gmail.com","107", TypeEtudiant.FI, "TD1", f1);
-            Etudiant et3 = new Etudiant("LI", "Jiayin","jiayin","jiayin@gmail.com","108", TypeEtudiant.FI, "TD1", f1);
-            Etudiant et4 = new Etudiant("ZHAO", "Mengying","mengying","mengying@gmail.com","109", TypeEtudiant.FI, "TD1", f1);
-            Etudiant et5 = new Etudiant("CLAUDEL", "Frank","frank","frank@gmail.com","110", TypeEtudiant.FI, "TD2", f1);
-            Etudiant et6 = new Etudiant("LI", "Shuanghong","shuanghong","shuanghong@com","111", TypeEtudiant.FI, "TD2", f1);
-            Etudiant et7 = new Etudiant("LIU", "Tong","tong","tong.liu@gmail.com","112", TypeEtudiant.FA, "TD2", f1);
-            Etudiant et8 = new Etudiant("ZHOU", "Zhiyi","zhiyi","zhiyi@gmail.com","113", TypeEtudiant.FI, "TD1", f2);
-            Scolarite et9 = new Scolarite("CYN", "cyn","cyn@com","112");
+            Etudiant et1 = new Etudiant("Anis", "Mana","anis","anis.mana@ut-capitole.fr","105", TypeEtudiant.FA, "TD1", f1);
+            Etudiant et2 = new Etudiant("CHEN", "Yuni","yuni","yunic4639@gmail.com","107", TypeEtudiant.FI, "TD1", f1);
+            Etudiant et3 = new Etudiant("LI", "Jiayin","jiayin","jiayinfanny@icloud.com","108", TypeEtudiant.FI, "TD1", f1);
+            Etudiant et4 = new Etudiant("ZHAO", "Mengying","mengying","zhaomengying.fr@gmail.com","109", TypeEtudiant.FI, "TD1", f1);
+            Etudiant et5 = new Etudiant("CLAUDEL", "Frank","frank","fonkwa_claudel@yahoo.fr","110", TypeEtudiant.FI, "TD2", f1);
+            Etudiant et6 = new Etudiant("LI", "Shuanghong","shuanghong","lishuanghong3849@gmail.com","111", TypeEtudiant.FI, "TD2", f1);
+            Etudiant et7 = new Etudiant("LIU", "Tong","tong","tongliu024@gmail.com","112", TypeEtudiant.FA, "TD2", f1);
+            Etudiant et8 = new Etudiant("ZHOU", "Zijing","zijing","zijing.zhou@ut-capitole.fr","113", TypeEtudiant.FI, "TD1", f2);
+            Etudiant et9 = new Etudiant("GAN", "Wenhui","Wenhui","viviannegan@gmail.com","114",TypeEtudiant.FI,"TD1",f1);
+            Etudiant et10 = new Etudiant("HE", "Peicong","peicong","acyeol1997@gmail.com","115",TypeEtudiant.FI,"TD1",f1);
+            Etudiant et11 = new Etudiant("LI", "Zijian","zijian","james112732@gmail.com","116",TypeEtudiant.FI,"TD1",f1);
+            Etudiant et12 = new Etudiant("BAH", "Maimouna","maimouna","maimouna.bah@ut-capitole.fr","117", TypeEtudiant.FI, "TD1", f1);
+            Etudiant et13 = new Etudiant("JOOHUYN", "Ann","ann","joohyun.ann@ut-capitole.fr","118", TypeEtudiant.FA, "TD1", f1);
+            Etudiant et14 = new Etudiant("Nogales", "Sebastien","sebastien","sebastian.nogales-pinde@ut-capitole.fr","119", TypeEtudiant.FI, "TD1", f1);
+            Etudiant et15 = new Etudiant("Vlada", "Stegarescu","vlada","vlada.stegarescu@ut-capitole.fr","120", TypeEtudiant.FA, "TD2", f1);
+            Etudiant et16 = new Etudiant("Monlouis", "Ruddy","ruddy","ruddy.monlouis@ut-capitole.fr","121", TypeEtudiant.FA, "TD2", f1);
+            Etudiant et17 = new Etudiant("Dat", "Tien","tien","tien-Dat.hoang@ut-capitole.fr","122", TypeEtudiant.FA, "TD2", f1);
+            Etudiant et18 = new Etudiant("Daggo", "Annie","annie","annie.dago@ut-capitole","123", TypeEtudiant.FA, "TD1", f2);
+            Etudiant et19 = new Etudiant("LIU", "Jie","liu","jie.liu@ut-capitole.fr","124",TypeEtudiant.FI,"TD1",f1);
+            Etudiant et20 = new Etudiant("Parra", "Milo","milo","milo.parra@ut-capitole.fr","125",TypeEtudiant.FI,"TD1",f1);
+            Etudiant et21 = new Etudiant("PU", "Zixin","zixin","zixin.pu@ut-capitole.fr","126",TypeEtudiant.FI,"TD1",f1);
+            Scolarite et22 = new Scolarite("ScolariteIPM", "Ababa","A123456789&","appelprojet1@gmail.com","127");
 
             session.save(e1);
             session.save(e2);
@@ -73,6 +90,20 @@ public class HelloApplication extends Application {
             session.save(et7);
             session.save(et8);
             session.save(et9);
+            session.save(et10);
+            session.save(et11);
+            session.save(et12);
+            session.save(et13);
+            session.save(et14);
+            session.save(et15);
+            session.save(et16);
+            session.save(et17);
+            session.save(et18);
+            session.save(et19);
+            session.save(et20);
+            session.save(et21);
+            session.save(et22);
+
             f1.setScolarite(session.get(Scolarite.class, 15L));
             f2.setScolarite(session.get(Scolarite.class, 15L));
 
@@ -89,7 +120,7 @@ public class HelloApplication extends Application {
             /*----- Ouverture d'une transaction -----*/
             Transaction t = session.beginTransaction();
 
-            Scolarite s1 = session.get(Scolarite.class, 1L);
+            Scolarite s1 = session.get(Scolarite.class, 28L);
 
             // Création des nouvelles séances
             Formation f1 = new Formation("M2 IPM",s1);
@@ -242,100 +273,7 @@ public class HelloApplication extends Application {
             Salle salle3 = session.get(Salle.class, 3L);
             Salle salle4 = session.get(Salle.class, 4L);
             Salle salle5 = session.get(Salle.class, 5L);
-
-
-            //Création des séances
-//            Seance se1 = new Seance(DF.parse("15-03-2021 09:30"), DF.parse("15-03-2021 12:30"), "false",c1,en1,s1);
-//            Seance se2 = new Seance(DF.parse("16-03-2021 09:30"), DF.parse("16-03-2021 12:30"), "false",c2,en1,s2);
-//            Seance se3 = new Seance(DF.parse("16-03-2021 14:00"), DF.parse("16-03-2021 17:00"), "false",c3,en2,s3);
-//            Seance se4 = new Seance(DF.parse("17-03-2021 09:30"), DF.parse("17-03-2021 12:30"), "false",c2,en2,s1);
-//            Seance se5 = new Seance(DF.parse("23-03-2022 12:00"), DF.parse("23-03-2022 19:00"), "false",c2,en1,s3);
-//            Seance se6 = new Seance(DF.parse("24-03-2022 10:10"), DF.parse("24-03-2022 12:30"), "false",c3,en2,s1);
-//            Seance se7 = new Seance(DF.parse("24-03-2022 12:00"), DF.parse("24-03-2022 19:00"), "false",c3,en2,s3);
-//            Seance se8 = new Seance(DF.parse("24-03-2022 19:00"), DF.parse("25-03-2022 19:00"), "false",c3,en2,s3);
-//            Seance se9 = new Seance(DF.parse("25-03-2022 19:00"), DF.parse("30-03-2022 22:00"), "false",c3,en2,s3);
-//            Seance se10 = new Seance(DF.parse("28-03-2022 9:30"), DF.parse("28-03-2022 12:30"), "false",c3,en2,s3);
-//            Seance se11 = new Seance(DF.parse("28-03-2022 11:00"), DF.parse("28-03-2022 12:30"), "false",c3,en2,s3);
-//            Seance se12 = new Seance(DF.parse("29-03-2022 14:00"), DF.parse("29-03-2022 17:00"), "false",c3,en2,s3);
-//            Seance se13 = new Seance(DF.parse("30-03-2022 15:00"), DF.parse("29-03-2022 18:00"), "false",c3,en2,s3);
-//            Seance se14 = new Seance(DF.parse("30-03-2022 17:00"), DF.parse("29-03-2022 18:30"), "false",c3,en2,s3);
-//            Seance se15 = new Seance(DF.parse("27-03-2022 17:00"), DF.parse("27-03-2022 18:30"), "false",c2,en1,s3);
-//            Seance se16 = new Seance(DF.parse("28-03-2022 09:30"), DF.parse("28-03-2022 12:30"), "false",c2,en1,s2);
-//            Seance se17 = new Seance(DF.parse("29-03-2022 09:30"), DF.parse("29-03-2022 12:30"), "false",c2,en1,s2);
-//            Seance se18 = new Seance(DF.parse("29-03-2022 09:30"), DF.parse("29-03-2022 12:30"), "false",c1,en3,s1);
-//
-//            session.save(se1);
-//            session.save(se2);
-//            session.save(se3);
-//            session.save(se4);
-//            session.save(se5);
-//            session.save(se6);
-//            session.save(se7);
-//            session.save(se8);
-//            session.save(se9);
-//            session.save(se10);
-//            session.save(se11);
-//            session.save(se12);
-//            session.save(se13);
-//            session.save(se14);
-//            session.save(se15);
-//            session.save(se16);
-//            session.save(se17);
-//            session.save(se18);
-//
-//            Seance s1 = new Seance(DF.parse("01-03-2022 09:30"), DF.parse("01-03-2022 12:30"),"valide",cours.get(0),enseignants.get(0),salles.get(0));
-//            Seance s2 = new Seance(DF.parse("01-03-2022 14:00"), DF.parse("01-03-2022 17:00"),"valide",cours.get(0),enseignants.get(0),salles.get(0));
-//            Seance s3 = new Seance(DF.parse("01-03-2022 17:00"), DF.parse("01-03-2022 20:00"),"valide",cours.get(1),enseignants.get(1),salles.get(0));
-//            Seance s4 = new Seance(DF.parse("01-03-2022 09:30"), DF.parse("01-03-2022 12:30"),"valide",cours.get(1),enseignants.get(1),salles.get(1));
-//            Seance s5 = new Seance(DF.parse("01-03-2022 14:00"), DF.parse("01-03-2022 17:00"),"valide",cours.get(0),enseignants.get(0),salles.get(1));
-//            Seance s6 = new Seance(DF.parse("01-03-2022 17:00"), DF.parse("01-03-2022 20:00"),"valide",cours.get(0),enseignants.get(0),salles.get(1));
-//            Seance s7 = new Seance(DF.parse("02-03-2022 09:30"), DF.parse("02-03-2022 12:30"),"valide",cours.get(0),enseignants.get(0),salles.get(0));
-//            Seance s8 = new Seance(DF.parse("02-03-2022 14:00"), DF.parse("02-03-2022 17:00"),"valide",cours.get(3),enseignants.get(3),salles.get(0));
-//            Seance s9 = new Seance(DF.parse("02-03-2022 17:00"), DF.parse("02-03-2022 20:00"),"valide",cours.get(3),enseignants.get(3),salles.get(0));
-//            Seance s10 = new Seance(DF.parse("02-03-2022 09:30"), DF.parse("02-03-2022 12:30"),"valide",cours.get(1),enseignants.get(1),salles.get(1));
-//            Seance s11 = new Seance(DF.parse("02-03-2022 14:00"), DF.parse("02-03-2022 17:00"),"valide",cours.get(1),enseignants.get(1),salles.get(1));
-//            Seance s12 = new Seance(DF.parse("02-03-2022 17:00"), DF.parse("02-03-2022 20:00"),"valide",cours.get(2),enseignants.get(2),salles.get(1));
-//            Seance s13 = new Seance(DF.parse("03-03-2022 09:30"), DF.parse("03-03-2022 12:30"),"valide",cours.get(2),enseignants.get(2),salles.get(0));
-//            Seance s14 = new Seance(DF.parse("03-03-2022 14:00"), DF.parse("03-03-2022 17:00"),"valide",cours.get(0),enseignants.get(0),salles.get(0));
-//            Seance s15 = new Seance(DF.parse("03-03-2022 08:00"), DF.parse("03-03-2022 09:30"),"valide",cours.get(1),enseignants.get(1),salles.get(0));
-//            Seance s16 = new Seance(DF.parse("03-03-2022 17:00"), DF.parse("03-03-2022 20:00"),"valide",c3,e1,3);
-//            Seance s17 = new Seance(DF.parse("03-03-2022 09:30"), DF.parse("03-03-2022 12:30"),"valide",c4,e2,4);
-//            Seance s18 = new Seance(DF.parse("03-03-2022 14:00"), DF.parse("03-03-2022 17:00"),"valide",c5,e2,5);
-//            Seance s19 = new Seance(DF.parse("03-03-2022 17:00"), DF.parse("03-03-2022 20:00"),"valide",c6,e2,6);
-//            Seance s20 = new Seance(DF.parse("04-03-2022 09:30"), DF.parse("04-03-2022 12:30"),"valide",c7,e3,7);
-//            Seance s21 = new Seance(DF.parse("04-03-2022 14:00"), DF.parse("04-03-2022 17:00"),"valide",c8,e3,8);
-//            Seance s22 = new Seance(DF.parse("04-03-2022 17:00"), DF.parse("04-03-2022 20:00"),"valide",c9,e3,9);
-//            Seance s23 = new Seance(DF.parse("04-03-2022 09:30"), DF.parse("04-03-2022 12:30"),"valide",c10,en1,10);
-//            Seance s24 = new Seance(DF.parse("04-03-2022 14:00"), DF.parse("04-03-2022 17:00"),"valide",c11,en2,11);
-//            Seance s25 = new Seance(DF.parse("07-03-2022 09:30"), DF.parse("07-03-2022 12:30"),"enregistre",c1,e1,1);
-//            Seance s26 = new Seance(DF.parse("07-03-2022 14:00"), DF.parse("07-03-2022 17:00"),"valide",c2,e1,2);
-//            Seance s27 = new Seance(DF.parse("07-03-2022 17:00"), DF.parse("07-03-2022 20:00"),"enregistre",c3,e1,3);
-//            Seance s28 = new Seance(DF.parse("07-03-2022 09:30"), DF.parse("07-03-2022 12:30"),"valide",c4,e2,4);
-//            Seance s29 = new Seance(DF.parse("07-03-2022 14:00"), DF.parse("07-03-2022 17:00"),"enregistre",c5,e2,5);
-//            Seance s30 = new Seance(DF.parse("07-03-2022 17:00"), DF.parse("07-03-2022 20:00"),"enregistre",c6,e2,6);
-//            Seance s31 = new Seance(DF.parse("08-03-2022 09:30"), DF.parse("08-03-2022 12:30"),"enregistre",c7,e3,7);
-//            Seance s32 = new Seance(DF.parse("09-03-2022 14:00"), DF.parse("09-03-2022 17:00"),"enregistre",c8,e3,8);
-//            Seance s33 = new Seance(DF.parse("10-03-2022 17:00"), DF.parse("10-03-2022 20:00"),"enregistre",c9,e3,9);
-//            Seance s34 = new Seance(DF.parse("11-03-2022 09:30"), DF.parse("11-03-2022 12:30"),"valide",c10,en1,10);
-//            Seance s35 = new Seance(DF.parse("11-03-2022 14:00"), DF.parse("11-03-2022 17:00"),"enregistre",c11,en2,11);
-//            Seance s36 = new Seance(DF.parse("14-03-2022 17:00"), DF.parse("14-03-2022 20:00"),"valide",c12,e1,12);
-//            Seance s37 = new Seance(DF.parse("14-03-2022 09:30"), DF.parse("14-03-2022 12:30"),"valide",c13,e2,1);
-//            Seance s38 = new Seance(DF.parse("14-03-2022 14:00"), DF.parse("14-03-2022 17:00"),"valide",c14,e3,2);
-//            Seance s39 = new Seance(DF.parse("15-03-2022 08:00"), DF.parse("15-03-2022 09:30"),"enregistre",c19,e1,1);
-//            Seance s40 = new Seance(DF.parse("16-03-2022 17:00"), DF.parse("16-03-2022 20:00"),"valide",c15,e1,3);
-//            Seance s41 = new Seance(DF.parse("17-03-2022 09:30"), DF.parse("17-03-2022 12:30"),"valide",c16,e2,4);
-//            Seance s42 = new Seance(DF.parse("17-03-2022 14:00"), DF.parse("17-03-2022 17:00"),"valide",c5,e2,5);
-//            Seance s43 = new Seance(DF.parse("18-03-2022 17:00"), DF.parse("18-03-2022 20:00"),"valide",c20,e2,6);
-//            Seance s44 = new Seance(DF.parse("18-03-2022 09:30"), DF.parse("18-03-2022 12:30"),"valide",c21,e3,7);
-//            Seance s45 = new Seance(DF.parse("18-03-2022 14:00"), DF.parse("18-03-2022 17:00"),"valide",c21,e3,8);
-//            Seance s46 = new Seance(DF.parse("21-03-2022 17:00"), DF.parse("21-03-2022 20:00"),"valide",c9,e3,9);
-//            Seance s47 = new Seance(DF.parse("21-03-2022 09:30"), DF.parse("21-03-2022 12:30"),"valide",c10,en1,10);
-//            Seance s48 = new Seance(DF.parse("21-03-2022 14:00"), DF.parse("21-03-2022 17:00"),"valide",c11,en2,11);
-//            Seance s49 = new Seance(DF.parse("22-03-2022 09:30"), DF.parse("22-03-2022 12:30"),"valide",c10,en1,10);
-//            Seance s50 = new Seance(DF.parse("23-03-2022 14:00"), DF.parse("23-03-2022 17:00"),"valide",c11,en2,11);
-//            Seance s51 = new Seance(DF.parse("17-03-2022 09:30"), DF.parse("17-03-2022 12:30"),"enregistre",c20,e2,4);
-//            Seance s52 = new Seance(DF.parse("17-03-2022 14:00"), DF.parse("17-03-2022 17:00"),"enregistre",c21,e3,5);
-//            Seance s53 = new Seance(DF.parse("18-03-2022 17:00"), DF.parse("18-03-2022 20:00"),"valide",c6,e2,6);
+//        Seances
             Seance s54 = new Seance(DF.parse("18-03-2022 09:30"), DF.parse("18-03-2022 12:30"),"valide",c1,en1,salle1);
             Seance s55 = new Seance(DF.parse("18-03-2022 14:00"), DF.parse("18-03-2022 17:00"),"valide",c1,en1,salle1);
             Seance s56 = new Seance(DF.parse("21-03-2022 17:00"), DF.parse("21-03-2022 20:00"),"valide",c2,en1,salle1);
@@ -368,75 +306,6 @@ public class HelloApplication extends Application {
             Seance s83 = new Seance(DF.parse("02-04-2022 09:30"), DF.parse("04-04-2022 12:30"),"null",c13,en4,salle3);
             Seance s84 = new Seance(DF.parse("04-04-2022 14:00"), DF.parse("04-04-2022 17:00"),"null",c11,en3,salle2);
             Seance s85 = new Seance(DF.parse("04-04-2022 09:30"), DF.parse("04-04-2022 12:30"),"null",c12,en3,salle4);
-//            Seance s86 = new Seance(DF.parse("04-04-2022 14:00"), DF.parse("04-04-2022 17:00"),"null",c2,e1,2);
-//            Seance s87 = new Seance(DF.parse("05-04-2022 08:00"), DF.parse("05-04-2022 09:30"),"null",c3,e1,3);
-//            Seance s88 = new Seance(DF.parse("05-04-2022 09:30"), DF.parse("05-04-2022 12:30"),"null",c4,e2,4);
-//            Seance s89 = new Seance(DF.parse("05-04-2022 14:00"), DF.parse("05-04-2022 17:00"),"null",c5,e2,5);
-//            Seance s90 = new Seance(DF.parse("05-04-2022 17:00"), DF.parse("05-04-2022 20:00"),"null",c6,e2,6);
-//            Seance s91 = new Seance(DF.parse("06-04-2022 09:30"), DF.parse("06-04-2022 12:30"),"null",c7,e3,7);
-//            Seance s92 = new Seance(DF.parse("06-04-2022 14:00"), DF.parse("06-04-2022 17:00"),"null",c8,e3,8);
-//            Seance s93 = new Seance(DF.parse("06-04-2022 17:00"), DF.parse("06-04-2022 20:00"),"null",c9,e3,9);
-//            Seance s94 = new Seance(DF.parse("07-04-2022 09:30"), DF.parse("07-04-2022 12:30"),"null",c10,en1,10);
-//            Seance s95 = new Seance(DF.parse("07-04-2022 14:00"), DF.parse("07-04-2022 17:00"),"null",c11,en2,11);
-//            Seance s96 = new Seance(DF.parse("07-04-2022 17:00"), DF.parse("07-04-2022 20:00"),"null",c12,e1,12);
-//            Seance s97 = new Seance(DF.parse("08-04-2022 09:30"), DF.parse("08-04-2022 12:30"),"null",c13,e2,1);
-//            Seance s98 = new Seance(DF.parse("08-04-2022 14:00"), DF.parse("08-04-2022 17:00"),"null",c14,e3,2);
-//            Seance s99 = new Seance(DF.parse("11-04-2022 08:00"), DF.parse("11-04-2022 09:30"),"null",c19,e1,1);
-//            Seance s100 = new Seance(DF.parse("15-04-2022 17:00"), DF.parse("15-04-2022 20:00"),"null",c15,e1,3);
-
-//            session.save(s1);
-//            session.save(s2);
-//            session.save(s3);
-//            session.save(s4);
-//            session.save(s5);
-//            session.save(s6);
-//            session.save(s7);
-//            session.save(s8);
-//            session.save(s9);
-//            session.save(s10);
-//            session.save(s11);
-//            session.save(s12);
-//            session.save(s13);
-//            session.save(s14);
-//            session.save(s15);
-//            session.save(s16);
-//            session.save(s17);
-//            session.save(s18);
-//            session.save(s19);
-//            session.save(s20);
-//            session.save(s21);
-//            session.save(s22);
-//            session.save(s23);
-//            session.save(s24);
-//            session.save(s25);
-//            session.save(s26);
-//            session.save(s27);
-//            session.save(s28);
-//            session.save(s29);
-//            session.save(s30);
-//            session.save(s31);
-//            session.save(s32);
-//            session.save(s33);
-//            session.save(s34);
-//            session.save(s35);
-//            session.save(s36);
-//            session.save(s37);
-//            session.save(s38);
-//            session.save(s39);
-//            session.save(s40);
-//            session.save(s41);
-//            session.save(s42);
-//            session.save(s43);
-//            session.save(s44);
-//            session.save(s45);
-//            session.save(s46);
-//            session.save(s47);
-//            session.save(s48);
-//            session.save(s49);
-//            session.save(s50);
-//            session.save(s51);
-//            session.save(s52);
-//            session.save(s53);
             session.save(s54);
             session.save(s55);
             session.save(s56);
@@ -469,26 +338,76 @@ public class HelloApplication extends Application {
             session.save(s83);
             session.save(s84);
             session.save(s85);
-//            session.save(s86);
-//            session.save(s87);
-//            session.save(s88);
-//            session.save(s89);
-//            session.save(s90);
-//            session.save(s91);
-//            session.save(s92);
-//            session.save(s93);
-//            session.save(s94);
-//            session.save(s95);
-//            session.save(s96);
-//            session.save(s97);
-//            session.save(s98);
-//            session.save(s99);
-//            session.save(s100);
-
-
             t.commit(); // Commit et flush automatique de la session.
         } catch (ParseException e) {
             e.printStackTrace();
+        }
+    }
+
+    /*----- une liste doit être insérée dans la table presence -----*/
+    public static void addJustificatif()
+    {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+            Scolarite sc1 = session.get(Scolarite.class, 15L);
+            Etudiant e1 = session.get(Etudiant.class,8L);
+            Etudiant e2 = session.get(Etudiant.class,9L);
+//            PresenceID idP1 = new PresenceID(1L, 8L);
+//            Presence p1 = new Presence();
+//            p1.setIdPresence(idP1);
+
+
+
+            Justificatif j1 = new Justificatif(new Date(),EtatVerifier.FINI,"css.png","justificatif",sc1, e1);
+            Justificatif j2 = new Justificatif(new Date(),EtatVerifier.FINI,"css.png","justificatif",sc1, e2);
+//            p1.setJustificatif(j1);
+
+            session.save(j1);
+            session.save(j2);
+
+            t.commit();
+
+            session.close();
+        }
+    }
+
+    /*----- Création et enregistrement des présence -----*/
+    public static void enrgPresence ()
+    {
+        List presences = PresenceDAO.geneTablePresence();
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+
+            // Création des nouvelles séances
+            Iterator e = presences.iterator();
+
+            while (e.hasNext())
+            {
+                Object[] tab_obj = ((Object[]) e.next());
+                for (int i =0 ; i<tab_obj.length-1; i++){
+                    if(tab_obj[0]!=null && tab_obj[1]!=null) {
+                        //EtudiantDAO etudiantDAO = new EtudiantDAO();
+                        //SeanceDAO seanceDAO = new SeanceDAO();
+                        //Etudiant etudiant = etudiantDAO.find(Long.parseLong(String.valueOf(tab_obj[1])));
+                        //Seance seance = seanceDAO.find(Long.parseLong(String.valueOf(tab_obj[0])));
+
+                        Etudiant etudiant = session.get(Etudiant.class,Long.parseLong(String.valueOf(tab_obj[1])));
+                        Seance seance = session.get(Seance.class, Long.parseLong(String.valueOf(tab_obj[0])));
+
+                        Presence presence = new Presence(EtatPresence.ABSENCE, new PresenceID(seance.getIdSeance(),etudiant.getIdU()), null);
+                        etudiant.getSeanPresences().put(seance,presence);
+                        seance.getEtuPresences().put(etudiant,presence);
+
+                        presence.setEtudiant(etudiant);
+                        presence.setSeance(seance);
+                    }
+                }
+            }
+            t.commit();
+            session.close();
         }
     }
 
@@ -529,75 +448,6 @@ public class HelloApplication extends Application {
             f2.getCours().add(c4);
             f2.getCours().add(c9);
             f2.getCours().add(c10);
-
-
-            t.commit();
-            session.close();
-        }
-    }
-
-    /*----- une liste doit être insérée dans la table presence -----*/
-    public static void addJustificatif()
-    {
-        /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-            Scolarite sc1 = session.get(Scolarite.class, 15L);
-            Etudiant e1 = session.get(Etudiant.class,8L);
-            Etudiant e2 = session.get(Etudiant.class,9L);
-//            PresenceID idP1 = new PresenceID(1L, 8L);
-//            Presence p1 = new Presence();
-//            p1.setIdPresence(idP1);
-
-
-
-            Justificatif j1 = new Justificatif(new Date(),"Fin","css.png","justificatif",sc1, e1);
-            Justificatif j2 = new Justificatif(new Date(),"Fin","css.png","justificatif",sc1, e2);
-//            p1.setJustificatif(j1);
-
-            session.save(j1);
-            session.save(j2);
-
-            t.commit();
-
-            session.close();
-        }
-    }
-
-    /*----- Création et enregistrement des présence -----*/
-    public static void enrgPresence ()
-    {
-        List presences = PresenceDAO.geneTablePresence();
-        /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            /*----- Ouverture d'une transaction -----*/
-            Transaction t = session.beginTransaction();
-
-            // Création des nouvelles séances
-            Iterator e = presences.iterator();
-
-            while (e.hasNext())
-            {
-                Object[] tab_obj = ((Object[]) e.next());
-                for (int i =0 ; i<tab_obj.length-1; i++){
-                    if(tab_obj[0]!=null && tab_obj[1]!=null) {
-                        //EtudiantDAO etudiantDAO = new EtudiantDAO();
-                        //SeanceDAO seanceDAO = new SeanceDAO();
-                        //Etudiant etudiant = etudiantDAO.find(Long.parseLong(String.valueOf(tab_obj[1])));
-                        //Seance seance = seanceDAO.find(Long.parseLong(String.valueOf(tab_obj[0])));
-
-                        Etudiant etudiant = session.get(Etudiant.class,Long.parseLong(String.valueOf(tab_obj[1])));
-                        Seance seance = session.get(Seance.class, Long.parseLong(String.valueOf(tab_obj[0])));
-
-                        Presence presence = new Presence(EtatPresence.PRESENCE, new PresenceID(seance.getIdSeance(),etudiant.getIdU()), null);
-                        etudiant.getSeanPresences().put(seance,presence);
-                        seance.getEtuPresences().put(etudiant,presence);
-
-                        presence.setEtudiant(etudiant);
-                        presence.setSeance(seance);
-                    }
-                }
-            }
             t.commit();
             session.close();
         }
@@ -638,148 +488,19 @@ public class HelloApplication extends Application {
         }
     }
 
-
-    /*----- les information d'une fiche d'appel -----*/
-    public static void infoFicheAppel(long id)
-    {
-        /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-
-            List q = session.createQuery("select s.enseignant.nomU, s.enseignant.prenomU, s.dateDebut, s.salle.nomSalle, s.cour.nomCours, s.cour.typeCours, f.validee " +
-                    "from com.example.appelprojet.mertier.Seance s, com.example.appelprojet.mertier.FicheAppel f " +
-                    "where f.id = s.ficheAppel.id " +
-                    "and s.enseignant.idU = ' " + id + "' " +
-                    "and sysdate() >s.dateDebut " +
-                    "and sysdate() <s.dateFin " ).list();
-
-            affichage(q);
-
-            t.commit();
-
-            session.close();
-        }
-    }
-
-    /*----- liste des étudiants d'une fiche d'appel-----*/
-    public static void listeEtudiants(long id)
-    {
-        /*----- Ouverture de la session -----*/
-        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-            Transaction t = session.beginTransaction();
-
-            Query q = session.createQuery("select e.nomU, e.prenomU, s.salle.nomSalle, s.cour.nomCours, s.cour.typeCours, f.validee " +
-                    "from com.example.appelprojet.mertier.Etudiant e, com.example.appelprojet.mertier.FicheAppel f " +
-                    "where f.id = s.ficheAppel.id " +
-                    "and s.enseignant.idU = ' " + id + "' " +
-                    "and sysdate() >s.dateDebut " +
-                    "and sysdate() <s.dateFin " );
-
-            t.commit();
-
-            session.close();
-        }
-    }
-
-    public static void affichage(List l)
-    {
-        Iterator e = l.iterator();
-        while (e.hasNext())
-        {
-            Object[] tab_obj = ((Object[]) e.next());
-
-            for (Object obj : tab_obj)
-                System.out.print(obj + " ");
-
-            System.out.println("");
-        }
-    }
-
     public static void main(String[] args) {
-//        enrgFormation();
-//        enrgUtilisateur();
-//        enrgSalle();
-//        enrgCours();
-//        enrgSeances();
-//        enrgPresence();
+        enrgFormation();
+        enrgUtilisateur();
+        enrgSalle();
+        enrgCours();
+        enrgSeances();
+        enrgPresence();
 //        addJustificatif();
-//        ajoutEtudiantFormation();
-//        formationProposerCours();
-//        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-//        List<Utilisateur> utilisateurList = (List<Utilisateur>) utilisateurDAO.findAll();
-//        for (Utilisateur u: utilisateurList ) {
-//            System.out.println("Nom: " + u.getNomU() + "  Prenom: " + u.getPrenomU() + " Email: "
-//                    + u.getEmail() + " Mode de passe: " + u.getMdp());
-//            System.out.println("User Role : " + u.getClass());
-//        }
-//        Utilisateur utilisateur = UtilisateurDAO.getLoginInfo("hugo@com", "hugo");
-//
-//if (utilisateur != null){
-//    boolean user = UtilisateurDAO.emailExiste(utilisateur.getEmail());
-//    System.out.println("User exist : " + user);
-//}else {
-//    System.out.println("User NULL");
-//}
-
-//EtudiantDAO.findByName("chen");
-
-//        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-//        Utilisateur utilisateur = utilisateurDAO.find(5L);
-//        List<Seance> seances = SeanceDAO.findSeancesSemaine(utilisateur, new Date());
-//        for (Seance s: seances) {
-//            System.out.println("Seances list : " + s.getIdSeance());
-//        }
-//List<Etudiant> etudiants = EtudiantDAO.findByName("a");
-//        for (Etudiant e: etudiants){
-//            System.out.println("Nom :" + e.getNomU() + " Prenom: " + e.getPrenomU() ) ;
-//        }
-//        UtilisateurDAO utilisateurDAO = new UtilisateurDAO();
-//        Date date = new Date();
-//        List<Seance> seances = SeanceDAO.findSeancesSemaine(utilisateurDAO.find(4L), date);
-//if (seances !=null){
-//    for (Seance seance : seances){
-//        System.out.println(seance.getIdSeance() + " enseignant: " + seance.getEnseignant() + " date: " + seance.getDateDebut());
-//        float startTime = seance.getDateDebut().getHours();
-//        float endTime = seance.getDateDebut().getHours();
-//        if (seance.getDateDebut().getMinutes() == 30){
-//            startTime = seance.getDateDebut().getHours() + 0.5F;
-//        }
-//        if (seance.getDateFin().getMinutes()== 30){
-//            endTime = seance.getDateFin().getHours() + 0.5F;
-//        }
-//        int startLine = (int) ((startTime - 8) / 0.5 + 1);
-//        int endLine = (int) ((endTime - 8) / 0.5 + 1);
-//        Planning planning = new Planning(seance.getDateDebut());
-//        List<Date> week = planning.weekDate;
-//        System.out.println(week);
-////        System.out.println(planning.day);
-//        System.out.println("Start_line : " + startLine + " End_Line: " + endLine + " Week Day: " + planning.day);
-//    }
-//}else {
-//    System.out.println("NULL");
-//}
-////SeanceDAO seanceDAO = new SeanceDAO();
-//boolean exist = SeanceDAO.isFindSeanceActuelByUser(utilisateurDAO.find(5L));
-//System.out.println("Appel existe: " + exist);
-//Seance appel = SeanceDAO.infoFicheAppel(utilisateurDAO.find(5L));
-//System.out.println("Appel infos : " + appel);
-//List<Seance> seances = SeanceDAO.findSeanceByUser(utilisateurDAO.find(5L));
-//        for (Seance s: seances) {
-//            System.out.println("Seances list : " + s.getIdSeance());
-//        }
-
-//        SeanceDAO seanceDAO = new SeanceDAO();
-//        Date date = new Date();
-//        System.out.println("Get SEANCE ACTUEL DE l'Enseignat 1");
-//        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-//        System.out.println(seanceDAO.findSeanceByTimeByIdU(date, 1L));
-//        EtudiantDAO etudiantDAO = new EtudiantDAO();
-//        Etudiant etudiant = etudiantDAO.find(7L);
-//        SeanceDAO seanceDAO = new SeanceDAO();
-//        Seance seance = seanceDAO.find(17L);
-//        PresenceDAO.updateEtatPreEtuByID(EtatPresence.RETART,7L,9L);
-        SeanceDAO seanceDAO = new SeanceDAO();
-        SeanceDAO.updateEtatAppelBySeance(seanceDAO.find(10L));
+        ajoutEtudiantFormation();
+        formationProposerCours();
     }
+
+
+
 
 }

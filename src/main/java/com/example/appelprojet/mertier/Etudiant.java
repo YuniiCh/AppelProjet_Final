@@ -71,7 +71,22 @@ public class Etudiant extends Utilisateur{
         this.justPresences = justPresences;
     }
 
-    //    toString
+    public TypeEtudiant getTypeEtudiant() {
+        return typeEtudiant;
+    }
+
+    public void setTypeEtudiant(TypeEtudiant typeEtudiant) {
+        this.typeEtudiant = typeEtudiant;
+    }
+//    toString
+
+    @Override
+    public String toString() {
+        return "Etudiant{" +
+                "typeEtudiant=" + typeEtudiant +
+                ", tdGroup='" + tdGroup + '\'' +
+                '}';
+    }
 
     //    equals and hashCode
 

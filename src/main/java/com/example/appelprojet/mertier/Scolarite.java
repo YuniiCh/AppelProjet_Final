@@ -21,10 +21,6 @@ public class Scolarite extends Utilisateur{
     public Scolarite() {
     }
 
-    public Scolarite(String prenomU, String mdp, String email, String identifiant) {
-        super(prenomU, mdp, email, identifiant);
-    }
-
 
     //    getter and setter
 

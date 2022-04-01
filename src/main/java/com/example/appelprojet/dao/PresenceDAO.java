@@ -3,12 +3,14 @@ package com.example.appelprojet.dao;
 import com.example.appelprojet.config.HibernateUtil;
 import com.example.appelprojet.mertier.Etudiant;
 import com.example.appelprojet.mertier.Presence;
+import com.example.appelprojet.mertier.PresenceID;
 import com.example.appelprojet.mertier.Seance;
 import com.example.appelprojet.util.EtatPresence;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class PresenceDAO extends DAO<Presence>{
@@ -41,7 +43,7 @@ public class PresenceDAO extends DAO<Presence>{
     }
 
     /*----- liste des étudiants de la fiche d'appel d'une séance -----*/
-    public static List<Presence> findPresenceByIdSeance(Seance seance)
+    public static List<Presence> findPresenceBySeance(Seance seance)
     {
         List<Presence> presences = null;
         /*----- Ouverture de la session -----*/
@@ -49,8 +51,27 @@ public class PresenceDAO extends DAO<Presence>{
             Transaction t = session.beginTransaction();
 
             presences = session.createQuery("select p from com.example.appelprojet.mertier.Presence p where p.seance.idSeance = '" + seance.getIdSeance() + "' " ).list();
+            t.commit();
             session.close();
         }
+        return presences;
+    }
+
+
+
+    /*----- liste des étudiants de la fiche d'appel d'une séance -----*/
+    public static List<Presence> findPresenceByIdSeance(Long id)
+    {
+        List<Presence> presences = null;
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            Transaction t = session.beginTransaction();
+
+            presences = session.createQuery("select p from com.example.appelprojet.mertier.Presence p where p.seance.idSeance = '" + id + "' " ).list();
+            t.commit();
+            session.close();
+        }
+
         return presences;
     }
 
@@ -93,6 +114,43 @@ public class PresenceDAO extends DAO<Presence>{
             System.out.println("Update Failed !");
         }
     }
+
+
+    /*----- supprimer une ligne presence pour un étudiant et une séance-----*/
+    public static void supprEtuPresence (Etudiant e, Seance s)
+    {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+
+            Presence p = session.get(Presence.class,new PresenceID(s.getIdSeance(),e.getIdU()));
+
+            session.delete(p);
+
+            t.commit();
+            session.close();
+        }
+    }
+
+
+    /*----- supprimer une ligne presence pour un étudiant et une séance-----*/
+    public static void supprEtuPresenceById ( long e, long s)
+    {
+        /*----- Ouverture de la session -----*/
+        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+            /*----- Ouverture d'une transaction -----*/
+            Transaction t = session.beginTransaction();
+
+            Presence p = session.get(Presence.class,new PresenceID(s,e));
+
+            session.delete(p);
+
+            t.commit();
+            session.close();
+        }
+    }
+
 
 }
 

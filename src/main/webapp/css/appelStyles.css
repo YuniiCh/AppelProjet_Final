@@ -9,11 +9,10 @@
     color: azure;
 }
 
-h5 {
+#h5Appel {
     margin: 0;
     color: blue;
 }
-
 p {
     margin: 0;
     color: black;
@@ -32,8 +31,13 @@ p {
     text-align: center;
 }
 
-img {
+#imgAppel {
     height: 4.5rem; width: 4.5rem;
+}
+
+#photoEtu{
+    height: 2rem;
+    width: 2rem;
 }
 
 table {
@@ -44,7 +48,7 @@ table {
     text-align: center;
 }
 
-#valider {
+#valider, #save {
     width: 200px;
     padding: 5px;
     background: lightgreen;
@@ -57,7 +61,7 @@ table {
     0 8px 8px 1px rgba(0,0,0,0.5);
 }
 
-#valider:active {
+#valider:active, #save:active {
     box-shadow: 0 0 0 1px #82c8a0 inset,
     0 0 0 2px rgba(255,255,255,0.15) inset,
     0 0 0 1px rgba(0,0,0,0.4);
@@ -144,7 +148,7 @@ tr:nth-child(even) {
     padding: 10px;
     border: 1px solid #888;
     background-color: #fefefe;
-    width: 80%;
+    width: fit-content;
     height: 80%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
     -webkit-animation-name: slideIn;
@@ -204,7 +208,7 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
-/*!* 添加动画 *!*/
+/*!* Ajouter animation *!*/
 /*@-webkit-keyframes animatetop {*/
 /*    from {top:-300px; opacity:0}*/
 /*    to {top:0; opacity:1}*/

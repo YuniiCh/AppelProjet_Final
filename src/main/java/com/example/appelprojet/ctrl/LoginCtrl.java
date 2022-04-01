@@ -24,10 +24,9 @@ import java.util.List;
 public class LoginCtrl extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String email = request.getParameter("psd");
+        String email = request.getParameter("email");
         String password = request.getParameter("psw");
-        System.out.println(email);
-        System.out.println(password);
+        System.out.println(email + " && " + password);
 
         String msg_avert = "";
         if (email==null || email.isEmpty()) {
@@ -41,6 +40,7 @@ public class LoginCtrl extends HttpServlet {
         if (msg_avert==null || msg_avert.isEmpty()) {
             try {
                 Utilisateur utilisateur = UtilisateurDAO.getLoginInfo(email, password);
+                Role role = UtilisateurDAO.findRoleById(utilisateur.getIdU());
                 System.out.println("2222 " + password);
                 System.out.println("find utilisateur in LoginCtrl " + utilisateur.getNomU());
                 if (UtilisateurDAO.emailExiste(email))  {
@@ -57,30 +57,33 @@ public class LoginCtrl extends HttpServlet {
                     HttpSession session = request.getSession(true);
 //                    session.setAttribute("idu", utilisateur.getIdU());
                     session.setAttribute("utilisateur", (Utilisateur) utilisateur);
-                   if (UtilisateurDAO.findRoleById(utilisateur.getIdU())== Role.ENSEIGNANT){
-                       System.out.println("get: " + Role.ENSEIGNANT);
-                       if (SeanceDAO.isFindSeanceActuelByUser(utilisateur)) {
-                           System.out.println("Find: Seance!");
-                           Seance ficheAppel = SeanceDAO.infoFicheAppel(utilisateur);
+                    session.setAttribute("role", (Role) role);
+                    if (role== Role.ENSEIGNANT){
+                        System.out.println("get: " + Role.ENSEIGNANT);
+                        if (SeanceDAO.isFindSeanceActuelByUser(utilisateur)) {
+                            System.out.println("Find: Seance!");
+                            Seance ficheAppel = SeanceDAO.infoFicheAppel(utilisateur);
 //                        HttpSession session = request.getSession();
 //                           session.setAttribute("seance", ficheAppel.getIdSeance());
-                           session.setAttribute("seance", (Seance) ficheAppel);
-                           System.out.println("Seance actelle: " + ficheAppel.toString());
-                           System.out.println("Seance is not null!");
-                           RequestDispatcher rd = request.getRequestDispatcher("appel");
-                           request.setAttribute("seance", (Seance) ficheAppel);
-                           rd.forward(request, response);
-                       } else {
-                           System.out.println("if not found seances!");
-                           request.getRequestDispatcher("planningCtrl").forward(request, response);
-                       }
-                   } else if (UtilisateurDAO.findRoleById(utilisateur.getIdU())==Role.ETUDIANT) {
-                       System.out.println("get: " + Role.ETUDIANT);
-                       request.getRequestDispatcher("uploadFile").forward(request, response);
-                   }else {
-                       System.out.println("get: " + Role.SCOLARITE);
-                       request.getRequestDispatcher("cours").forward(request, response);
-                   }
+                            session.setAttribute("seance", (Seance) ficheAppel);
+                            System.out.println("Seance actelle: " + ficheAppel.toString());
+                            System.out.println("Seance is not null!");
+                            RequestDispatcher rd = request.getRequestDispatcher("appel");
+                            request.setAttribute("seance", (Seance) ficheAppel);
+                            rd.forward(request, response);
+                        } else {
+                            System.out.println("if not found seances!");
+                            request.getRequestDispatcher("planningCtrl").forward(request, response);
+//                           request.getRequestDispatcher("coursCtrl").forward(request,response);
+                        }
+                    } else if (role ==Role.ETUDIANT) {
+                        System.out.println("get: " + Role.ETUDIANT);
+                        request.getRequestDispatcher("presenceEtudiantCtrl").forward(request,response);
+//                       request.getRequestDispatcher("uploadFile").forward(request, response);
+                    }else {
+                        System.out.println("get: " + Role.SCOLARITE);
+                        request.getRequestDispatcher("download").forward(request, response);
+                    }
                 } else {
                     RequestDispatcher rd = request.getRequestDispatcher("login");
                     request.setAttribute("avert", msg_avert);
@@ -89,11 +92,14 @@ public class LoginCtrl extends HttpServlet {
             }catch (Exception e){
                 e.printStackTrace();
                 msg_avert ="Erreur Technique";
-                RequestDispatcher rd = request.getRequestDispatcher("login");
-                request.setAttribute("avert", msg_avert);
+                RequestDispatcher rd = request.getRequestDispatcher("message");
+                request.setAttribute("message", msg_avert);
                 rd.forward(request, response);
             }
         }
+//        else {
+//            request.getRequestDispatcher("login").forward(request,response);
+//        }
 
 
 
@@ -111,12 +117,11 @@ public class LoginCtrl extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // Hello
-        PrintWriter out = response.getWriter();
-        out.println("<html><body>");
-        out.println("<h1>Connection OK</h1>");
-        out.println("</body></html>");
-
+//        // Hello
+//        PrintWriter out = response.getWriter();
+//        out.println("<html><body>");
+//        out.println("<h1>Connection OK</h1>");
+//        out.println("</body></html>");
         processRequest(request, response);
     }
 

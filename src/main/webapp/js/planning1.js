@@ -6,7 +6,7 @@ jQuery(document).ready(function ($) {
 
     //should add a loding while the events are organized
 
-    function PlanningElements(element) {
+    function SchedulePlan(element) {
         this.element = element;
         this.timeline = this.element.find('.timeline');
         this.timelineItems = this.timeline.find('li');
@@ -14,7 +14,6 @@ jQuery(document).ready(function ($) {
         this.timelineStart = getScheduleTimestamp(this.timelineItems.eq(0).text());
         //need to store delta (in our case half hour) timestamp
         this.timelineUnitDuration = getScheduleTimestamp(this.timelineItems.eq(1).text()) - getScheduleTimestamp(this.timelineItems.eq(0).text());
-        console.log("timelineUnitDuration type: " + typeof this.timelineUnitDuration + "timelineUnitDuration : " + this.timelineUnitDuration);
 
         this.eventsWrapper = this.element.find('.events');
         this.eventsGroup = this.eventsWrapper.find('.events-group');
@@ -34,12 +33,12 @@ jQuery(document).ready(function ($) {
         this.initSchedule();
     }
 
-    PlanningElements.prototype.initSchedule = function () {
+    SchedulePlan.prototype.initSchedule = function () {
         this.scheduleReset();
         this.initEvents();
     };
 
-    PlanningElements.prototype.scheduleReset = function () {
+    SchedulePlan.prototype.scheduleReset = function () {
         var mq = this.mq();
         if (mq == 'desktop' && !this.element.hasClass('js-full')) {
             //in this case you are on a desktop version (first load or resize from mobile)
@@ -62,13 +61,12 @@ jQuery(document).ready(function ($) {
         }
     };
 
-    PlanningElements.prototype.initEvents = function () {
+    SchedulePlan.prototype.initEvents = function () {
         var self = this;
 
         this.singleEvents.each(function () {
             //create the .event-date element for each event
             var durationLabel = '<span class="event-date">' + $(this).data('start') + ' - ' + $(this).data('end') + '</span>';
-            console.log("$(this).data('start') : " + $(this).data('start') + "$(this).data('end') : " + $(this).data('end'));
             $(this).children('a').prepend($(durationLabel));
 
             //detect click on the event and open the modal
@@ -88,22 +86,15 @@ jQuery(document).ready(function ($) {
         });
     };
 
-    PlanningElements.prototype.placeEvents = function () {
+    SchedulePlan.prototype.placeEvents = function () {
         var self = this;
-       console.log( $(this).children('a').data('start'));
         this.singleEvents.each(function () {
             //place each event in the grid -> need to set top position and height
-            console.log("$(this) type: " + typeof $(this) + "$(this) : " + $(this));
-            console.log("$(this).attr('data-start') type: " + typeof $(this).attr('data-start') + "$(this).attr('data-start') : " + $(this).attr('data-start'));
             var start = getScheduleTimestamp($(this).attr('data-start')),
                 duration = getScheduleTimestamp($(this).attr('data-end')) - start;
-            console.log("start type: " + typeof start + "start : " + start);
-            console.log("duration type: " + typeof duration + "duration : " + duration);
 
             var eventTop = self.eventSlotHeight * (start - self.timelineStart) / self.timelineUnitDuration,
                 eventHeight = self.eventSlotHeight * duration / self.timelineUnitDuration;
-            console.log("eventTop type: " + typeof eventTop + "eventTop : " + eventTop);
-            console.log("eventHeight type: " + typeof eventHeight + "duration : " + eventHeight);
 
             $(this).css({
                 top: eventTop - 1 + 'px',
@@ -114,7 +105,7 @@ jQuery(document).ready(function ($) {
         this.element.removeClass('loading');
     };
 
-    PlanningElements.prototype.openModal = function (event) {
+    SchedulePlan.prototype.openModal = function (event) {
         var self = this;
         var mq = self.mq();
         this.animating = true;
@@ -204,7 +195,7 @@ jQuery(document).ready(function ($) {
         if (!transitionsSupported) self.modal.add(self.modalHeaderBg).trigger(transitionEnd);
     };
 
-    PlanningElements.prototype.closeModal = function (event) {
+    SchedulePlan.prototype.closeModal = function (event) {
         var self = this;
         var mq = self.mq();
 
@@ -265,13 +256,13 @@ jQuery(document).ready(function ($) {
         if (!transitionsSupported) self.modal.add(self.modalHeaderBg).trigger(transitionEnd);
     };
 
-    PlanningElements.prototype.mq = function () {
+    SchedulePlan.prototype.mq = function () {
         //get MQ value ('desktop' or 'mobile')
         var self = this;
         return window.getComputedStyle(this.element.get(0), '::before').getPropertyValue('content').replace(/["']/g, '');
     };
 
-    PlanningElements.prototype.checkEventModal = function (device) {
+    SchedulePlan.prototype.checkEventModal = function (device) {
         this.animating = true;
         var self = this;
         var mq = this.mq();
@@ -344,7 +335,7 @@ jQuery(document).ready(function ($) {
     if (schedules.length > 0) {
         schedules.each(function () {
             //create SchedulePlan objects
-            objSchedulesPlan.push(new PlanningElements($(this)));
+            objSchedulesPlan.push(new SchedulePlan($(this)));
         });
     }
 
@@ -374,7 +365,8 @@ jQuery(document).ready(function ($) {
         //accepts hh:mm format - convert hh:mm to timestamp
         time = time.replace(/ /g, '');
         var timeArray = time.split(':');
-        return parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
+        var timeStamp = parseInt(timeArray[0]) * 60 + parseInt(timeArray[1]);
+        return timeStamp;
     }
 
     function transformElement(element, value) {

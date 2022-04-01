@@ -17,13 +17,13 @@ public class Seance {
     private Date dateFin;
     private String etatAppel;
 
-//    Relaitons
-//    Cours
+    //    Relaitons
+    //    Cours
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CodeC")
     private Cours cours;
 
-//    enseignant
+    //    enseignant
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "CodeU")
     private Enseignant enseignant;
@@ -33,23 +33,18 @@ public class Seance {
     @JoinColumn(name = "CodeS")
     private Salle salle;
 
-//    //    planning
-//    @ManyToOne(fetch = FetchType.EAGER)
-//    @JoinColumn(name = "Date")
-//    private Planning planning;
-
-//    presence, etudiant
-    @OneToMany(mappedBy = "seance")
-    @MapKeyJoinColumn(name = "CodeU", updatable = false, insertable = false)
+    //    presence, etudiant
+    @OneToMany(mappedBy = "seance", cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name = "CodeU")
     private Map<Etudiant,Presence> etuPresences = new HashMap(0);
 
-    //    presence, justificatif
+    //    Justificatifs
     @OneToMany(mappedBy = "seance", cascade = CascadeType.ALL)
-    @MapKeyJoinColumn(name = "CodeJ", updatable = false, insertable = false)
-    private Map<Justificatif,Presence> justPresences = new HashMap(0);
+    @MapKeyJoinColumn(name = "CodeJ")
+    private Map<Justificatif,Justifier> justificatifs = new HashMap(0);
 
 
-//    Constructeur
+    //    Constructeur
 
 
     public Seance() {
@@ -62,8 +57,8 @@ public class Seance {
         this.cours = cours;
         this.enseignant = enseignant;
         this.salle = salle;
-    }
 
+    }
 
 //    getter and setter
 
@@ -120,14 +115,11 @@ public class Seance {
         this.etuPresences = etuPresences;
     }
 
-    public Map<Justificatif, Presence> getJustPresences() {
-        return justPresences;
-    }
+    public Map<Justificatif, Justifier> getJustifiers() {return justificatifs;}
 
-    public void setJustPresences(Map<Justificatif, Presence> justPresences) {
-        this.justPresences = justPresences;
-    }
-//    toString
+    public void setJustifiers(Map<Justificatif, Justifier> justifiers) {this.justificatifs = justifiers;}
+
+    //    toString
 
     @Override
     public String toString() {
@@ -142,7 +134,7 @@ public class Seance {
                 '}';
     }
 
-//    equals and hashCode
+    //    equals and hashCode
 
     @Override
     public boolean equals(Object o) {

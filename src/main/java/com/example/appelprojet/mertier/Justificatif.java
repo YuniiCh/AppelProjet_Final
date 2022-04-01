@@ -1,5 +1,7 @@
 package com.example.appelprojet.mertier;
 
+import com.example.appelprojet.util.EtatVerifier;
+
 import javax.persistence.*;
 import java.util.*;
 
@@ -15,7 +17,7 @@ public class Justificatif {
     @Temporal(TemporalType.TIMESTAMP)
     private Date dateDepot;
 
-    private String etatValidation;
+    private EtatVerifier etatVerifier;
     private String linkFile;
     private String nameFile;
 
@@ -40,9 +42,9 @@ public class Justificatif {
     public Justificatif() {
     }
 
-    public Justificatif(Date dateDepot, String etatValidation, String linkFile, String nameFile, Scolarite scolarite, Etudiant etudiant) {
+    public Justificatif(Date dateDepot, EtatVerifier etatVerifier, String linkFile, String nameFile, Scolarite scolarite, Etudiant etudiant) {
         this.dateDepot = dateDepot;
-        this.etatValidation = etatValidation;
+        this.etatVerifier = etatVerifier;
         this.linkFile = linkFile;
         this.nameFile = nameFile;
         this.scolarite = scolarite;
@@ -54,8 +56,8 @@ public class Justificatif {
     public void setIdJ(long idJ) {this.idJ = idJ;}
     public Date getDateDepot() {return dateDepot;}
     public void setDateDepot(Date dateDepot) {this.dateDepot = dateDepot;}
-    public String getEtatValidation() {return etatValidation;}
-    public void setEtatValidation(String etatValidation) {this.etatValidation = etatValidation;}
+    public EtatVerifier getEtatValidation() {return etatVerifier;}
+    public void setEtatValidation(EtatVerifier etatValidation) {this.etatVerifier = etatValidation;}
 
     public String getLinkFile() {
         return linkFile;
@@ -111,7 +113,7 @@ public class Justificatif {
         return "Justificatif{" +
                 "idJ='" + idJ + '\'' +
                 ", dateDepot=" + dateDepot +
-                ", etatValidation='" + etatValidation + '\'' +
+                ", etatValidation='" + etatVerifier + '\'' +
                 ", linkFile='" + linkFile + '\'' +
                 ", nameFile='" + nameFile + '\'' +
                 ", scolarite=" + scolarite.toString() +

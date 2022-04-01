@@ -19,10 +19,11 @@ import java.util.*;
 
 @WebServlet(name = "PlanningCtrl", value = "/planningCtrl")
 public class PlanningCtrl extends HttpServlet {
+    private static final SimpleDateFormat SDF_FR = new SimpleDateFormat("dd-MM-yyyy");
     SimpleDateFormat SDF = new SimpleDateFormat("yyyy-MM-dd");
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-                    /*----- Récupération des paramètres -----*/
+        /*----- Récupération des paramètres -----*/
 
         //        Obtenir l'id séance cliqué du Page Pllanning.jsp
         String idSeance = request.getParameter("idSeance");
@@ -69,21 +70,41 @@ public class PlanningCtrl extends HttpServlet {
                 List<Seance> seances = SeanceDAO.findSeancesSemaine(utilisateur, getDate);
                 Planning planning = new Planning(getDate);
                 List<Date> week = planning.weekDate;
-                Map<String, List<Seance>> seancesMap = planning.weekPlanning;
+                Map<String, ArrayList<Seance>> seancesMap = new HashMap<>();
+                for (Date d: week){
+                    seancesMap.put(SDF.format(d),new ArrayList<Seance>());
+                }
                 if (seances != null){
                     for (Seance seance:seances){
-                        seancesMap.get(Planning.getDateWithFormat(seance.getDateDebut(), "yyyy-MM-dd")).add(seance);
+                        if (!seancesMap.containsKey(SDF.format(seance.getDateDebut()))){
+                            seancesMap.get(SDF.format(seance.getDateDebut())).add(seance);
+                        }else {
+                            seancesMap.put(SDF.format(seance.getDateDebut()), new ArrayList<>(Collections.singletonList(seance)));
+                        }
                     }
                 }
+//                Map<Long, ArrayList<Seance>> seancesMap = new HashMap<>();
+//                for (Date d: week){
+//                    seancesMap.put(d.getTime(),new ArrayList<Seance>());
+//                }
+//                if (seances != null){
+//                    for (Seance seance:seances){
+//                        if (seancesMap.containsKey(seance.getDateDebut().getTime())){
+//                            seancesMap.get(seance.getDateDebut().getTime()).add(seance);
+//                        }else {
+//                            seancesMap.put(seance.getDateDebut().getTime(), new ArrayList<>(Collections.singletonList(seance)));
+//                        }
+//                    }
+//                }
                 System.out.println("SeancesMap: " + seancesMap);
                 RequestDispatcher rd = request.getRequestDispatcher("planning");
                 request.setAttribute("week", (List<Date>) week);
                 request.setAttribute("date", Planning.getDateWithFormat(getDate, "yyyy-MM-dd"));
-                request.setAttribute("seances", (TreeMap<String, List<Seance>>) seancesMap );
+                request.setAttribute("seances",  new TreeMap<>(seancesMap) );
                 rd.forward(request, response);
             } catch (ServletException e) {
                 e.printStackTrace();
-                RequestDispatcher rd = request.getRequestDispatcher("profil");
+                RequestDispatcher rd = request.getRequestDispatcher("message");
                 request.setAttribute("avert", "Ne pas pouvoir chargement. ");
                 rd.forward(request, response);
             }
@@ -158,7 +179,7 @@ public class PlanningCtrl extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-            doGet(request, response);
+        doGet(request, response);
     }
 
     private void processRequest(HttpServletRequest request, HttpServletResponse response) {

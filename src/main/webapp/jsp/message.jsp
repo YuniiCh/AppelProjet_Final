@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <link rel="stylesheet"  type="text/css"  href="Style/style.css"/>
+    <link rel="stylesheet"  type="text/css"  href="${pageContext.request.contextPath}/css/styles.css"/>
     <title>Message</title>
 </head>
 <body>

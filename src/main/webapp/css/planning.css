@@ -381,7 +381,7 @@ Main Components
 .cd-schedule .event-name,
 .cd-schedule .event-date {
     display: block;
-    color: white;
+    color: black;
     font-weight: bold;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

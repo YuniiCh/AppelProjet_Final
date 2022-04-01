@@ -21,7 +21,7 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
     }
 
     public static Utilisateur getLoginInfo(String email, String pwd) {/*----- Ouverture d'une transaction -----*/
-            Utilisateur utilisateur = null;
+        Utilisateur utilisateur = null;
         System.out.println("Open session!");
         try (Session session =HibernateUtil.getSessionFactory().getCurrentSession()) {
             System.out.println("get email: " + email);
@@ -83,7 +83,7 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
             session.close();
             switch (categorie){
                 case "utilisateur":
-                   return Role.ETUDIANT;
+                    return Role.ETUDIANT;
                 case "etudiant":
                     return Role.ETUDIANT;
                 case "enseignant":
