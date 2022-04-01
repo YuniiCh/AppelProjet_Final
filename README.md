@@ -27,6 +27,28 @@
       7. Remplacer le constant "PDF_DIRECTORY" de model/JustificatifConstant.java en ajoutant "\\" à la fin
 7. Configuration de Tomcat
 
+## 5. Technologie
+![TECH](img/tech.png)
+### 5.1 APIs
 
+**Développement**
+
+- JSTL
+
+- javax.servlet
+
+- commons-fileupload
+
+- javax.mail
+
+- org.apache.pdfbox
+
+**Test**
+
+- com.masterxml.jaskson.dataformat
+
+- com.github.servanter
+
+- Junit
 ## 6. Diagramme de classe (uml)
 ![UML](captures/UML.png)
