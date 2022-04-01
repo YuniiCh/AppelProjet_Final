@@ -1,6 +1,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="com.example.appelprojet.mertier.Seance" %>
 <%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.example.appelprojet.util.Role" %>
 <%@ page import="com.example.appelprojet.util.EtatPresence" %>
 <%@ page import="com.example.appelprojet.mertier.Presence" %>
 <%@ page import="com.example.appelprojet.dao.PresenceDAO" %>
@@ -88,7 +89,7 @@
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     <!-- Header -->
     <header class="w3-container" style="padding-top:22px">
-        <h5><b><i class="fa fa-dashboard"></i> Planning</b></h5>
+        <h5><b><i class="fa fa-dashboard"></i> Fiche Appel</b></h5>
     </header>
 
     <!-- FicheAppel -->
@@ -192,7 +193,7 @@
                                 }
                         %>
                         <tr>
-                            <td><img src="https://github.com/PikaMeoow/Photo-Etudiant/blob/main/<%=p.getEtudiant().getIdU()%>.png?raw=true"  alt="images"/>
+                            <td><img src="https://github.com/PikaMeoow/Photo-Etudiant/blob/main/<%=p.getEtudiant().getIdU()%>.png?raw=true" class="imgAppel" style="height: 4.5rem; width: 4.5rem;" alt="photos"/>
                                 <%--                    <img src="image/etudiant.png" style="height: 4.5rem; width: 4.5rem;" />--%>
                             </td>
                             <td class="student_info"><a href="presenceEtudiantCtrl?idEtudiant=<%=p.getEtudiant().getIdU()%>"><span class="formation_color" style="<% if(formation.equals("FI")) out.println("background-color: mediumpurple;"); else out.println("background-color: mediumslateblue;");%>"
