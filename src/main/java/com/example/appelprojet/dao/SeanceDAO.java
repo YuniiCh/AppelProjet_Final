@@ -6,6 +6,7 @@ import com.example.appelprojet.mertier.Planning;
 import com.example.appelprojet.mertier.Seance;
 import com.example.appelprojet.mertier.Utilisateur;
 import com.example.appelprojet.util.EtatPresence;
+import com.example.appelprojet.util.FontionsUtiles;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 public class SeanceDAO extends DAO<Seance>{
     /*----- Format de date -----*/
@@ -277,6 +279,9 @@ public class SeanceDAO extends DAO<Seance>{
             return liste;
         }
     }
+
+
+
 
 
 //    public static Seance findSeanceActuel() {
