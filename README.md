@@ -32,24 +32,31 @@
 ![TECH](img/tech.png)
 ### 5.1 APIs
 
-**Développement**
+**Technologie**
 
-- JSTL
+- Intellij : environnement de développement
 
-- javax.servlet
+- Tomcat : Serveur Web
 
-- commons-fileupload
+- Hibernate : pour créer le BD, insérer les données, manipuler les tables
 
-- javax.mail
+- mysql-connector-java-8.0.28 : pour connecter le BD MySQL
 
-- org.apache.pdfbox
+- Github : pour gérer les versions et facilité le travail en équipe
 
-**Test**
+- Ajax : pour réaliser les pages dynamiques
 
-- com.masterxml.jaskson.dataformat
+**Libraire**
 
-- com.github.servanter
+- Pour envoyer un mail automatique via APP:
+    -javax.mail
+    -jodd.all
 
-- Junit
+- Pour upload et download les fiches:
+   -commons-io-2.2
+   -commons-fileupload-1.4
+
+Remarque: Les libraires qui ont utilisé sont tous décrit dans les dépendances du projet sous file pom.xml
+
 ## 6. Diagramme de classe (uml)
 ![UML](captures/UML.png)
