@@ -51,6 +51,10 @@
             <c:if test="${!empty typeU}">
                 <span>Bienvenue, <strong><%=user.getPrenomU()%></strong></span><br>
                 <a href="profil" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+                <a href="login" style="font-size:12px;" class="w3-bar-item w3-padding">
+                    <i class="fa fa-bullseye fa-fw"></i>
+                    Déconnecter
+                </a>
             </c:if>
         </div>
     </div>
@@ -98,11 +102,6 @@
         date = (String) request.getAttribute("date");
     }
 %>
-
-
-<div class="d-sm-flex justify-content-between align-items-center mb-4">
-    <h3 class="text-dark mb-0">Planning</h3>
-</div>
 
 <div class="container">
     <div class="p-3" style="background: #f5f5f5;">

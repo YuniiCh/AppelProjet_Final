@@ -70,11 +70,11 @@ public class AppelCtrl extends HttpServlet {
                 Seance seance = (Seance) request.getSession().getAttribute("seance");
                 List<Etudiant> tousEtudiants = EtudiantDAO.etudiantsMemeCoursByIdSeance(seance);
                 List<Etudiant> etudiants = EtudiantDAO.findEtudiansByID(seance);
-//                List<Etudiant> list_students = EtudiantDAO.findByName(search);
-//                List<Etudiant> etudiantsHorsSeance = EtudiantDAO.etudiantsHorsSeanceByIdSeance(seance.getIdSeance());
+
+
                 if (tousEtudiants != null){
                     for (Etudiant student : tousEtudiants) {
-                        String nom = student.getNomU() + " " + student.getPrenomU() + " " + String.valueOf(student.getIdU());
+                        String nom = student.getNomU() + " " + student.getPrenomU() + " " + student.getIdU();
                         if (!etudiants.contains(student) && nom.toLowerCase().contains(search.toLowerCase())) {
                             out.println("<student><id>" + student.getIdU()  + "</id><type>" + student.getTypeEtudiant() + "</type><nom>" + student.getNomU() + " " + student.getPrenomU()  +  "</nom></student>");
                             System.out.println("<student>" + student.getIdU() + "  " + student.getNomU() + " " + student.getPrenomU() + "</student>");

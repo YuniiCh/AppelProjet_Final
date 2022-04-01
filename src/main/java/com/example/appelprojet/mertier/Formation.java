@@ -90,9 +90,7 @@ public class Formation {
     public String toString() {
         return "Formation{" +
                 "idFormation=" + idFormation +
-                ", nomFormation='" + nomFormation + '\'' +
-                ", cours=" + cours.toString() +
-                ", etudiants=" + etudiants.toString() +
+                ", nomFormation='" + nomFormation +
                 ", scolarite=" + scolarite.toString() +
                 '}';
     }

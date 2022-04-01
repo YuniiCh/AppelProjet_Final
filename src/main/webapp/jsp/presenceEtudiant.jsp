@@ -18,7 +18,7 @@
 --%>
 <html>
 <head>
-    <title>Présence  Etudiant</title>
+    <title>Présence Etudiant</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -57,6 +57,10 @@
             <c:if test="${!empty typeU}">
                 <span>Bienvenue, <strong><%=user.getPrenomU()%></strong></span><br>
                 <a href="profil" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+                <a href="login" style="font-size:12px;" class="w3-bar-item w3-padding">
+                    <i class="fa fa-bullseye fa-fw"></i>
+                    Déconnecter
+                </a>
             </c:if>
         </div>
     </div>

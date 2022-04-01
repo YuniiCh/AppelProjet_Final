@@ -15,7 +15,7 @@
 <html>
 <head>
     <link href="${pageContext.request.contextPath}/css/styles.css" rel="stylesheet" type="text/css">
-    <title>Upload File</title>
+    <title>Dépôt justificatif</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -54,6 +54,10 @@
             <c:if test="${!empty typeU}">
                 <span>Bienvenue, <strong><%=user.getPrenomU()%></strong></span><br>
                 <a href="profil" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+                <a href="login" style="font-size:12px;" class="w3-bar-item w3-padding">
+                    <i class="fa fa-bullseye fa-fw"></i>
+                    Déconnecter
+                </a>
             </c:if>
         </div>
     </div>
@@ -90,20 +94,19 @@
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     <!-- Header -->
     <header class="w3-container" style="padding-top:22px">
-        <h5><b><i class="fa fa-dashboard"></i> Planning</b></h5>
+        <h5><b><i class="fa fa-dashboard"></i> Dépôt justificatif</b></h5>
     </header>
     <!-- Ajouter la nouvel page ici - le contenue dans la balise Body -->
     <div>
+    <%
+        Long idE = user.getIdU();
+        List<Seance> liste = new ArrayList<>();
 
+        SeanceDAO seanceDAO = new SeanceDAO();
+        if (idE != null)
+            liste = (List) seanceDAO.tousAbsEtudiantCeMois(idE);
 
-    Long idE = user.getIdU();
-    List<Seance> liste = null;
-
-    SeanceDAO seanceDAO = new SeanceDAO();
-    if (idE != null)
-        liste = (List) seanceDAO.tousAbsEtudiantCeMois(idE);
-
-%>
+    %>
 <div id="uploadF" >
     <form method="POST" action="uploadCtrl" enctype="multipart/form-data" id="pageDeposerJ">
 

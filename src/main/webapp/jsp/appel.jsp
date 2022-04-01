@@ -53,6 +53,10 @@
             <c:if test="${!empty typeU}">
                 <span>Bienvenue, <strong><%=user.getPrenomU()%></strong></span><br>
                 <a href="profil" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+                <a href="login" style="font-size:12px;" class="w3-bar-item w3-padding">
+                    <i class="fa fa-bullseye fa-fw"></i>
+                    Déconnecter
+                </a>
             </c:if>
         </div>
     </div>
@@ -143,9 +147,7 @@
                                 <div id="zone_show" class="zone_show_cl"></div>
                                 <div id="zone_students_chosen" class="zone_students_chosen_cl"><table id="tb_choose"><tr><th>ID</th><th>Formation</th><th>Nom Prénom</th></tr></table></div>
                             </div>
-                            <div class="pop-footer">
-                                <h3>***************************</h3>
-                            </div>
+
                         </div>
                     </div>
                     <!-- POP END-->

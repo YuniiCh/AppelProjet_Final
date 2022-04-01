@@ -8,22 +8,22 @@
 
 |*Members*|*Contact*|
 |:---:|---|
-|**Yuni CHEN**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/StevenZZJ) [![Gmail Badge](https://img.shields.io/badge/-steven.zhouzijing@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:steven.zhouzijing@gmail.com)](mailto:steven.zhouzijing@gmail.com)|
+|**Yuni CHEN**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/StevenZZJ) [![Gmail Badge](https://img.shields.io/badge/-yunic4639@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:steven.zhouzijing@gmail.com)](mailto:steven.zhouzijing@gmail.com)|
 |**Jiayin LI**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](http://github.com/ljy9988) [![Gmail Badge](https://img.shields.io/badge/-jiayin.li9988@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:jiayin.li9988@gmail.com)](mailto:jiayin.li9988@gmail.com)|
-|**Mengying ZHAO**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/Gabrielle07) [![Gmail Badge](https://img.shields.io/badge/-tongliu024@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:tongliu024@gmail.com)](mailto:tongliu024@gmail.com)|
-|**CLAUDEL FRANK**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/faresmegari) [![Gmail Badge](https://img.shields.io/badge/-faares.mega@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:faares.mega@gmail.com)](mailto:faares.mega@gmail.com)|
+|**Mengying ZHAO**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/Gabrielle07) [![Gmail Badge](https://img.shields.io/badge/-zhaomengying.fr@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:tongliu024@gmail.com)](mailto:tongliu024@gmail.com)|
+|**CLAUDEL FRANK**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/faresmegari) [![Gmail Badge](https://img.shields.io/badge/-fonkwa_claudel@yahoo.fr-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:faares.mega@gmail.com)](mailto:faares.mega@gmail.com)|
 |**Shuanghong LI**|[![Github Badge](https://img.shields.io/badge/-Github-000?style=flat-square&logo=Github&logoColor=white)](https://github.com/Li-Shuanghong) [![Gmail Badge](https://img.shields.io/badge/-lishuanghong3849@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:lishuanghong3849@gmail.com)](mailto:lishuanghong3849@gmail.com)|
 ## 2. Installation du projet
 1. Préparer l’Intellij environnement
 2. Copier l’url Github et import Projet
 3. Configurer le tomcat en cliquant Add Configuration
-4. Adapdation de chemin d'accès 
-      1. Rajouter le tomcat dans Application server
-      3. Choix de la version Tomcat
-      4. Choisir le projet correspodant dans le Déployement
+4. Adapdation de chemin d'accès
+    1. Rajouter le tomcat dans Application server
+    3. Choix de la version Tomcat
+    4. Choisir le projet correspodant dans le Déployement
 5. Préparer un BD 'dai' local
-      1. Modifier le fichier hibernate.cfg.xml en utilisant le nom et le mot de pass propre
-      2. Run le file GenererBD.java seulement pour remplir les données dans le BD dai
+    1. Modifier le fichier hibernate.cfg.xml en utilisant le nom et le mot de pass propre
+    2. Run le file GenererBD.java seulement pour remplir les données dans le BD dai
 7. Lancer tomcat
 
 ## 4. Structure (MVC pattern)
@@ -47,15 +47,27 @@
 
 - Ajax : pour réaliser les pages dynamiques
 
+- jstl : pour utiliser les balises de Ajax
+
 **Libraire**
 
-- Pour envoyer un mail automatique via APP:
-    -javax.mail
-    -jodd.all
+- Pour se connecter à la base de données:
+  -mysql
+  -mysql-connector-java-8.0.27
+
+- Pour utiliser les balises de Ajax:
+  -jstl-1.2
+  -org.mybatis-3.0.1
+
+- Pour utiliser la langage jstl:
+  -jstl-1.2
+  -org.mybatis-3.0.1
+  -standard
 
 - Pour upload et download les fiches:
-   -commons-io-2.2
-   -commons-fileupload-1.4
+  -commons-io-2.2
+  -commons-fileupload-1.4
+  -com.sun.mail-javax.mail-1.6.1
 
 Remarque: Les libraires qui ont utilisé sont tous décrit dans les dépendances du projet sous file pom.xml
 

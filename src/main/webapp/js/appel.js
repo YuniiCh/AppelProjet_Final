@@ -205,7 +205,7 @@ function showStrudentsList(){
             }
             let btn_num = document.getElementsByClassName("btn_etatp_cl").length + 1;
             let addlist = "<tr><td>" + idStudent + "</td><td>" + formation + "</td><td>" + nom + "</td></tr>";
-            let insert = " <tr><td><img src=\"https://github.com/PikaMeoow/Photo-Etudiant/blob/main/" +idStudent + ".png?raw=true\"  alt=\"images\"/><span id='change_group'>&copy;</span></td>" +
+            let insert = " <tr><td><img style=\"height: 4.5rem; width: 4.5rem;\" src=\"https://github.com/PikaMeoow/Photo-Etudiant/blob/main/" +idStudent + ".png?raw=true\"  alt=\"images\"/><span id='change_group'>&copy;</span></td>" +
                 "                <td class=\"student_info\"><a href=\"presenceEtudiantCtrl?idEtudiant="+idStudent+"\"><span class=\"formation_color\" style=\""+ style +"\">" + student.split(", ")[1] + "</span>" + formation + "</span><span class=\""+ idStudent +"\">" + nom + "</span></a></td>" +
                 "                <td><button id=\"btn_etatP" + btn_num + "\" class=\"btn_etatp_cl\" type=\"button\" name=\"" + idStudent + "\" onclick=\"getNbClick(this);\"><span id=\"etatPresent" + btn_num + "\" class=\"etatpresent_cl\">Présent</span></button></td>" +
                 "                <td><span class=\"btn_delet_one\" id=\"delet_" + btn_num + "\" style=\"pointer-events: none; display: none; \">&circleddash;</span></td></tr>";
@@ -352,125 +352,6 @@ function confirmAppel() {
     };
     xhr.send(param);
 }
-
-
-// function confirmAppel() {
-//     // let presences = document.getElementsByClassName("btn_etatp_cl");
-//     let presences = getEtats();
-//     presences = document.getElementsByClassName("btn_etatp_cl");
-//     console.log(presences.item(0).getAttribute("name"));
-//     console.log(presences.item(0).firstChild.nodeValue);
-//     console.log(presences.item(0).firstChild.textContent);
-//     let etatsConfirm = presences.item(0).getAttribute("name") + " " +presences.item(0).firstChild.textContent;
-//     console.log("etat 0: " + etatsConfirm);
-//     for (let i = 1; i < presences.length; i++){
-//         console.log(presences.item(i).getAttribute("name"));
-//         console.log(presences.item(i).firstChild.textContent);
-//         if (presences.item(i).firstChild.textContent !== "Signaler"){
-//             etatsConfirm = etatsConfirm + "," + presences.item(i).getAttribute("name") + " " + presences.item(i).firstChild.textContent;
-//         }
-//     }
-//     // let etatsConfirm = getEtats();
-//     console.log(etatsConfirm);
-//     let xhr = new XMLHttpRequest();
-//     let param = "etats=" + encodeURIComponent(etatsConfirm);
-//     console.log(param);
-//     xhr.open("POST", url);
-//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//     xhr.onload = function () {
-//         console.log("xhr.status : " + xhr.status);
-//         if (xhr.status === 200) {
-//             let update_status = xhr.responseXML.getElementsByTagName("student");
-//             let update_ok = true;
-//             let check_not_ok = true;
-//             for (let i = 0; i < update_status.length; i++){
-//                 if (update_status[i].firstChild.nodeValue !== "update"){
-//                     update_ok = false;
-//                     check_not_ok = false;
-//                 }else {
-//                     presences.item(i).disabled = true;
-//                 }
-//             }
-//             if (check_not_ok !== false){
-//                 document.getElementById("valideEtat").style.color = "green";
-//                 document.getElementById("valideEtat").innerHTML = "Valider!";
-//                 document.getElementById("valider").disabled = true;
-//             }else {
-//                 document.getElementById("valideEtat").style.color = "red";
-//                 document.getElementById("valideEtat").innerHTML = "Erreur!";
-//             }
-//         }
-//         location.reload();
-//     };
-//     xhr.send(param);
-// }
-
-// function saveAppel(){
-//     let etatsSave = getEtats();
-//     console.log(etatsSave);
-//     let xhr = new XMLHttpRequest();
-//     let param = "etatsSave=" + encodeURIComponent(etatsSave);
-//     console.log(param);
-//     xhr.open("POST", url);
-//     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-//     xhr.onload = function () {
-//         console.log("xhr.status : " + xhr.status);
-//         if (xhr.status === 200) {
-//             let update_status = xhr.responseXML.getElementsByTagName("student");
-//             getActionResponse(presences, update_status);
-//         }
-//
-//     };
-//     xhr.send(param);
-// }
-
-// function getEtats(){
-//     let presences = document.getElementsByClassName("btn_etatp_cl");
-//     console.log(presences.item(0).getAttribute("name"));
-//     console.log(presences.item(0).firstChild.textContent);
-//     let etats = presences.item(0).getAttribute("name") + " " +presences.item(0).firstChild.textContent.replace("é","e");
-//     console.log("etat 0: " + etats);
-//     for (let i = 1; i < presences.length; i++){
-//         console.log(presences.item(i).getAttribute("name"));
-//         console.log(presences.item(i).firstChild.textContent);
-//         if (presences.item(i).firstChild.textContent !== "Signaler"){
-//             etats = etats + "," + presences.item(i).getAttribute("name") + " " + presences.item(i).firstChild.textContent.replace("é","e");
-//         }
-//     }
-//     return etats;
-// }
-//
-// function getActionResponse(presences,update){
-//     let update_ok = true;
-//     let check_not_ok = true;
-//     for (let i = 0; i < update.length; i++){
-//         if (update[i].firstChild.nodeValue !== "update"){
-//             update_ok = false;
-//             check_not_ok = false;
-//         }else {
-//             presences.item(i).disabled = true;
-//         }
-//     }
-//     if (check_not_ok !== false){
-//         document.getElementById("saveEtat").style.color = "green";
-//         document.getElementById("saveEtat").innerHTML = "Enregistrer!";
-//         document.getElementById("save").disabled = true;
-//     }else {
-//         document.getElementById("saveEtat").style.color = "red";
-//         document.getElementById("saveEtat").innerHTML = "Erreur!";
-//     }
-// }
-
-// function strNoAccent(a) {
-//     var b="áàâäãåçéèêëíïîìñóòôöõúùûüýÁÀÂÄÃÅÇÉÈÊËÍÏÎÌÑÓÒÔÖÕÚÙÛÜÝ",
-//         c="aaaaaaceeeeiiiinooooouuuuyAAAAAACEEEEIIIINOOOOOUUUUY",
-//         d = "";
-//     for(var i = 0, j = a.length; i < j; i++) {
-//         var e = a.substr(i, 1);
-//         d += (b.indexOf(e) !== -1) ? c.substr(b.indexOf(e), 1) : e;
-//     }
-//     return d;
-// }
 
 
 

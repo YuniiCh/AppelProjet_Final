@@ -50,6 +50,10 @@
         <c:if test="${!empty typeU}">
             <span>Bienvenue, <strong><%=user.getPrenomU()%></strong></span><br>
             <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+            <a href="login" style="font-size:12px;" class="w3-bar-item w3-padding">
+                <i class="fa fa-bullseye fa-fw"></i>
+                Déconnecter
+            </a>
         </c:if>
         </div>
     </div>
@@ -96,14 +100,15 @@
                 <img src="https://github.com/PikaMeoow/Photo-Etudiant/blob/main/<%=user.getIdU()%>.png?raw=true" class="w3-circle" style="width:150px; margin-left:15%;" alt="Photo"><br>
                 <form action="modifierProfil" method="post" enctype="multipart/form-data">
                     <br><br><br>
-                    <label>Num&eacute;ro d'&eacute;tudiant</label>
+                    <label>Num&eacute;ro identifiant</label>
                     <input class="w3-input w30profil" type="text" value=<%=user.getIdU()%> disabled>
                     <label>Pr&eacute;nom</label>
                     <input class="w3-input w30profil" type="text" value=<%=user.getPrenomU()%> disabled>
                     <label>Nom</label>
                     <input class="w3-input w30profil" type="text" value=<%=user.getNomU()%> disabled>
-                    <input class="w3-input w30profil" type="hidden" name="mailChange" value=<%=user.getEmail()%> >
-
+                    <label>Email</label>
+                    <input class="w3-input w30profil" style="background-color: #f1f1f1;" type="email" name="mailChange" value=<%=user.getEmail()%>  >
+                    <br>
                     <button style="margin-left:17%; margin-top:5%" type="submit" class="w3-btn w3-blue-grey">Modifier</button>
                 </form>
             </div>

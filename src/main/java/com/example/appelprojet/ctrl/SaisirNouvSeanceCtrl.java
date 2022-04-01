@@ -119,7 +119,7 @@ public class SaisirNouvSeanceCtrl extends HttpServlet {
         }
 
         RequestDispatcher rd = request.getRequestDispatcher("message");
-        sessionHttp.setAttribute("message", "Le nouveau séance est enregistré !");
+        sessionHttp.setAttribute("message", "saisirSea");
         rd.forward(request, response);
 
     }

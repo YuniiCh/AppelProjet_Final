@@ -376,12 +376,13 @@ Main Components
     /* the class .loading is added by default to the .cd-schedule element
          it is removed as soon as the single events are placed in the schedule plan (using javascript) */
     opacity: 0;
+    color: white;
 }
 
 .cd-schedule .event-name,
 .cd-schedule .event-date {
     display: block;
-    color: black;
+    color: white;
     font-weight: bold;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -417,11 +418,11 @@ Main Components
 
 .cd-schedule .single-event[data-event="event-2"],
 .cd-schedule [data-event="event-2"] .header-bg {
-    background: #443453;
+    background: #070083;
 }
 
 .cd-schedule .single-event[data-event="event-2"]:hover {
-    background: #513e63;
+    background: #070083;
 }
 
 .cd-schedule .single-event[data-event="event-3"],
@@ -712,4 +713,8 @@ Main Components
 .cd-schedule.modal-is-open .cover-layer {
     opacity: 1;
     visibility: visible;
+}
+
+.event-date, .event-name{
+    color: white;
 }

@@ -28,7 +28,7 @@
 
 <html>
 <head>
-    <title>Liste des Appels</title>
+    <title>Liste Appels</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -67,6 +67,10 @@
             <c:if test="${!empty typeU}">
                 <span>Bienvenue, <strong><%=user.getPrenomU()%></strong></span><br>
                 <a href="profil" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+                <a href="login" style="font-size:12px;" class="w3-bar-item w3-padding">
+                    <i class="fa fa-bullseye fa-fw"></i>
+                    Déconnecter
+                </a>
             </c:if>
         </div>
     </div>
@@ -103,7 +107,7 @@
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     <!-- Header -->
     <header class="w3-container" style="padding-top:22px">
-        <h5><b><i class="fa fa-dashboard"></i> Planning</b></h5>
+        <h5><b><i class="fa fa-dashboard"></i> Liste d'appels</b></h5>
     </header>
     <!-- Ajouter la nouvel page ici - le contenue dans la balise Body -->
     <div>
