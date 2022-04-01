@@ -26,6 +26,8 @@
       2. Run le file GenererBD.java seulement pour remplir les données dans le BD dai
 7. Lancer tomcat
 
+## 4. Structure (MVC pattern)
+![MVC](captures/MVC_Structure.png)
 
 ## 5. Technologie
 ![TECH](img/tech.png)
