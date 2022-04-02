@@ -307,14 +307,9 @@ function confirmAppel() {
                 }else {
                     span.innerText = "Enregistrer";
                 }
-                // document.getElementById("valideEtat").style.color = "green";
-                // document.getElementById("valideEtat").innerHTML = "Valider!";
-                // document.getElementById("valider").disabled = true;
             }else {
                 span.style.color  = "red";
                 span.innerText = "Erreur";
-                // document.getElementById("valideEtat").style.color = "red";
-                // document.getElementById("valideEtat").innerHTML = "Erreur!";
             }
         }
         location.reload();
@@ -334,7 +329,6 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("btn_delete").addEventListener("click", deleteStudent);
     document.getElementById("valider").addEventListener("click", confirmAppel);
     document.getElementById("save").addEventListener("click", confirmAppel);
-    // document.getElementById("save").addEventListener("click", saveAppel);
     document.getElementsByClassName("close")[0].addEventListener("click", closePOP);
     document.querySelectorAll('.btn_delet_one').forEach(item => {
         item.addEventListener('click', event => {

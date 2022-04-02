@@ -24,7 +24,7 @@
 }
 
 .right{
-    margin: auto auto;
+    margin: 50px auto;
     width: 400px;
     height: 560px;
     background: rgba(255,255,255,.9);
@@ -51,6 +51,13 @@ h3{
     color: #366ae6;
     padding: 20px 0;
 }
+p{
+    font-size: 10px;
+    font-weight: 400;
+    color: #366ae6;
+    padding: 20px 0;
+}
+
 .text{
     width: 100%;
     outline: none;
@@ -73,6 +80,7 @@ h3{
 .btn:hover{
     box-shadow: 0 0 20px rgba(0,0,0,0);
 }
-image{
+img{
+    padding-top: 10px;
     text-align: center;
 }
