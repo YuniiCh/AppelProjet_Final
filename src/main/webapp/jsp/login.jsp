@@ -26,7 +26,7 @@
             <input id="email" class="text" type="email" name="email"/>
             <label for="psw"><h3>Password</h3></label>
             <input id="psw" class="text" type="password" name="psw">
-            <p><input type="checkbox" id="remember" checked><label for="remember">Garder le mot de passe</label></p>
+            <p><input type="checkbox" id="remember" checked><label for="remember" id="keep">Garder le mot de passe</label></p>
             <button id="loginsb" class="btn" type="submit">Se connecter</button>
             <p>
                 <% ///<!-- Fail to login -->
