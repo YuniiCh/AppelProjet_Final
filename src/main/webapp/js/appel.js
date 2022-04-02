@@ -58,7 +58,6 @@ function changeEtatPresence(obj,nb){
                     obj.style.backgroundColor = "#a8e2f8";
                 }
 
-                // obj.CHILD(document.getElementById("etatPresent")).innerHTML = etat_presence[i].firstChild.nodeValue;
             }
         }
     };
@@ -82,7 +81,6 @@ function tousPresence(obj, nb) {
         document.getElementById("btn_touspresence").style.backgroundColor = "#ffcc99";
         document.getElementById("toustext").innerHTML = "Tous Absent";
         for(let i = 0; i<btEtat.length;i++) {
-            // btEtat[i].getElementsByClassName("etatpresent_cl")[0].innerHTML = "Présent";
             btEtat[i].firstElementChild.innerHTML = "Absent";
             btEtat[i].style.backgroundColor = "#ffcc99";
         }
@@ -98,23 +96,11 @@ function tousPresence(obj, nb) {
 }
 
 function addStudent(){
-    // 获取弹窗
     const pop = document.getElementById('add_student_pop');
 
-// 获取 <span> 元素，用于关闭弹窗 that closes the modal
-//     var span = document.getElementsByClassName("close")[0];
-
-    // // 点击 <span> (x), 关闭弹窗
-//     span.onclick = function() {
-//         document.getElementById("search_student").innerHTML = "";
-//         pop.style.display = "none";
-//     }
-
-    // 点击按钮打开弹窗
     pop.style.display = "block";
 
 
-// 在用户点击其他地方时，关闭弹窗
     window.onclick = function(event) {
         if (event.target === pop) {
             pop.style.display = "none";
@@ -165,14 +151,6 @@ function showStudents() {
                     for (let i = 0; i < list_students.length; i++){
                         list_students[i].addEventListener("click", showStrudentsList);
                     }
-                    // let idStudent = students[i].firstChild.nodeValue.split(", ")[0];
-                    // let nom = students[i].firstChild.nodeValue.split(", ")[2];
-                    // let btn_num = document.getElementsByClassName("btn_etatp_cl").length + 1;
-                    // let insert = " <tr><td><img src=\"https://github.com/PikaMeoow/Photo-Etudiant/blob/main/" +idStudent + ".png?raw=true\"  alt=\"images\"/></td>" +
-                    //     "                <td class=\"student_info\"><span class=\"formation_color\" style=\""+ style +"\"</span><span class=\""+ idStudent +"\">" + nom + "</span></td>" +
-                    //     "                <td><button id=\"btn_etatP" + btn_num + "\" class=\"btn_etatp_cl\" type=\"button\" name=\"" + idStudent + "\" onclick=\"getNbClick(this);\"><span id=\"etatPresent" + btn_num + "\" class=\"etatpresent_cl\">Présent</span></button></td>" +
-                    //     "                <td><span class=\"btn_delet_one\" id=\"delet_" + btn_num + "\" style=\"pointer-events: none; display: none; \">&circleddash;</span></td></tr>";
-                    // document.getElementById("listEtudiant").firstElementChild.insertAdjacentHTML("beforeend", insert);
                 }
             }
         }
@@ -251,14 +229,6 @@ function deleteStudent(){
         });
         nbDeleteClick = 1;
     }
-    // window.onclick = function(event) {
-    //     document.querySelectorAll('.btn_delet_one').forEach(item => {
-    //         if (event.target === item) {
-    //             item.style.display = "none";
-    //             item.style.pointerEvents = "none";
-    //         }
-    //     });
-    // }
 }
 
 function deleteOneStudent(id){
@@ -289,7 +259,6 @@ function deleteOneStudent(id){
 }
 
 
-// $(document).ready(getEtats());
 function confirmAppel() {
     // let presences = document.getElementsByClassName("btn_etatp_cl");
     let presences = document.getElementsByClassName("btn_etatp_cl");
