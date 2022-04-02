@@ -98,9 +98,65 @@
     <!-- Ajouter la nouvel page ici - le contenue dans la balise Body -->
     <div>
 <%
-    String message = (String)request.getSession(false).getAttribute("message");
-    out.print(message);
+    try{
+        String message = (String)request.getSession(false).getAttribute("message");
+        out.print("<div id='msg'>" + message + "</div>");
+
+        out.print("<div id='links'>");
+        switch ((String) request.getSession(false).getAttribute("action")) {
+            case "pageDownload":
+                out.println("<p><a href=\"download\">Valider d'atures justificatifs?</a></p>");
+                break;
+
+            case "pageUpload":
+                out.println("<p><a href=\"upload\">Upload d'atures justificatifs?</a></p>");
+                break;
+
+            case "saisirSea":
+                out.println("<p>Le nouveau séance est enregistré!</p><p><a href=\"saisirNouvSeance\">Saisir d'atures seances?</a></p>");
+                break;
+
+            case "modifProfil":
+                out.println("<meta http-equiv=\"refresh\" content=\"4;url=login\"/>");
+                //request.getRequestDispatcher("login").forward(request, response);
+                break;
+        }
+        out.println("</div>");
+    }catch (Exception e){
+        e.printStackTrace();
+        request.getRequestDispatcher("login").forward(request, response);
+    }
 %>
-<a href="uploadFile">Hello</a>
+</div>
+<!-- Fin de la page contenue -->
+
+<!-- Script Sidebar -->
+<script>
+    // Get the Sidebar
+    var mySidebar = document.getElementById("mySidebar");
+
+    // Get the DIV with overlay effect
+    var overlayBg = document.getElementById("myOverlay");
+
+    // Toggle between showing and hiding the sidebar, and add overlay effect
+    function w3_open() {
+        if (mySidebar.style.display === 'block') {
+            mySidebar.style.display = 'none';
+            overlayBg.style.display = "none";
+        } else {
+            mySidebar.style.display = 'block';
+            overlayBg.style.display = "block";
+        }
+    }
+
+    // Close the sidebar with the close button
+    function w3_close() {
+        mySidebar.style.display = "none";
+        overlayBg.style.display = "none";
+    }
+</script>
+
+</div>
 </body>
 </html>
+

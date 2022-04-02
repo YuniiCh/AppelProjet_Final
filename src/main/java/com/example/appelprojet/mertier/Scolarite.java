@@ -21,8 +21,14 @@ public class Scolarite extends Utilisateur{
     public Scolarite() {
     }
 
+    public Scolarite(String nomU, String prenomU, String mdp, String email, String identifiant) {
+        super(nomU, prenomU, mdp, email, identifiant);
+    }
 
     //    getter and setter
+    public Set<Formation> getFormations() {return formations;}
+
+    public void setFormations(Set<Formation> formations) {this.formations = formations;}
 
     public Set<Justificatif> getJustificatifs() {
         return justificatifs;
@@ -33,6 +39,7 @@ public class Scolarite extends Utilisateur{
     }
 
     //    toString
+    public String toString() {return super.toString();}
 
     //    equals and hashCode
     public int hashCode() {return super.hashCode();}
