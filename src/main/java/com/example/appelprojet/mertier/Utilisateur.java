@@ -3,7 +3,7 @@ package com.example.appelprojet.mertier;
 import javax.persistence.*;
 import java.util.Objects;
 
-@Entity(name = "utilisateur")
+@Entity(name = "Utilisateur")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "Categorie", discriminatorType = DiscriminatorType.STRING)
 @DiscriminatorValue("utilisateur")

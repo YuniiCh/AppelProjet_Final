@@ -123,8 +123,8 @@
         }
         out.println("</div>");
     }catch (Exception e){
-        e.printStackTrace();
         request.getRequestDispatcher("login").forward(request, response);
+        System.out.println(e);
     }
 %>
 </div>

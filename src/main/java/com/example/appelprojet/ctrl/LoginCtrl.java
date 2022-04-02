@@ -77,7 +77,6 @@ public class LoginCtrl extends HttpServlet {
                     rd.forward(request, response);
                 }
             }catch (Exception e){
-                e.printStackTrace();
                 msg_avert ="Erreur Technique";
                 RequestDispatcher rd = request.getRequestDispatcher("message");
                 request.setAttribute("message", msg_avert);
