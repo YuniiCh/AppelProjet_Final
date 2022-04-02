@@ -17,7 +17,7 @@ public class Utilisateur {
     private String prenomU;
     private String mdp;
     private String email;
-    private String identifiant;
+    private String tel;
 
 //    Relation
 
@@ -28,19 +28,19 @@ public class Utilisateur {
     public Utilisateur() {
     }
 
-    public Utilisateur(String nomU, String prenomU, String mdp, String email, String identifiant) {
+    public Utilisateur(String nomU, String prenomU, String mdp, String email, String tel) {
         this.nomU = nomU;
         this.prenomU = prenomU;
         this.mdp = mdp;
         this.email = email;
-        this.identifiant = identifiant;
+        this.tel = tel;
     }
 
-    public Utilisateur(String prenomU, String mdp, String email, String identifiant) {
+    public Utilisateur(String prenomU, String mdp, String email, String tel) {
         this.prenomU = prenomU;
         this.mdp = mdp;
         this.email = email;
-        this.identifiant = identifiant;
+        this.tel = tel;
     }
 
 //    getter and setter
@@ -86,11 +86,11 @@ public class Utilisateur {
     }
 
     public String getIdentifiant() {
-        return identifiant;
+        return tel;
     }
 
-    public void setIdentifiant(String identifiant) {
-        this.identifiant = identifiant;
+    public void setIdentifiant(String tel) {
+        this.tel = tel;
     }
 
 //    toString
@@ -103,7 +103,7 @@ public class Utilisateur {
                 ", prenomU='" + prenomU + '\'' +
                 ", mdp='" + mdp + '\'' +
                 ", email='" + email + '\'' +
-                ", identifiant='" + identifiant + '\'' +
+                ", identifiant='" + tel + '\'' +
                 '}';
     }
 

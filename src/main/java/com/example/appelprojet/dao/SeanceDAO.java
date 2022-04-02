@@ -63,9 +63,6 @@ public class SeanceDAO extends DAO<Seance>{
             Transaction transaction = getTransaction(session);
             seances = session.createQuery("from com.example.appelprojet.mertier.Seance s where s.enseignant.idU='"+idU+"' and s.cours.idCours='"+ idC+"'").list();
             System.out.println("Seance not null ");
-//            if (!query.getResultList().isEmpty()){
-//                seances = query.getResultList();
-//            }
             transaction.commit();
             session.close();
         }
@@ -156,10 +153,6 @@ public class SeanceDAO extends DAO<Seance>{
         List<Seance> seances = null;
         Planning planning = new Planning(date);
         Calendar calendar = Calendar.getInstance();
-//        calendar.setTime(new Date());
-//        calendar.add(Calendar.DATE, -7);
-//        Date d = calendar.getTime();
-//        Planning planning = new Planning(d);
         Date monday = planning.weekDate.get(0);
         Date sunday = planning.weekDate.get(6);
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
@@ -280,28 +273,5 @@ public class SeanceDAO extends DAO<Seance>{
         }
     }
 
-
-
-
-
-//    public static Seance findSeanceActuel() {
-//        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-//        Transaction t = session.beginTransaction();
-//
-//        Query query = session.createQuery(
-//                "from com.example.appelprojet.mertier.Seance as s " +
-//                        "where s.enseignant.idU = :codeUtilisateur "+
-//                        "and sysdate() >s.dateDebut "+
-//                        "and sysdate() <s.dateFin "
-//        );
-//
-//        query.setParameter("codeUtilisateur", 4L);
-//        query.uniqueResult();
-//        System.out.println(query.uniqueResult());
-//        Seance se = (Seance) query;
-//
-//        session.close();
-//        return se;
-//    }
 
 }

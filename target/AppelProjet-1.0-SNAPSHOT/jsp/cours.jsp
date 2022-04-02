@@ -109,9 +109,6 @@
     </header>
     <!-- Ajouter la nouvel page ici - le contenue dans la balise Body -->
     <div class="w3-container">
-<div>
-    <label for="select_cours">Saisir nom du cours: </label><input id="select_cours" type="text" name="select_cours" placeholder="Nom du cours" autofocus />
-</div>
 <%
     Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur"); //Long.valueOf((String) request.getSession(false).getAttribute("idU"));
     Enseignant enseignant = new EnseignantDAO().find(utilisateur.getIdU());

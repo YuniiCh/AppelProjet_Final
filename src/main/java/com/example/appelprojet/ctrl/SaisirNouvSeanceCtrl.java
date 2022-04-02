@@ -67,17 +67,14 @@ public class SaisirNouvSeanceCtrl extends HttpServlet {
         HttpSession sessionHttp = request.getSession(true);
         sessionHttp.setAttribute("action","saisirSea");
 
-        System.out.println(nomCours+coursType+nomSalle+idFormation);
 
         try (org.hibernate.Session sn = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = sn.beginTransaction();
             List<Cours> lCours = new CoursDAO().findAll();
             for (Cours cours : lCours) {
-                System.out.println(cours.getNomCours() + cours.getTypeCours() + cours.getFormation().getNomFormation());
                 if (cours.getNomCours().equals(nomCours) && cours.getTypeCours().equals(coursType) && cours.getFormation().getIdFormation()==idFormation) {
                     coursS = cours;
 
-                    System.out.println("-----------1");
                     break;
                 }
             }
@@ -87,7 +84,6 @@ public class SaisirNouvSeanceCtrl extends HttpServlet {
             Transaction t = sn.beginTransaction();
             List<Salle> lSalles = new SalleDAO().findAll();
             for (Salle salle : lSalles) {
-                System.out.println(salle.getNomSalle());
                 if (salle.getNomSalle().equals(nomSalle)) {
                     salleS = salle;
                     break;
@@ -100,7 +96,6 @@ public class SaisirNouvSeanceCtrl extends HttpServlet {
         try (org.hibernate.Session sn = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = sn.beginTransaction();
 
-            System.out.println(coursS);
             Seance seance = new Seance(df.parse(dateDebut),df.parse(dateFin),null,coursS,enseignant,salleS);
             sn.save(seance);
 

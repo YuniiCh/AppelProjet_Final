@@ -14,8 +14,6 @@ public class DisconnectionCtrl extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
             HttpSession session = request.getSession(true);
             // go to login page
-            System.out.println("logout");
-            System.out.println(session.getServletContext().getAttribute("utilisateur"));
             session.removeAttribute("utilisateur");
             session.removeAttribute("idU");
             session.removeAttribute("idu");

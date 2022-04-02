@@ -114,7 +114,6 @@ public class UploadCtrl extends HttpServlet {
                         }
                     }
                 }
-                System.out.println(seanceSelected.isEmpty() +""+ idE  + nameJ.equals("") + fileName.equals("") );
 
                 if (seanceSelected.isEmpty() || idE == null || nameJ.equals("") || fileName.equals("") ){
                     RequestDispatcher rd = request.getRequestDispatcher("message");
@@ -143,7 +142,6 @@ public class UploadCtrl extends HttpServlet {
                     justificatif = new Justificatif(new Date(), EtatVerifier.ATTENDRE, fileName, nameJ, scolarite, etudiant);
 
                     sn.save(justificatif);
-                    System.out.println(justificatif.getIdJ());
                     t.commit();
                 }catch (Exception e) {
                     e.printStackTrace();
@@ -180,101 +178,5 @@ public class UploadCtrl extends HttpServlet {
 
     }
 
-//            if (ServletFileUpload.isMultipartContent(request)) {
-//                DiskFileItemFactory factory = new DiskFileItemFactory();
-//                factory.setSizeThreshold(MEMORY_THRESHOLD);
-//                factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
-//
-//                ServletFileUpload upload = new ServletFileUpload(factory);
-//                upload.setFileSizeMax(MAX_FILE_SIZE);
-//                upload.setSizeMax(MAX_REQUEST_SIZE);
-//                String uploadPath = getServletContext().getRealPath("")
-//                        + File.separator + UPLOAD_DIRECTORY;
-//                System.out.println(uploadPath);
-//                File uploadDir = new File(uploadPath);
-//
-//                String message = "";
-//                if (!uploadDir.exists()) {
-//                    uploadDir.mkdir();
-//                }
-//                List<FileItem> formItems = null;
-//                try {
-//                    formItems = upload.parseRequest(request);
-//
-//                } catch (FileUploadException e) {
-//                    message = "File has uploaded failed!";
-//                    e.printStackTrace();
-//                }
-//                if (formItems == null){
-//                    PrintWriter out = response.getWriter();
-//                    out.println("<html><body>");
-//                    out.println("<h1>File is too big!</h1>");
-//                    out.println("</body></html>");;
-//                }
-//                if (formItems != null && formItems.size() > 0) {
-//
-//                    for (FileItem item : formItems) {
-//
-//                        if (!item.isFormField()) {
-//                            String fileName = new File(item.getName()).getName();
-//                            String filePath = uploadPath + File.separator + fileName;
-//                            System.out.println(filePath);
-//                            File storeFile = new File(filePath);
-//
-//                            try {
-//                                item.write(storeFile);
-//                                message = "File "+ fileName + " has uploaded successfully!";
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                                message = "File has uploaded failed!";
-//                            }
-//
-//                            RequestDispatcher rd = request.getRequestDispatcher("message");
-//                            HttpSession session = request.getSession(true);
-//                            session.setAttribute("message", message);
-//
-//                            rd.forward(request, response);
-//                        }
-//                    }
-//                }
-//            }
-//
-//        }
-
-
-//    protected void processRequest(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        System.out.println("file upload ... ");
-////        Definir le format de l'encoding pour des requetes
-//        req.setCharacterEncoding("UTF-8");
-//
-////        Obtenir des dparametres
-//        String datefile = req.getParameter("datefile");
-//        System.out.println("datefile: " + datefile);
-//        String selectseance = req.getParameter("selectseance");
-//        System.out.println("selectseance: " + selectseance);
-//
-////        obtenir l'bjet du Part
-//        Part part = req.getPart("file");
-//        String fileName = part.getSubmittedFileName();
-//        System.out.println("filename: " + fileName);
-////        recupere le chemin de stocker le file
-//        String filePath = req.getServletContext().getRealPath("/");
-//        System.out.println("Chemin stocke du file: " + filePath);
-//
-////        upload le file au root indituque
-//        System.out.println("Chemin upload du file: " + filePath);
-//        part.write(filePath + "/" +fileName);
-//
-//    }
-//
-//    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//        processRequest(request, response);
-//    }
-//
-    /*@Override
-    protected void doGET(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }*/
 }
 

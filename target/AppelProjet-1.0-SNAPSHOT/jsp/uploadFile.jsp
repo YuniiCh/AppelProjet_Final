@@ -32,7 +32,7 @@
 <!-- Top container -->
 <div class="w3-bar w3-top w3-large" style="z-index:4;  color: #ebf4f8; background-color: #430000;">
     <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i> &nbsp;Menu</button>
-    <span class="w3-bar-item w3-right">Téléchargement Justificatifs</span>
+    <span class="w3-bar-item w3-right">Gestion Appel</span>
 </div>
 <%
     Utilisateur user = (Utilisateur) request.getSession().getAttribute("utilisateur");

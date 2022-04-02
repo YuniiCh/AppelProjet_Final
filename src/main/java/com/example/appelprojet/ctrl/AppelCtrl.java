@@ -59,7 +59,6 @@ public class AppelCtrl extends HttpServlet {
                     etatpresence = "<etatpresence>Présent</etatpresence>";
                     out.println("<etatpresence>Présent</etatpresence>");
                 }
-                System.out.println(etatpresence);
             }
 
             //            Paramètre pour montrer des étudiants à choisir
@@ -85,7 +84,6 @@ public class AppelCtrl extends HttpServlet {
                     }
                 }else{
                     out.println("<student>null</student>");
-                    System.out.println("<student>Sans Etudiant</student>");
                 }
             }
 
@@ -107,72 +105,38 @@ public class AppelCtrl extends HttpServlet {
                 if (supprStudent != null){
                     PresenceDAO.supprEtuPresence(etudiant, seance);
                     out.println("<student>delete</student>");
-                    System.out.println("<student>delete</student>");
                 }else {
 //              requete add student
                     EtudiantDAO.addEtudiantSeanceById(etudiant.getIdU(), seance.getIdSeance());
                     out.println("<student>add</student>");
-                    System.out.println("<student>add</student>");
                 }
             }else if((addstudent !=null && supprStudent ==null) || (addstudent ==null && supprStudent !=null)){
                 out.println("<student>null</student>");
-                System.out.println("<student>null</student>");
             }
 
-
-//
-//            //            Paramètre pour supprimer une un étudiant
-//            if (request.getParameter("deletestudent")!=null){
-//                //            Les infos de la séance
-//                Seance seance = (Seance) request.getSession().getAttribute("seance");
-//                String supprimer = request.getParameter("deletestudent");
-////                String supprimer = request.getParameter("deletestudent").split("_")[0];
-//                System.out.println(supprimer);
-//                EtudiantDAO etudiantDAO = new EtudiantDAO();
-//                Etudiant etudiant = etudiantDAO.find(Long.parseLong(supprimer));
-////            HttpSession session = request.getSession(true);
-////                String idSeance = request.getParameter("deletestudent").split("_")[1];
-//                /*------Mettre des données dans XML------*/
-//                if (supprimer !=null){
-//                    PresenceDAO.supprEtuPresence(etudiant, seance);
-//                    out.println("<student>delete</student>");
-//                    System.out.println("<student>delete</student>");
-//                }else{
-//                    out.println("<student>Non Id Seance</student>");
-//                    System.out.println("<student>Non Id Seance</student>");
-//                }
-//            }
 
             //            Parametres pour valider la fiche d'appel
             String etats = request.getParameter("etats");
             String action = request.getParameter("action");
-            System.out.println(etats);
             if (etats != null && action != null){
                 String[] idStu_etatStu = etats.split(",");
                 System.out.println("Id status: " + idStu_etatStu[0]);
                 //            Les infos de la séance
                 Seance seance = (Seance) request.getSession().getAttribute("seance");
-                System.out.println("Seance: " + seance);
                 EtudiantDAO etudiantDAO = new EtudiantDAO();
                 for (String ids : idStu_etatStu){
                     Etudiant etudiant = etudiantDAO.find(Long.parseLong(ids.split(" ")[0]));
-                    System.out.println("Etudiant: " + etudiant);
                     if (ids.toLowerCase().contains("retard")) {
-                        System.out.println(ids.split(" ")[0]);
-                        System.out.println(Long.parseLong(ids.split(" ")[0]));
                         PresenceDAO.updateEtatPreEtuByID(EtatPresence.RETART, Long.parseLong(ids.split(" ")[0]), seance.getIdSeance());
                     }else if (ids.toLowerCase().contains("absent")){
                         PresenceDAO.updateEtatPreEtuByID(EtatPresence.ABSENCE, Long.parseLong(ids.split(" ")[0]), seance.getIdSeance());
                         if (action.equals("submit")){
-                            System.out.println("Send email pour la seance: " + seance);
                             FontionsUtiles.notifyAbsenceSeanceByEtu(etudiant,seance);
-                            System.out.println("Send email successful: presence : " + etudiant);
                         }
                     }else {
                         PresenceDAO.updateEtatPreEtuByID(EtatPresence.PRESENCE, Long.parseLong(ids.split(" ")[0]), seance.getIdSeance());
                     }
                     out.println("<student>update</student>");
-                    System.out.println("<student>update</student>");
                 }
                 if (action.equals("submit")){
                     SeanceDAO.updateEtatAppelBySeance(seance,  "valide");
@@ -182,44 +146,7 @@ public class AppelCtrl extends HttpServlet {
 
             }else {
                 out.println("<student>null</student>");
-                System.out.println("<student>null</student>");
             }
-
-
-////            Parametres pour valider la fiche d'appel
-//            String etats = request.getParameter("etats");
-//            System.out.println(etats);
-//            if (etats != null){
-//                String[] idStu_etatStu = etats.split(",");
-//                System.out.println("Id status: " + idStu_etatStu[0]);
-//                //            Les infos de la séance
-//                Seance seance = (Seance) request.getSession().getAttribute("seance");
-//                System.out.println("Seance: " + seance);
-//                EtudiantDAO etudiantDAO = new EtudiantDAO();
-//                for (String ids : idStu_etatStu){
-//                    Etudiant etudiant = etudiantDAO.find(Long.parseLong(ids.split(" ")[0]));
-//                    System.out.println("Etudiant: " + etudiant);
-//                    if (ids.toLowerCase().contains("retard")) {
-//                        System.out.println(ids.split(" ")[0]);
-//                        System.out.println(Long.parseLong(ids.split(" ")[0]));
-//                        PresenceDAO.updateEtatPreEtuByID(EtatPresence.RETART, Long.parseLong(ids.split(" ")[0]), seance.getIdSeance());
-//                    }else if (ids.toLowerCase().contains("absent")){
-//                        PresenceDAO.updateEtatPreEtuByID(EtatPresence.ABSENCE, Long.parseLong(ids.split(" ")[0]), seance.getIdSeance());
-//                        System.out.println("Send email pour la seance: " + seance);
-//                        FontionsUtiles.notifyAbsenceSeanceByEtu(etudiant,seance);
-//                        System.out.println("Send email successful: presence : " + etudiant);
-//                    }else {
-//                        PresenceDAO.updateEtatPreEtuByID(EtatPresence.PRESENCE, Long.parseLong(ids.split(" ")[0]), seance.getIdSeance());
-//                    }
-//                    out.println("<student>update</student>");
-//                    System.out.println("<student>update</student>");
-//                }
-//                SeanceDAO.updateEtatAppelBySeance(seance,  "valide");
-//            }else {
-//                    out.println("<student>null</student>");
-//                    System.out.println("<student>null</student>");
-//            }
-
 
             out.println("</liste_etat>");
         }
@@ -231,10 +158,5 @@ public class AppelCtrl extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         doGet(request, response);
     }
-
-//    public void senMailAbsence(Etudiant etudiant, Seance seance) throws Exception {
-//
-//        FontionsUtiles.notifyAbsenceSeance(etudiant, seance);
-//    }
 
 }

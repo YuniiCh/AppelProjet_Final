@@ -55,6 +55,8 @@ public class CoursDAO extends DAO<Cours> {
         }
         return cours;
     }
+
+
     /*----- le nombre d'absences d'un cours pour un étudiant -----*/
     public static int nbAbsCoursEtudiant (long e, long c)
     {
@@ -82,6 +84,8 @@ public class CoursDAO extends DAO<Cours> {
             return a;
         }
     }
+
+
     /*----- le nombre des Presences d'un cours -----*/
     public static int nbPresenceUnCours(long idEn, long idCours) {
         int nbPresence = 0;

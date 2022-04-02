@@ -38,12 +38,6 @@ public class UtilisateurDAO extends DAO<Utilisateur> {
                 utilisateur = (Utilisateur) query.uniqueResult();
                 System.out.println("utilisateur existe!");
                 return utilisateur;
-//                for (Utilisateur u: (List<Utilisateur>) query.list()) {
-//                    if (Objects.equals(u.getMdp(), pwd) && Objects.equals(u.getEmail(), email)){
-//                        System.out.println("User login: " + "Nom: " + u.getNomU() + "  Prenom: " + u.getPrenomU() + " Email: "
-//                                + u.getEmail() + " Mode de passe: " + u.getMdp());
-//                    }
-//                }
             }
             session.close();
         } catch (Exception e) {

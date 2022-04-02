@@ -105,7 +105,7 @@
 
 <div class="container">
     <div class="p-3" style="background: #f5f5f5;">
-        <form method="post" action="planningCtrlA">
+        <form method="post" action="planningCtrl">
             <div class="row">
                 <div class="col-sm-6 col-md-6 col-lg-6 col-xl-6 d-sm-flex justify-content-sm-center justify-content-lg-center justify-content-xl-center">
                     <div class="row">

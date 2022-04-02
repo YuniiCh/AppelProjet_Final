@@ -159,17 +159,6 @@ public class EtudiantDAO extends DAO<Etudiant> {
     }
 
 
-//    public static String findEtudiantEtatByEtu(Etudiant etudiant, Seance seance){
-//        String etat = null;
-//        try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-//            Transaction t = session.beginTransaction();
-//            Query query = session.createQuery("select p.etatPresence from com.example.appelprojet.mertier.Presence p where p.seance.idSeance = '" + seance.getIdSeance() + "' and p.etudiant.idU = '" + etudiant.getIdU() + "'");
-//           if (!query.getResultList().isEmpty()){
-//               etat = query.getResultList().get(0).toString();
-//           }
-//        }
-//        return etat;
-//    }
 
     public Scolarite findScoByEtu(Etudiant etudiant) {
         Scolarite scolarite = new Scolarite();
@@ -188,7 +177,7 @@ public class EtudiantDAO extends DAO<Etudiant> {
         return scolarite;
     }
 
-    /*----- liste étudiants dans un groupe TD d'une foramtion -----*/
+
     /*----- liste étudiants dans un groupe TD d'une foramtion -----*/
     public static List<Etudiant> listeEtudiantDapresFormationTD(String tdGroupe, long idFormaton)
     {

@@ -39,30 +39,22 @@ public class CoursCtrl extends HttpServlet {
             }else {
                 coursList = cours;
             }
-            System.out.println("cours liste : " + coursList);
 
             RequestDispatcher rd = request.getRequestDispatcher("cours");
             request.setAttribute("list_cours", (List<Cours>) coursList);
             rd.forward(request,response);
         }else if (idC != null){
-            System.out.println("cours idC : " + idC);
             List<Seance> seances = SeanceDAO.findSeanceByIdUserCours(utilisateur.getIdU(), Long.parseLong(idC));
-            System.out.println("get Seance : " + seances);
             if(seances != null){
-                System.out.println("Seance not null ");
                 RequestDispatcher rd = request.getRequestDispatcher("listAppel");
-                System.out.println("Send Seances ");
                 request.setAttribute("seances", (List<Seance>) seances);
-                System.out.println("Send Seances 2222 ");
                 rd.forward(request,response);
             }else{
                 String avert = "Utilisateur n'a pas encore de seances passés";
-                System.out.println(" Erreur : " + avert);
                 RequestDispatcher rd = request.getRequestDispatcher("message");
                 request.setAttribute("message", avert);
                 rd.forward(request,response);
             }
-            System.out.println("liest appels : " + seances);
         }else{
             RequestDispatcher rd = request.getRequestDispatcher("cours");
             request.setAttribute("list_cours", (List<Cours>) cours);
