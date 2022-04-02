@@ -120,17 +120,13 @@ public class EtudiantDAO extends DAO<Etudiant> {
 
 
     /*----- liste des étudiants du même cours mais pas le même td -----*/
-    public static List<Etudiant> etudiantsMemeCoursByIdSeance(Seance seance)
+    public static List<Etudiant> etudiantsMemeCoursBySeance(Seance seance)
     {
         List<Etudiant> etudiants = null;
         /*----- Ouverture de la session -----*/
         try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
             Transaction t = session.beginTransaction();
-
-            etudiants = session.createQuery("select e from com.example.appelprojet.mertier.Cours c, com.example.appelprojet.mertier.Formation f, com.example.appelprojet.mertier.Etudiant e where f.idFormation=c.formation.idFormation and e.formation.idFormation = f.idFormation and c.idCours= '" + seance.getCours().getIdCours() + "' " ).list();
-            for (Etudiant a : etudiants)
-                System.out.println(a);
-
+            etudiants = session.createQuery("select distinct e from com.example.appelprojet.mertier.Cours c, com.example.appelprojet.mertier.Formation f, com.example.appelprojet.mertier.Etudiant e where f.idFormation=c.formation.idFormation and e.formation.idFormation = f.idFormation and c.nomCours= '" + seance.getCours().getNomCours() + "' " ).list();
             t.commit();
             session.close();
         }

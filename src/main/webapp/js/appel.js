@@ -82,16 +82,16 @@ function tousPresence(obj, nb) {
         document.getElementById("btn_touspresence").style.backgroundColor = "#ffcc99";
         document.getElementById("toustext").innerHTML = "Tous Absent";
         for(let i = 0; i<btEtat.length;i++) {
-            // btEtat[i].getElementsByClassName("etatpresent_cl")[0].innerHTML = "Pésent";
+            // btEtat[i].getElementsByClassName("etatpresent_cl")[0].innerHTML = "Présent";
             btEtat[i].firstElementChild.innerHTML = "Absent";
             btEtat[i].style.backgroundColor = "#ffcc99";
         }
     }else {
         document.getElementById("btn_touspresence").style.backgroundColor = "#a8e2f8";
-        document.getElementById("toustext").innerHTML = "Tous Pésent";
+        document.getElementById("toustext").innerHTML = "Tous Présent";
         for(let i = 0; i<btEtat.length;i++) {
-            // btEtat[i].getElementsByClassName("etatpresent_cl")[0].innerHTML = "Pésent";
-            btEtat[i].firstElementChild.innerHTML = "Pésent";
+            // btEtat[i].getElementsByClassName("etatpresent_cl")[0].innerHTML = "Présent";
+            btEtat[i].firstElementChild.innerHTML = "Présent";
             btEtat[i].style.backgroundColor = "#a8e2f8";
         }
     }

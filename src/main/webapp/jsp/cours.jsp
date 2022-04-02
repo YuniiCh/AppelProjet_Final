@@ -80,13 +80,13 @@
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
         <c:if test="${typeU.equals(Role.ETUDIANT)}">
             <a href="uploadFile" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>&nbsp; Upload File</a>
-            <a href="presenceEtudiant" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>&nbsp; Consulter
+            <a href="presenceEtudiantCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>&nbsp; Consulter
                 mes absences</a>
         </c:if>
         <c:if test="${typeU.equals(Role.ENSEIGNANT)}">
-            <a href="planning" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar"></i>&nbsp; Emploi du temps</a>
-            <a href="statisticEnseignant" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter les statistiques</a>
-            <a href="cours" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter mes cours </a>
+            <a href="planningCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar"></i>&nbsp; Emploi du temps</a>
+            <a href="statisticEnseignantCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter les statistiques</a>
+            <a href="coursCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter mes cours </a>
 
         </c:if>
         <c:if test="${typeU.equals(Role.SCOLARITE)}">
@@ -108,10 +108,7 @@
         <h5><b><i class="fa fa-dashboard"></i> Mes cours</b></h5>
     </header>
     <!-- Ajouter la nouvel page ici - le contenue dans la balise Body -->
-    <div>
-<div>
-    <label for="select_cours">Saisir nom du cours: </label><input id="select_cours" type="text" name="select_cours" placeholder="Nom du cours" autofocus />
-</div>
+    <div class="w3-container">
 <%
     Utilisateur utilisateur = (Utilisateur) session.getAttribute("utilisateur"); //Long.valueOf((String) request.getSession(false).getAttribute("idU"));
     Enseignant enseignant = new EnseignantDAO().find(utilisateur.getIdU());
@@ -120,7 +117,7 @@
 
     if(cours != null) {
 
-        out.print("<table border=\"1\">");
+        out.print("<table  class=\"table middle\" border=\"1\">");
         out.print("<tr><th>Num</th><th>Nom de Cours</th><th>Type de Cours</th><th>Formation</th><th>Consultation des fiches d'appel</th></tr>");
         for (Cours c: cours) {
 

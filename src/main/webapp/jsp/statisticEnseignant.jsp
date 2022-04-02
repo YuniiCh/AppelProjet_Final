@@ -74,13 +74,13 @@
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
         <c:if test="${typeU.equals(Role.ETUDIANT)}">
             <a href="uploadFile" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>&nbsp; Upload File</a>
-            <a href="presenceEtudiant" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>&nbsp; Consulter
+            <a href="presenceEtudiantCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>&nbsp; Consulter
                 mes absences</a>
         </c:if>
         <c:if test="${typeU.equals(Role.ENSEIGNANT)}">
-            <a href="planning" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar"></i>&nbsp; Emploi du temps</a>
-            <a href="statisticEnseignant" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter les statistiques</a>
-            <a href="cours" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter mes cours </a>
+            <a href="planningCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar"></i>&nbsp; Emploi du temps</a>
+            <a href="statisticEnseignantCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter les statistiques</a>
+            <a href="coursCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter mes cours </a>
 
         </c:if>
         <c:if test="${typeU.equals(Role.SCOLARITE)}">
@@ -99,11 +99,11 @@
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     <!-- Header -->
     <header class="w3-container" style="padding-top:22px">
-        <h5><b><i class="fa fa-dashboard"></i> Planning</b></h5>
+        <h5><b><i class="fa fa-dashboard"></i>Statistiques</b></h5>
     </header>
     <!-- Ajouter la nouvel page ici - le contenue dans la balise Body -->
-    <div>
-    <table>
+    <div class="w3-container">
+    <table class="table middle">
         <tbody>
         <tr><th>Num</th><th>Formation</th><th>Type de Cours</th><th>Nom de Cours</th><th>Nombre Présence</th><th>Nombre Retard</th><th>Nombre Absence</th></tr>
         <%
@@ -119,9 +119,9 @@
                         "<td>" + c.getFormation().getNomFormation() + "</td>" +
                         "<td>" + c.getTypeCours() + "</td>" +
                         "<td>" + c.getNomCours() + "</td>" +
-                        "<td>" + nbPresence + "</td>"+
-                        "<td>" + nbRetard + "</td>" +
-                        "<td>"+ nbAbsence + "</td></tr>");
+                        "<td class=\"w3-text-green\">" + nbPresence + "</td>"+
+                        "<td class=\"w3-text-yellow\">" + nbRetard + "</td>" +
+                        "<td class=\"w3-text-red\">"+ nbAbsence + "</td></tr>");
             }
         %>
         </tbody>

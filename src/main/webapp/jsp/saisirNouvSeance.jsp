@@ -75,13 +75,13 @@
         <a href="#" class="w3-bar-item w3-button w3-padding-16 w3-hide-large w3-dark-grey w3-hover-black" onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>&nbsp; Close Menu</a>
         <c:if test="${typeU.equals(Role.ETUDIANT)}">
             <a href="uploadFile" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>&nbsp; Upload File</a>
-            <a href="presenceEtudiant" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>&nbsp; Consulter
+            <a href="presenceEtudiantCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bell fa-fw"></i>&nbsp; Consulter
                 mes absences</a>
         </c:if>
         <c:if test="${typeU.equals(Role.ENSEIGNANT)}">
-            <a href="planning" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar"></i>&nbsp; Emploi du temps</a>
-            <a href="statisticEnseignant" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter les statistiques</a>
-            <a href="cours" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter mes cours </a>
+            <a href="planningCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-calendar"></i>&nbsp; Emploi du temps</a>
+            <a href="statisticEnseignantCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter les statistiques</a>
+            <a href="coursCtrl" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>&nbsp; Consulter mes cours </a>
 
         </c:if>
         <c:if test="${typeU.equals(Role.SCOLARITE)}">
@@ -126,8 +126,8 @@
         }
         %>
         </select></p>
-        <p><label>Date début de la séance</label><input type=”text” id="dateDebut" name="dateDebut" value="YYYY-MM-DD HH:MM"/></p>
-        <p><label>Date fin de la séance</label><input type=”text” id="dateFin" name="dateFin" defaultValue="YYYY-MM-DD HH:MM"/></p>
+        <p><label>Date début de la séance</label><input type=”text” id="dateDebut" name="dateDebut" placeholder="YYYY-MM-DD HH:MM"/></p>
+        <p><label>Date fin de la séance</label><input type=”text” id="dateFin" name="dateFin" placeholder="YYYY-MM-DD HH:MM"/></p>
         <p><label>Enseignant</label><select name="lEns">
         <%
             for (Enseignant enseignant:enseignants)
@@ -149,7 +149,7 @@
         <p><label>Salle</label><select id="lSalle" name="lSalle">
             <option>----</option>
         </select></p>
-        <p><input type="submit" name="sb" value="Enregistrer"/></p>
+        <p><input class="w3-table w3-striped w3-bordered w3-border w3-hoverable w3-white" type="submit" name="sb" value="Enregistrer"/></p>
 
     </form>
 

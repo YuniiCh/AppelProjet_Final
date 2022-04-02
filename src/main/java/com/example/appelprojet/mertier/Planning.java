@@ -102,4 +102,15 @@ public class Planning {
 
     }
 
+    public static Date getStrToDate(String str){
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            date  = sdf.parse(str);
+        }catch (Exception e){
+            System.out.println(e);
+        }
+        return date;
+    }
+
 }

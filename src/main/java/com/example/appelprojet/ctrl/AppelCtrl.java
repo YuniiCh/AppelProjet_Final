@@ -67,7 +67,7 @@ public class AppelCtrl extends HttpServlet {
             /*------Mettre des données dans XML------*/
             if(search!=null){
                 Seance seance = (Seance) request.getSession().getAttribute("seance");
-                List<Etudiant> tousEtudiants = EtudiantDAO.etudiantsMemeCoursByIdSeance(seance);
+                List<Etudiant> tousEtudiants = EtudiantDAO.etudiantsMemeCoursBySeance(seance);
                 List<Etudiant> etudiants = EtudiantDAO.findEtudiansByID(seance);
 
 
@@ -75,11 +75,8 @@ public class AppelCtrl extends HttpServlet {
                     for (Etudiant student : tousEtudiants) {
                         String nom = student.getNomU() + " " + student.getPrenomU() + " " + student.getIdU();
                         if (!etudiants.contains(student) && nom.toLowerCase().contains(search.toLowerCase())) {
-                            out.println("<student><id>" + student.getIdU()  + "</id><type>" + student.getTypeEtudiant() + "</type><nom>" + student.getNomU() + " " + student.getPrenomU()  +  "</nom></student>");
-                            System.out.println("<student>" + student.getIdU() + "  " + student.getNomU() + " " + student.getPrenomU() + "</student>");
-                        }else {
+                            out.println("<student><id>" + student.getIdU()  + "</id><type>" + student.getTypeEtudiant() + "</type><nom>" + student.getNomU() + " " + student.getPrenomU()  +  "</nom></student>");                        }else {
                             out.println("<student>null</student>");
-                            System.out.println("<student>Ne pas trouver</student>");
                         }
                     }
                 }else{

@@ -33,7 +33,18 @@ public class Enseignant extends Utilisateur{
 
 
     //    toString
+    @Override
+    public String toString() {
+        return "Enseignant{" +
+                "utilisateur=" + super.toString() +
+                '}';
+    }
 
     //    equals and hashCode
+    //    equals and hashCode
+    public int hashCode() {return super.hashCode();}
+
+    @Override
+    public boolean equals(Object o) {return super.equals(o);}
 
 }

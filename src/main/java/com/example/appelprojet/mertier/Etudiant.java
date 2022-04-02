@@ -47,6 +47,7 @@ public class Etudiant extends Utilisateur{
 
 
     //    getter and setter
+
     public String getTdGroup() {return tdGroup;}
 
     public void setTdGroup(String tdGroup) {this.tdGroup = tdGroup;}
@@ -83,11 +84,17 @@ public class Etudiant extends Utilisateur{
     @Override
     public String toString() {
         return "Etudiant{" +
+                "utilisateur=" + super.toString() +
                 "typeEtudiant=" + typeEtudiant +
                 ", tdGroup='" + tdGroup + '\'' +
+                ", formation=" + formation +
                 '}';
     }
 
-    //    equals and hashCode
+    //    equals and hashCod
+    public int hashCode() {return super.hashCode();}
+
+    @Override
+    public boolean equals(Object o) {return super.equals(o);}
 
 }
